@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 // import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import './main.css';
 
-// import Navigation from './navigation/Navigation'
-// import Footer from './footer/Footer'
-// import Panels from './panels/Panels'
+import Navigation from './navigation/Navigation'
+import Panels from './panels/Panels'
+import Footer from './footer/Footer'
 // import Profiles from 'core/libs/profiles'
 // import Modal from 'components/common/modals/Modal'
 // import Card from 'components/common/card/Card'
@@ -58,11 +58,9 @@ export default function Main() {
 
     return (
         <div className='main'>
-            {/* <Modal show={view_event_m}/>
-
-            <Navigation profile={profiles.current} />
-            <Panels profiles={profiles} events={events} toggles={toggles} />
-            <Footer/> */}
+            <Navigation />
+            <Panels />
+            <Footer />
         </div>
     );
 }
