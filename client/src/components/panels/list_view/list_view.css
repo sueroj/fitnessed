@@ -1,20 +1,21 @@
 .list-view {
     display: flex;
-    height: 600px;
-    background-color: grey;
+    flex-direction: row;
+    height: 630px;
     margin-bottom: 3px;
 }
 
 .filter {
     width: 300px;
-    background-color: red;
 }
 
 .list-view-spacer {
-    min-width: 2px;
+    min-width: 3px;
 }
 
 .list {
-
+    width: 100%;
+    background-color: grey;
+    overflow-y: scroll;
 }
 

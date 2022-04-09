@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
-// import Http from 'core/libs/http';
-// import Events from 'core/libs/events'
 // import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import './main.css';
 
 import Navigation from './navigation/Navigation'
 import Panels from './panels/Panels'
 import Footer from './footer/Footer'
-// import Profiles from 'core/libs/profiles'
 // import Modal from 'components/common/modals/Modal'
 // import Card from 'components/common/card/Card'
 
+import Http from 'core/libs/http';
+import Profiles from 'core/libs/profiles'
+import Challenges from 'core/libs/challenges'
+
+
 
 export default function Main() {
-    // const http = new Http()
-    // const [profiles, set_profiles] = useState(get_profiles())
-    // const [events, set_events] = useState(get_events())
+    const http = new Http()
+    const [profiles, set_profiles] = useState(get_profiles())
+    const [challenges, set_challenges] = useState(get_challenges())
     // const [view_event_m, toggle_event_m] = useState(false)
 
     // // Callbacks for modal toggles (to be passed to child components)
@@ -33,20 +35,20 @@ export default function Main() {
     // // TODO: Eval if possible to store profile & events in global objects
     // // TODO: instead of being passed down component order
 
-    // function get_profiles() {
-    //     // Http action
-    //      // Get profile from server, if no profile, server will create new
+    function get_profiles() {
+        // Http action
+         // Get profile from server, if no profile, server will create new
         
-    //     // TODO: Test only
-    //      return new Profiles()
-    // }
+        // TODO: Test only
+         return new Profiles()
+    }
 
-    // function get_events() {
-    //     // Http action
-    //     // Get events from server upon initial login or refresh (eval storing of events in user's page session)
+    function get_challenges() {
+        // Http action
+        // Get challenges from server upon initial login or refresh (eval storing of challenge in user's page session)
         
-    //     return new Events(profiles.current)
-    // }
+        return new Challenges(profiles.user)
+    }
 
     // function toggle_event_modal() {
     //     toggle_event_m(!view_event_m)
@@ -58,8 +60,8 @@ export default function Main() {
 
     return (
         <div className='main'>
-            <Navigation />
-            <Panels />
+            <Navigation profile={profiles.user}/>
+            <Panels challenges={challenges}/>
             <Footer />
         </div>
     );

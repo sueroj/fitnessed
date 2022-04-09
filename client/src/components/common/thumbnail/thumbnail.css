@@ -1,0 +1,91 @@
+/* Thumbnail Main */
+
+.thumbnail {
+    height: 100px;
+    width: 100px;
+    background-color: tomato;
+    text-align: center;
+    margin: 1%;
+    border: unset;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px black;
+    line-height: normal;
+    overflow: hidden;
+    padding: 2px;
+    transition-duration: 0.2s;
+}
+
+.thumbnail:hover {
+    transition-duration: 0.2s;
+    background-color: rgb(88, 116, 199);
+}
+
+.thumbnail-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.thumbnail-info-display {
+    display: flex;
+    flex-direction: row;
+    top: 0;
+}
+
+.thumbnail-horizontal-divider {
+    width: 100%;
+}
+
+.thumbnail-vertical-divider {
+    height: 80px;
+}
+
+.thumbnail-img {
+    height: 80px;
+    width: 100%;
+}
+
+/* Completion Icon */
+
+.complete, .complete-canvas {
+    min-height: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    max-height: 30px;
+}
+
+
+/* Category */
+
+/* TODO: Add to color scheme options */
+
+.category {
+    background-color: silver;
+    height: 100%;
+    width: 60px;
+    border-radius: 3px;
+    font-size: 11px;
+    padding-inline: 2px;
+    border: 1px solid black;
+}
+
+/* Difficulty / Quantity */
+
+.difficulty {
+    height: 100%;
+    border-radius: 3px;
+    font-size: 11px;
+    padding-inline: 2px;
+    
+}
+
+/* Status Timer */
+
+.status-timer {
+    background-color: silver;
+    height: 100%;
+    width: 60px;
+    border-radius: 3px;
+    font-size: 11px;
+    padding-inline: 2px;
+    border: 1px solid black;
+}

@@ -1,48 +1,35 @@
-// TODO: toggleAboutModal() fix
-// TODO: setProfile()
 import React, { useState } from 'react';
 import Image from 'react-bootstrap/Image';
-import './navigation.css';
-
-// import Profile from 'core/objects/profile'
-import test_banner from 'assets/banners/test_banner.png'
 import Link from 'react-bootstrap/NavLink';
+import './navigation.css';
+import test_banner from 'assets/banners/test_banner.png'
+
+import Modal from 'components/common/modals/Modal'
+import Profile from 'core/objects/profile'
 
 type Props = {
-    // profile: {
-    //     id: number,
-    //     firstname: string,
-    //     lastname: string,
-    //     profile_img: string
-    // }
+    profile: Profile
 }
 
 export default function Navigation(props: Props) {
-    const [viewModal, toggleModal] = useState(false)
-    // const [profile, setProfile] = useState(props.profile)
+    const [modal, set_modal] = useState(false)
 
-    function toggleAboutModal() {
-        toggleModal(!viewModal)
+    function toggle_modal() {
+        set_modal(!modal)
     }
-    
-    // const toggleAboutModal = () => {
-    //     toggleModal(!viewModal);
-    // }
 
     return (
         <>
-        {/* <AboutModal show={viewModal}/> */}
+        <Modal show={modal}/>
 
         <div className='navigation-bar'>
-                <Link href="/">Proof</Link>
-                <Link onClick={() => toggleAboutModal()}>User Guide</Link>
-                <Link onClick={() => toggleAboutModal()}>Rankings</Link>
-                <Link onClick={() => toggleAboutModal()}>Statistics</Link>
+                <Link href="/">TopChallenger</Link>
+                <Link onClick={() => toggle_modal()}>User Guide</Link>
+                <Link onClick={() => toggle_modal()}>Rankings</Link>
+                <Link onClick={() => toggle_modal()}>Statistics</Link>
             <div className='nav-fill'></div>
             <div className='nav-profile'>
-                {/* TODO: Finish */}
-                <span>Joel</span>
-                {/* <span>{props.profile.firstname}</span> */}
+                <span>{props.profile.firstname}</span>
                 <Image className="nav-img" src={test_banner} alt='change this' roundedCircle />
                 {/* <Image className="nav-img" src={user.athlete.profile_medium} alt={user.athlete.firstname} roundedCircle /> */}
                 </div>

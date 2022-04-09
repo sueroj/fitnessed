@@ -13,10 +13,10 @@ type Props = {
 
 export default function Map(props: Props) {
     
-    // useEffect(() => {
-    //    new Mapbox(props.events, props.toggles).draw()
-    // }, []
-    // )
+    useEffect(() => {
+    //    new Mapbox().draw()
+    }, []
+    )
 
     return (
         <div className='map-panel'>
