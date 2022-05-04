@@ -10,6 +10,7 @@ export enum ChallengeCategory {
     COURSE = 'Course',
     SPRINT = 'Sprint',
     MILESTONE = 'Milestone',
+    COLLECTABLE = 'Collectable',
     ACHIEVEMENT = 'Achievement'
 }
 

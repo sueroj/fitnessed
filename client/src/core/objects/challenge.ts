@@ -25,7 +25,7 @@ export class Challenge {
     public metrics: any = null
 
 
-    public test_event(id: number, name: string, coordinates: GeoJSON[], 
+    public test_challenge(id: number, name: string, coordinates: GeoJSON[], 
         start_datetime: any, stop_datetime: any, difficulty: number) {
             this.id = id
             this.name = name
@@ -41,6 +41,7 @@ export class Zone extends Challenge {
     public constructor() {
         super()
         this.category_major = ChallengeCategory.ZONE
+        this.is_mappable = true
     }
 }
 
@@ -49,6 +50,7 @@ export class Course extends Challenge {
         super()
         this.category_major = ChallengeCategory.COURSE
         this.category_minor = category
+        this.is_mappable = true
     }
 }
 
@@ -57,6 +59,7 @@ export class Sprint extends Challenge {
         super()
         this.category_major = ChallengeCategory.SPRINT
         this.category_minor = category
+        this.is_mappable = true
     }
 }
 
@@ -66,6 +69,14 @@ export class Milestone extends Challenge {
         this.category_major = ChallengeCategory.MILESTONE
         this.category_minor = category
         this.is_mappable = false
+    }
+}
+
+export class Collectable extends Challenge {
+    public constructor() {
+        super()
+        this.category_major = ChallengeCategory.COLLECTABLE
+        this.is_mappable = true
     }
 }
 

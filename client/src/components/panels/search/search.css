@@ -1,5 +1,10 @@
 .search {
-    height: 70px;
-    background-color: purple;
+    height: 60px;
     margin-bottom: 3px;
 }
+
+.form-control {
+    height: 60px;
+    font-size: 24px;
+    /* font-family: Arial; */
+}   

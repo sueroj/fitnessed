@@ -1,6 +1,6 @@
 
 import { CompleteStatus, League } from 'core/enums/enums'
-import { TestCompletedEvents } from 'test/test_events'
+import { TestCompletedEvents } from 'test/test_challenges'
 
 
 // TODO: Eval use of Username

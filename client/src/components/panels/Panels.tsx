@@ -37,6 +37,8 @@ export default function Panels(props: Props) {
         return thumbnails
     }
 
+    
+
     return (
         <div className='panels'>
             {/* Map search functions */}

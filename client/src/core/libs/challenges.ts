@@ -1,15 +1,15 @@
 
-import TestChallenges, { TestFeaturedEvents as TestFeaturedChallenges } from "test/test_events"
+import TestChallenges, { TestFeaturedEvents as TestFeaturedChallenges } from "test/test_challenges"
 import { ChallengeCategory, MilestoneCategory } from "core/enums/enums"
 import Profile from 'core/objects/profile'
-import { Milestone, Zone, Course, Sprint, Achievement } from 'core/objects/challenge'
+import { Zone, Course, Sprint, Milestone, Collectable, Achievement } from 'core/objects/challenge'
 import { CategoryProgress } from "core/objects/misc"
 
-export type AllChallengeCategories = Milestone[] | Zone[] | Course[] | Sprint[] | Achievement[] | []
-export type MappableChallengeCategories = Zone[] | Course[] | Sprint[]
+export type AllChallengeCategories = Zone[] | Course[] | Sprint[] | Milestone[] | Collectable[] | Achievement[] | []
+export type MappableChallengeCategories = Zone[] | Course[] | Sprint[] | Collectable[]
 
-export type AnyChallengeCategory = Milestone | Zone | Course | Sprint | Achievement
-export type MappableEventCategory = Zone | Course | Sprint
+export type AnyChallengeCategory = Zone | Course | Sprint | Milestone | Collectable | Achievement
+export type MappableEventCategory = Zone | Course | Sprint | Collectable
 
 export type MilestoneCategories = {
     all: Milestone[],
@@ -32,7 +32,8 @@ type ChallengesTable = {
     zones: Zone[],
     courses: Course[],
     sprints: Sprint[],
-    milestones: MilestoneCategories // TODO: consider adding complete & all milestones
+    milestones: MilestoneCategories, // TODO: consider adding complete & all milestones
+    collectables: Collectable[]
 }
 
 // type CategoryProgress = {
@@ -42,15 +43,6 @@ type ChallengesTable = {
 //     // total_num_complete: number,
 //     // total_num_not_complete: number
 // }
-
-// TODO: Refactor Events Filter. Make easier
-export class ChallengesFilter {
-    public zone: boolean = true
-    public course: boolean = true
-    public sprint: boolean = true
-    public milestone: boolean = true
-    public completed: boolean = true
-}
 
 
 // TODO: Refactor & optimize this class. Will be used a lot.
@@ -87,6 +79,27 @@ export default class Challenges {
         return this.challenges.milestones
     }
 
+    public get_collectables() {
+        return this.challenges.collectables
+    }
+
+    public get_filtered(filter: any) {
+        let challenges: any[] = []
+
+        this.challenges.all_challenges.forEach(challenge => {
+            function filter_by_category(category: ChallengeCategory, filter: boolean) {
+                if (challenge.category_major === category && filter) {
+                    challenges.push(challenge)
+                }
+            }
+            filter_by_category(ChallengeCategory.ZONE, filter.zones)
+            filter_by_category(ChallengeCategory.COURSE, filter.courses)
+            filter_by_category(ChallengeCategory.SPRINT, filter.sprints)
+            filter_by_category(ChallengeCategory.MILESTONE, filter.milestones)
+            filter_by_category(ChallengeCategory.COLLECTABLE, filter.collectables)
+        })
+        return challenges
+    }
 
 
     public get_milestones_progress() { // TODO: consider adding complete & all milestones
@@ -103,14 +116,15 @@ export default class Challenges {
         // Http get action from server
         // TODO: Replace w/ http action
 
-        let test_all_challenges = new TestChallenges().events
-        let test_featured_challenges = new TestFeaturedChallenges().events
+        let test_all_challenges = new TestChallenges().challenges
+        let test_featured_challenges = new TestFeaturedChallenges().challenges
         test_all_challenges = this.update_completed_challenges(test_all_challenges)
         test_featured_challenges = this.update_completed_challenges(test_featured_challenges)
         let zones_list: Zone[] = []
         let courses_list: Course[] = []
         let sprints_list: Sprint[] = []
         let milestones_list: Milestone[] = []
+        let collectables_list: Collectable[] = []
         let mappable_list: MappableChallengeCategories = []
 
         test_all_challenges.forEach(challenge => {
@@ -126,6 +140,9 @@ export default class Challenges {
                     break
                 case ChallengeCategory.MILESTONE:
                     milestones_list.push(challenge)
+                    break
+                case ChallengeCategory.COLLECTABLE:
+                    collectables_list.push(challenge)
                     break
             }
             
@@ -146,7 +163,8 @@ export default class Challenges {
                 dailies: this.sort_by_subcategory(milestones_list, MilestoneCategory.DAILY),
                 weeklies: this.sort_by_subcategory(milestones_list, MilestoneCategory.WEEKLY),
                 monthlies: this.sort_by_subcategory(milestones_list, MilestoneCategory.MONTHLY)
-            }
+            },
+            collectables: collectables_list
         }
     }
 

@@ -1,0 +1,24 @@
+TopChallenger
+
+
+Challenge Types:
+
+Zones:
+	- Mappable? Yes
+
+Courses:
+	- Mappable? Yes
+
+Sprints:
+	- Mappable? Yes
+
+Collectables:
+	- Mappable? Yes
+
+Milestones:
+	- Mappable? No
+
+Achievements:
+	- Mappable? No
+
+
