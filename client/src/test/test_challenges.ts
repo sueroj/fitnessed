@@ -133,7 +133,7 @@ export class TestFeaturedEvents {
 }
 
 export class TestCompletedEvents {
-    public events: CompletedEvent[] = []
+    public challenges: CompletedEvent[] = []
 
     // TODO: CompletedEvent data structure
     // test_id
@@ -141,7 +141,7 @@ export class TestCompletedEvents {
     // CompleteStatus
 
     public constructor() {
-        this.events = [
+        this.challenges = [
             new CompletedEvent().test(111111, CompleteStatus.STANDARD_T0),
             new CompletedEvent().test(111112, CompleteStatus.GOLD_T3),
             new CompletedEvent().test(111113, CompleteStatus.STANDARD_T0),
@@ -157,6 +157,6 @@ export class TestCompletedEvents {
     }
 
     public get() {
-        return this.events
+        return this.challenges
     }
 }

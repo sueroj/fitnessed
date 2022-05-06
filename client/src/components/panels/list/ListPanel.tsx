@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion'
 import Form from 'react-bootstrap/Form'
-import './list_view.css';
+import './list_panel.css';
 
 import Thumbnail from 'components/common/thumbnail/Thumbnail'
 import Challenges, { AnyChallengeCategory } from 'core/libs/challenges'
@@ -13,6 +13,7 @@ type Props = {
     thumbnails: any
 }
 
+// TODO: Refactor filters data structure at end
 type Filters = {
     nearby: boolean,
     zones: boolean,
@@ -23,7 +24,7 @@ type Filters = {
     achievements: boolean
 }
 
-export default function ListView(props: Props) {
+export default function ListPanel(props: Props) {
     const [thumbnails, set_thumbnails] = useState(props.thumbnails)
     const [filters, set_filters] = useState({
         nearby: false,
@@ -60,10 +61,10 @@ export default function ListView(props: Props) {
 
 
     return (
-        <div className='list-view'>
+        <div className='list-panel'>
             <Filter challenges={props.challenges} filters={filters} toggle_filter={toggle_filter}/>
 
-            <div className='list-view-spacer'/>
+            <div className='list-panel-spacer'/>
 
             <List thumbnails={thumbnails}/>
         </div>

@@ -1,0 +1,11 @@
+.info-panel {
+    display: flex;
+    flex-direction: row;
+    height: 300px;
+    margin-bottom: 3px;
+}
+
+.info-panel-vertical-spacer {
+    min-width: 3px;
+}
+    

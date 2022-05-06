@@ -1,28 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './panels.css';
 
-
 import Thumbnail from 'components/common/thumbnail/Thumbnail'
-// import Map from 'components/panels/map/Map'
-// import Rank from 'components/panels/left/rank/Rank'
-// import Items from 'components/panels/left/items/Items'
-// import Recent from 'components/panels/left/recent/Recent'
-// import EventLog from 'components/panels/left/event_log/EventLog'
-// import Calendar from 'components/panels/right/calendar/Calendar'
-// import Featured from 'components/panels/right/featured/Featured'
-// import Achievements from 'components/panels/right/achievements/Achievements'
-// import Milestones from 'components/panels/right/milestones/Milestones'
-// import Leaderboards from 'components/panels/right/leaderboard/Leaderboard'
-
-// import Profiles from 'core/libs/profiles'
+import Profiles from 'core/libs/profiles'
 import Challenges, { AnyChallengeCategory } from 'core/libs/challenges'
-import Progression from 'components/panels/progression/Progression'
 import Search from 'components/panels/search/Search'
 import Map from 'components/panels/map/Map'
-import ListView from 'components/panels/list_view/ListView'
+import List from 'components/panels/list/ListPanel'
+import Info from 'components/panels/info/Info'
 import Featured from 'components/panels/featured/Featured'
 
+
 type Props = {
+    profiles: Profiles
     challenges: Challenges
 }
 
@@ -38,7 +28,7 @@ export default function Panels(props: Props) {
     }
 
     
-
+    // TODO: Organize props level
     return (
         <div className='panels'>
             {/* Map search functions */}
@@ -48,14 +38,13 @@ export default function Panels(props: Props) {
             <Map />
 
             {/* Thumbnail filters and list panels */}
-            <ListView challenges={props.challenges} thumbnails={thumbnails} />
+            <List challenges={props.challenges} thumbnails={thumbnails} />
 
-            {/* Profile progression and rank panel */}
-            <Progression />
+            {/* Rank, showcase, and leaderboard */}
+            <Info profiles={props.profiles} challenges={props.challenges} />
 
             {/* Featured events carousel, news, and ads */}
-            <Featured />
-
+            <Featured profiles={props.profiles} challenges={props.challenges} />
         </div>
     );
 }

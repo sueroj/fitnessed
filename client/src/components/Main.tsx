@@ -61,7 +61,7 @@ export default function Main() {
     return (
         <div className='main'>
             <Navigation profile={profiles.user}/>
-            <Panels challenges={challenges}/>
+            <Panels profiles={profiles} challenges={challenges}/>
             <Footer />
         </div>
     );

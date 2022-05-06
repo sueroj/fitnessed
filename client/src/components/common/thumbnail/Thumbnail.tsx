@@ -88,6 +88,50 @@ export default function Thumbnail(props: Props) {
     );
 }
 
+export function ThumbnailSmall(props: Props) {
+    const [modal, set_modal] = useState(false)
+
+    function toggle_modal() {
+        set_modal(!modal)
+    }
+
+    const popover = (
+        <Popover id="popover-basic">
+            <Popover.Header as="h3">{props.data.name}</Popover.Header>
+            <Popover.Body>
+                Insert description here
+            </Popover.Body>
+        </Popover>
+    )
+
+    return (
+        <>
+            <Modal show={modal} toggle_modal={toggle_modal} />
+
+            {/* Tooltip definitions */}
+            <OverlayTrigger placement='top' overlay={popover}>
+                <button className="thumbnail-small" onClick={toggle_modal}>
+                    <div className='thumbnail-small-container'>
+                        <Image className="thumbnail-small-img" src={props.data.img} alt={props.data.name} rounded />
+
+                        <div className='thumbnail-small-info-display'>
+                            <Difficulty difficulty={props.data.difficulty} />
+                            <div className='thumbnail-small-horizontal-divider' />
+                            <Category data={props.data} />
+                        </div>
+                        {/* // Image style badges
+                    // <Image className="badge-img" src={importAsset("scheme_geometric/badges", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />} */}
+                        {/* //  // Canvas style badges
+                    // <BadgeCanvas id={props.challenge.ChallengeId} challenge={props.challenge} useDefault={true} />}
+                    {/* <div className="badge-rp">{props.challenge.Rp} RP</div>
+                    <div className="badge-name-header">{props.challenge.Name}</div> */}
+                    </div>
+                </button>
+            </OverlayTrigger>
+        </>
+    );
+}
+
 export function Complete(props: CompleteProps) {
     const data = props.data
     const [canvas, set_canvas] = useState(draw_complete_canvas())
