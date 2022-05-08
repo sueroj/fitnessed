@@ -1,6 +1,6 @@
 import Profile from 'core/objects/profile'
 import Profiles from 'core/libs/profiles'
-import { ChallengeCategory } from 'core/enums/enums'
+import { ChallengeCategoryMajor } from 'core/enums/enums'
 
 export default class Leaderboards {
     private user: Profile
@@ -15,7 +15,7 @@ export default class Leaderboards {
     //     return null // TODO
     // }
 
-    public generate_by_category(category: ChallengeCategory) {
+    public generate_by_category(category: ChallengeCategoryMajor) {
         return null // TODO
     }
 

@@ -6,5 +6,6 @@
 .form-control {
     height: 60px;
     font-size: 24px;
+    border-radius: 0px;
     /* font-family: Arial; */
 }   

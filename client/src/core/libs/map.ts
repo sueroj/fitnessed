@@ -1,8 +1,10 @@
 import mapboxgl from 'mapbox-gl';
 
-import Events, { MappableEventCategory } from 'core/libs/challenges'
+import Challenges, { MappableChallengeCategory } from 'core/libs/challenges'
+import Filters from 'core/libs/filters'
+import { MAPBOX_TOKEN } from 'config/tokens'
 
-mapboxgl.accessToken = "pk.eyJ1Ijoic3Vlcm8zMjEiLCJhIjoiY2thbnZzdWdvMWVxZTJybzZ4ZGczYnZwYSJ9.SVHp7KD_q6G28YRVBCAyNw";
+mapboxgl.accessToken = MAPBOX_TOKEN
 
 const DEFAULT_ZOOM: number = 5
 const DEFAULT_START_LNG: number = 0.17
@@ -14,11 +16,13 @@ export default class Mapbox {
     public zoom: number = DEFAULT_ZOOM
     public map: mapboxgl.Map = this.initialize()
     public center: any = [this.start_lng, this.start_lat]
-    public events: Events
     public toggles: any
 
-    public constructor(events: Events, toggles: any) {
-        this.events = events
+    private challenges: Challenges
+
+    // TODO: define toggles type
+    public constructor(challenges: Challenges, toggles: any, filters: Filters) {
+        this.challenges = challenges
         this.toggles = toggles
     }
 
@@ -27,7 +31,7 @@ export default class Mapbox {
         console.log('Debug: render map') // TODO: debug only
 
         this.center = this.get_center()
-        this.draw_events()
+        this.draw_challenges()
 
         return this
     }
@@ -50,6 +54,7 @@ export default class Mapbox {
             map.on('dragend', function() {
                 console.log('test drag') // TODO - DEBUG ONLY
                 center = map.getCenter()
+                
             })
             map.on('zoomend', function() {
                 console.log('test zoom') //TODO - DEBUG ONLY
@@ -59,9 +64,9 @@ export default class Mapbox {
         return center
     }
 
-    public draw_events() {
+    public draw_challenges() {
         let this_obj = this
-        let mappable = this.events.get_mappable()
+        let mappable = this.challenges.get_mappable()
         
         console.log(mappable)
 
@@ -109,19 +114,19 @@ export default class Mapbox {
         
         // Configure map icons and triggers for each mappable event
         this.map.on('load', function () {
-            mappable.forEach(event => {
-                this_obj.new_source(event)
-                this_obj.new_layer(event)
-                this_obj.configurePointer(event)
-                this_obj.configureModalOnClick(event)
+            mappable.forEach(challenge => {
+                this_obj.new_source(challenge)
+                this_obj.new_layer(challenge)
+                this_obj.configurePointer(challenge)
+                this_obj.configureModalOnClick(challenge)
                 // this_obj.configure_card_on_hover(event)
             });
 
         })
     }
 
-    private new_source(event: MappableEventCategory) {
-        this.map.addSource(event.name, {
+    private new_source(challenge: MappableChallengeCategory) {
+        this.map.addSource(challenge.name, {
             'type': 'geojson',
             'data': {
                 'type': 'FeatureCollection',
@@ -130,18 +135,18 @@ export default class Mapbox {
                     'properties': {},
                     'geometry': {
                         'type': 'Point',
-                        'coordinates': event.coordinates[0].get()
+                        'coordinates': challenge.coordinates[0].get()
                     }
                 }]
             }
         })
     }
 
-    private new_layer(event: MappableEventCategory) {
+    private new_layer(challenge: MappableChallengeCategory) {
         this.map.addLayer({
-            'id': event.name,
+            'id': challenge.name,
             'type': 'circle',
-            'source': event.name,
+            'source': challenge.name,
             'paint': {
                 'circle-radius': {
                 'base': 30,
@@ -163,32 +168,32 @@ export default class Mapbox {
     }
 
     // TODO: EVAL if better to use title or id - currently using title, prefer id if possible
-    private configurePointer(event: MappableEventCategory) {
+    private configurePointer(challenge: MappableChallengeCategory) {
         let this_obj = this
         let map = this.map
 
         // Change the cursor to a pointer when the mouse is over any layers
-        map.on('mouseenter', event.name, function () {
+        map.on('mouseenter', challenge.name, function () {
             map.getCanvas().style.cursor = 'pointer'
         });
 
         // Change it back to a pointer when it leaves
-        map.on('mouseleave', event.name, function () {
+        map.on('mouseleave', challenge.name, function () {
             map.getCanvas().style.cursor = ''
         });
     }
 
-    private configureModalOnClick(event: MappableEventCategory) {
+    private configureModalOnClick(challenge: MappableChallengeCategory) {
         let this_obj = this
         let map = this.map
         
         // On click, open modal for the event
-        map.on('click', event.name, function () {
+        map.on('click', challenge.name, function () {
             this_obj.toggles.event_modal()
         })
     }
 
-    private configure_card_on_hover(event: MappableEventCategory) {
+    private configure_card_on_hover(challenge: MappableChallengeCategory) {
         let this_obj = this
         let map = this.map
 
@@ -198,7 +203,7 @@ export default class Mapbox {
         })
 
         // On hover, show card describing event
-        map.on('mouseenter', event.name, function(e) {
+        map.on('mouseenter', challenge.name, function(e) {
             // Copy coordinates array.
             // const coordinates = event.coordinates[0].get()  // TODO review and update
             // const description: = e.features[0].properties.description // TODO review and update
@@ -214,7 +219,7 @@ export default class Mapbox {
             popup.setLngLat([52.25007458166482, 0.09771024674431904]).setHTML('<p>hello</p>').addTo(map)
         })
 
-        map.on('mouseleave', event.name, function () {
+        map.on('mouseleave', challenge.name, function () {
             popup.remove();
         })
     }

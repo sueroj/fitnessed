@@ -1,6 +1,5 @@
+import { AllChallengeCategories } from 'core/libs/challenges'
 
-import { CompleteStatus, League } from 'core/enums/enums'
-import { TestCompletedEvents as TestCompletedChallenge } from 'test/test_challenges'
 
 
 // TODO: Eval use of Username
@@ -8,11 +7,6 @@ import { TestCompletedEvents as TestCompletedChallenge } from 'test/test_challen
 //     first: string
 //     last: string
 // }
-
-type CompletedChallenge = {
-    id: number
-    complete_status: CompleteStatus
-}
 
 type Title = {
     first: string,
@@ -36,7 +30,7 @@ export default class Profile {
     }
     public home_id: number = 12345
     public profile_img: string = ''
-    public completed_challenges: CompletedChallenge[] = new TestCompletedChallenge().challenges
+    public completed_challenges: AllChallengeCategories = []
 
     public test_profile(id: number, firstname: string, lastname: string, 
                         rank: number, rp: number) {
@@ -47,5 +41,12 @@ export default class Profile {
         this.rp = rp 
         return this
     }
+
+    // public get_completed_by_category(category: ChallengeCategory) {
+    //     const completed: CompletedChallenge[] = []
+    //     this.completed_challenges.forEach(challenge => {
+    //         if (challenge.)
+    //     })
+    // }
 
 }

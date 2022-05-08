@@ -4,11 +4,12 @@ import Link from 'react-bootstrap/NavLink';
 import './navigation.css';
 import test_banner from 'assets/banners/test_banner.png'
 
-import Modal from 'components/common/modals/Modal'
+import Modal from 'components/common/modals/ChallengeModal'
 import Profile from 'core/objects/profile'
 
 type Props = {
     profile: Profile
+    toggles: object
 }
 
 export default function Navigation(props: Props) {

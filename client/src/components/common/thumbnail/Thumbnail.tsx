@@ -6,8 +6,8 @@ import './thumbnail.css';
 
 import { AnyChallengeCategory } from 'core/libs/challenges'
 import CompleteCanvas from 'core/canvas/complete'
-import { CompleteStatus, ChallengeCategory } from 'core/enums/enums'
-import Modal from 'components/common/modals/Modal'
+import { CompleteStatus, ChallengeCategoryMajor } from 'core/enums/enums'
+import Modal from 'components/common/modals/ChallengeModal'
 
 type Props = {
     data: AnyChallengeCategory
@@ -178,7 +178,7 @@ export function Complete(props: CompleteProps) {
 export function Category(props: CategoryProps) {
     let category = props.data.category_major
 
-    if (props.data.category_major === ChallengeCategory.MILESTONE) {
+    if (props.data.category_major === ChallengeCategoryMajor.MILESTONE) {
         category = props.data.category_minor
     }
     

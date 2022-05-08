@@ -10,9 +10,9 @@
 }
 
 .leaderboard-table {
-    height: 140px;
+    height: 245px;
     padding: 0px;
-    
+    background-color: yellow;
 }
 
 .leaderboard-profile {
@@ -27,4 +27,15 @@
 
 .list-group-item {
     padding: 1px;
+}
+
+.leaderboard-button-wrapper {
+    height: 20px;
+    text-align: right;
+}
+
+.leaderboard-button {
+    box-shadow: unset;
+    border: unset;
+    background-color: inherit;
 }

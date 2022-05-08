@@ -1,11 +1,11 @@
 import { GeoJSON } from "core/objects/misc"
 
-import { ChallengeCategory, CourseCategory, SprintCategory, MilestoneCategory, CompleteStatus } from "core/enums/enums"
+import { ChallengeCategoryMajor, CourseCategoryMinor, SprintCategoryMinor, MilestoneCategoryMinor, CompleteStatus } from "core/enums/enums"
 
 export class Challenge {
     public id: number = 0
     public name: string = ''
-    public category_major: ChallengeCategory = ChallengeCategory.CHALLENGE
+    public category_major: ChallengeCategoryMajor = ChallengeCategoryMajor.CHALLENGE
     public category_minor: any = null
     // TODO: debug only, reset to false
 
@@ -16,9 +16,11 @@ export class Challenge {
     // TODO: setup images
     public img: string = ''
 
-    public is_mappable: boolean = true
-    public is_open: boolean = true
-    public is_complete: boolean = true
+    public is_mappable: boolean = false
+    public is_open: boolean = false
+    public is_featured: boolean = false
+
+    public is_complete: boolean = false
     public complete_status: CompleteStatus = CompleteStatus.NOT_COMPLETE
 
     // TODO: define Metrics
@@ -40,33 +42,33 @@ export class Challenge {
 export class Zone extends Challenge {
     public constructor() {
         super()
-        this.category_major = ChallengeCategory.ZONE
+        this.category_major = ChallengeCategoryMajor.ZONE
         this.is_mappable = true
     }
 }
 
 export class Course extends Challenge {
-    public constructor(category: CourseCategory) {
+    public constructor(category: CourseCategoryMinor) {
         super()
-        this.category_major = ChallengeCategory.COURSE
+        this.category_major = ChallengeCategoryMajor.COURSE
         this.category_minor = category
         this.is_mappable = true
     }
 }
 
 export class Sprint extends Challenge {
-    public constructor(category: SprintCategory) {
+    public constructor(category: SprintCategoryMinor) {
         super()
-        this.category_major = ChallengeCategory.SPRINT
+        this.category_major = ChallengeCategoryMajor.SPRINT
         this.category_minor = category
         this.is_mappable = true
     }
 }
 
 export class Milestone extends Challenge {
-    public constructor(category: MilestoneCategory) {
+    public constructor(category: MilestoneCategoryMinor) {
         super()
-        this.category_major = ChallengeCategory.MILESTONE
+        this.category_major = ChallengeCategoryMajor.MILESTONE
         this.category_minor = category
         this.is_mappable = false
     }
@@ -75,7 +77,7 @@ export class Milestone extends Challenge {
 export class Collectable extends Challenge {
     public constructor() {
         super()
-        this.category_major = ChallengeCategory.COLLECTABLE
+        this.category_major = ChallengeCategoryMajor.COLLECTABLE
         this.is_mappable = true
     }
 }
@@ -83,18 +85,7 @@ export class Collectable extends Challenge {
 export class Achievement extends Challenge {
     public constructor() {
         super()
-        this.category_major = ChallengeCategory.ACHIEVEMENT
+        this.category_major = ChallengeCategoryMajor.ACHIEVEMENT
         this.is_mappable = false
-    }
-}
-
-export class CompletedEvent {
-    public id: number = 0
-    public complete_status = CompleteStatus.NOT_COMPLETE
-
-    public test(id: number, complete_status: CompleteStatus) {
-        this.id = id
-        this.complete_status = complete_status
-        return this
     }
 }

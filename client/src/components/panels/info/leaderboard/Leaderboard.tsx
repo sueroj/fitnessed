@@ -26,6 +26,8 @@ export default function Leaderboard(props: Props) {
         return l
     }
 
+    /* TODO: Eval possible addition of new thin panel section below info panels to include buttons
+       TODO: would likely be more organized this way*/ 
     return (
         <div className='leaderboard'>
             <LeaderboardModal show={modal}/>
@@ -39,9 +41,9 @@ export default function Leaderboard(props: Props) {
             </div>
 
             <div className='leaderboard-spacer' />
-
-            <div className='panel-button-wrapper'>
-                <button className='panel-button' onClick={() => toggle_modal()}>Open Leaderboards</button>
+            
+            <div className='leaderboard-button-wrapper'>
+                <button className='leaderboard-button' onClick={() => toggle_modal()}>Open Leaderboards</button>
             </div>
         </div>
     );

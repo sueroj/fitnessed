@@ -1,21 +1,23 @@
 import React, { useState, useEffect} from 'react';
 import './map.css';
 
-// import Mapbox from 'core/libs/map';
-// import Events, { MappableEventCategories } from 'core/libs/events'
+import Mapbox from 'core/libs/map';
+import Challenges from 'core/libs/challenges'
+import Filters from 'core/libs/filters'
 
 // import Tooltip from 'components/common/tooltip/Tooltip'
 
 type Props = {
-    // events: Events
-    // toggles: {}
+    challenges: Challenges
+    toggles: object
+    filters: Filters
 }
 
 export default function Map(props: Props) {
     
     useEffect(() => {
-    //    new Mapbox().draw()
-    }, []
+       new Mapbox(props.challenges, props.toggles, props.filters).draw()
+    }, [props]
     )
 
     return (

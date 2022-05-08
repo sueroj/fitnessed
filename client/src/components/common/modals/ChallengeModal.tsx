@@ -5,7 +5,7 @@ import './modal.css'
 function getActivities(): void {
 }
 
-export default function EventModal(props: any) {
+export default function ChallengeModal(props: any) {
     return (
         <Modal className="event-modal" onHide={() => getActivities()} onShow={() => getActivities()}
             {...props}

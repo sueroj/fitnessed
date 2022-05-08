@@ -13,11 +13,11 @@ type Props = {
 }
 
 export default function Info(props: Props) {
-
+    // TODO: Eval possible addition of new thin panel section below info panels to include buttons
     return (
         <div className='info-panel'>
             {/* User profile rank and leaderboard summary */}
-            <Rank profiles={props.profiles} />
+            <Rank profiles={props.profiles} challenges={props.challenges}/>
 
             <div className='info-vertical-spacer' />
 

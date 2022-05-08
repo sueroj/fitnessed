@@ -1,5 +1,4 @@
 import Profile from 'core/objects/profile'
-import { League } from 'core/enums/enums'
 
 export default class TestProfiles {
     public profiles: Profile[] = this.generate_profiles()

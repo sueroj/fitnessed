@@ -1,10 +1,4 @@
-export enum ChallengeView {
-    LIST,
-    CALENDAR,
-    MAP
-}
-
-export enum ChallengeCategory {
+export enum ChallengeCategoryMajor {
     CHALLENGE = 'Challenge',
     ZONE = 'Zone',
     COURSE = 'Course',
@@ -14,27 +8,18 @@ export enum ChallengeCategory {
     ACHIEVEMENT = 'Achievement'
 }
 
-export enum CourseCategory {
+export enum CourseCategoryMinor {
     STANDARD,
     LOOP,
     OPEN_GUIDED,
     OPEN_UNGUIDED
 }
 
-export enum SprintCategory {
+export enum SprintCategoryMinor {
     STANDARD
 }
 
-export enum League {
-    NEWBIE = 'Newbie League',
-    BRONZE = 'Bronze League',
-    SILVER = 'Silver League',
-    GOLD = 'Gold League',
-    PLATINUM = 'Platinum League',
-    DIAMOND = 'Diamond League'
-}
-
-export enum MilestoneCategory {
+export enum MilestoneCategoryMinor {
     DAILY = 'Daily',
     WEEKLY = 'Weekly',
     MONTHLY = 'Monthly'

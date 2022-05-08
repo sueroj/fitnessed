@@ -4,13 +4,16 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import './rank.css';
 
 import Profiles from 'core/libs/profiles'
+import Challenges from 'core/libs/challenges';
 import Profile from 'core/objects/profile'
+import { ChallengeCategoryMajor } from 'core/enums/enums'
 import test_banner from 'assets/banners/test_banner.png'
 import test_profile_img from 'assets/banners/test_profile_img.png'
 
 // TODO: Refactor props
 type RankProps = {
     profiles: Profiles
+    challenges: Challenges
 }
 
 type RankHeaderProps = {
@@ -25,8 +28,13 @@ type RankProgressBarProps = {
     profile: Profile
 }
 
-type ProfileProgressProps = {
-    profile: Profile
+type ChallengeSummaryProps = {
+    challenges: Challenges
+}
+
+type ProfileSummaryNumCompleteProps = {
+    category: ChallengeCategoryMajor
+    challenges: Challenges
 }
 
 type ProfileTitleProps = {
@@ -48,7 +56,7 @@ export default function Rank(props: RankProps) {
             </div>
 
             <div className='rank-panel-bottom'>
-                <ProfileSummary profile={props.profiles.user} />
+                <ChallengeSummary challenges={props.challenges} />
 
                 <ProfileTitle profile={props.profiles.user}/>
             </div>
@@ -84,28 +92,30 @@ export function RankProgressBar(props: RankProgressBarProps) {
     );
 }
 
-export function ProfileSummary(props: ProfileProgressProps) {
+export function ChallengeSummary(props: ChallengeSummaryProps) {
     return (
         <div className='profile-summary'>
             <div className='profile-summary-row'>
-                <ProfileSummaryNumComplete profile={props.profile}/>
-                <ProfileSummaryNumComplete profile={props.profile}/>
-                <ProfileSummaryNumComplete profile={props.profile}/>
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.ZONE} challenges={props.challenges}/>
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.COURSE} challenges={props.challenges}/>
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.SPRINT} challenges={props.challenges}/>
             </div>
             <div className='profile-summary-row'>
-                <ProfileSummaryNumComplete profile={props.profile}/>
-                <ProfileSummaryNumComplete profile={props.profile}/>
-                <ProfileSummaryNumComplete profile={props.profile}/>
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.COLLECTABLE} challenges={props.challenges}/>
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.MILESTONE} challenges={props.challenges}/>
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.ACHIEVEMENT} challenges={props.challenges}/>
             </div>
 
         </div>
     );
 }
 
-export function ProfileSummaryNumComplete(props: ProfileProgressProps) {
+export function ProfileSummaryNumComplete(props: ProfileSummaryNumCompleteProps) {
+    const num_complete = props.challenges.get_num_completed_by_category(props.category)
+
     return (
         <div className='profile-summary-num-complete'>
-            0 Zones
+            {num_complete} {props.category.toString()}{num_complete === 1 ? '' : 's'}
         </div>
     );
 }

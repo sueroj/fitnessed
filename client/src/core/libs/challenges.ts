@@ -1,6 +1,6 @@
 
 import TestChallenges, { TestFeaturedEvents as TestFeaturedChallenges } from "test/test_challenges"
-import { ChallengeCategory, MilestoneCategory } from "core/enums/enums"
+import { ChallengeCategoryMajor, MilestoneCategoryMinor, CompleteStatus } from "core/enums/enums"
 import Profile from 'core/objects/profile'
 import { Zone, Course, Sprint, Milestone, Collectable, Achievement } from 'core/objects/challenge'
 import { CategoryProgress } from "core/objects/misc"
@@ -9,7 +9,7 @@ export type AllChallengeCategories = Zone[] | Course[] | Sprint[] | Milestone[] 
 export type MappableChallengeCategories = Zone[] | Course[] | Sprint[] | Collectable[]
 
 export type AnyChallengeCategory = Zone | Course | Sprint | Milestone | Collectable | Achievement
-export type MappableEventCategory = Zone | Course | Sprint | Collectable
+export type MappableChallengeCategory = Zone | Course | Sprint | Collectable
 
 export type MilestoneCategories = {
     all: Milestone[],
@@ -25,10 +25,11 @@ export type MilestoneProgress = {
     monthlies: CategoryProgress
 }
 
-type ChallengesTable = {
-    all_challenges: AllChallengeCategories,
+type OrderedChallenges = {
+    all: AllChallengeCategories,
+    completed: AllChallengeCategories,
     featured: AllChallengeCategories,
-    mappable_challenges: MappableChallengeCategories,
+    mappable: MappableChallengeCategories,
     zones: Zone[],
     courses: Course[],
     sprints: Sprint[],
@@ -47,20 +48,25 @@ type ChallengesTable = {
 
 // TODO: Refactor & optimize this class. Will be used a lot.
 export default class Challenges {
-    private profile: Profile
-    private challenges: ChallengesTable
+    private user_profile: Profile
+    private challenges: OrderedChallenges
 
     public constructor(profile: Profile) {
-        this.profile = profile
+        this.user_profile = profile
         this.challenges = this.get_challenges()
+        this.user_profile.completed_challenges = this.challenges.completed
     }
 
     public get_all() {
-        return this.challenges.all_challenges
+        return this.challenges.all
+    }
+
+    public get_completed() {
+        return this.challenges.completed
     }
 
     public get_mappable() {
-        return this.challenges.mappable_challenges
+        return this.challenges.mappable
     }
 
     public get_zones() {
@@ -84,21 +90,31 @@ export default class Challenges {
     }
 
     public get_filtered(filter: any) {
-        let challenges: any[] = []
+        let challenges: any[] = [] // TODO: set type
 
-        this.challenges.all_challenges.forEach(challenge => {
-            function filter_by_category(category: ChallengeCategory, filter: boolean) {
+        this.challenges.all.forEach(challenge => {
+            function filter_by_category(category: ChallengeCategoryMajor, filter: boolean) {
                 if (challenge.category_major === category && filter) {
                     challenges.push(challenge)
                 }
             }
-            filter_by_category(ChallengeCategory.ZONE, filter.zones)
-            filter_by_category(ChallengeCategory.COURSE, filter.courses)
-            filter_by_category(ChallengeCategory.SPRINT, filter.sprints)
-            filter_by_category(ChallengeCategory.MILESTONE, filter.milestones)
-            filter_by_category(ChallengeCategory.COLLECTABLE, filter.collectables)
+            filter_by_category(ChallengeCategoryMajor.ZONE, filter.zones)
+            filter_by_category(ChallengeCategoryMajor.COURSE, filter.courses)
+            filter_by_category(ChallengeCategoryMajor.SPRINT, filter.sprints)
+            filter_by_category(ChallengeCategoryMajor.MILESTONE, filter.milestones)
+            filter_by_category(ChallengeCategoryMajor.COLLECTABLE, filter.collectables)
         })
         return challenges
+    }
+
+    public get_num_completed_by_category(category: ChallengeCategoryMajor) {
+        let num: number = 0
+        this.challenges.completed.forEach(challenge => {
+            if (challenge.category_major === category) {
+                num++
+            }
+        })
+        return num
     }
 
 
@@ -116,32 +132,36 @@ export default class Challenges {
         // Http get action from server
         // TODO: Replace w/ http action
 
-        let test_all_challenges = new TestChallenges().challenges
-        let test_featured_challenges = new TestFeaturedChallenges().challenges
-        test_all_challenges = this.update_completed_challenges(test_all_challenges)
-        test_featured_challenges = this.update_completed_challenges(test_featured_challenges)
         let zones_list: Zone[] = []
         let courses_list: Course[] = []
         let sprints_list: Sprint[] = []
         let milestones_list: Milestone[] = []
         let collectables_list: Collectable[] = []
         let mappable_list: MappableChallengeCategories = []
+        let completed_list: any = []
 
+        // TODO: Test Only. Fill challenges with dummy data
+        let test_all_challenges = new TestChallenges().challenges
+        let test_featured_challenges = new TestFeaturedChallenges().challenges
+        test_all_challenges = this.test_set_completed_challenges(test_all_challenges)
+        test_featured_challenges = this.test_set_completed_challenges(test_featured_challenges)
+
+        // Sort challenges by category and other useful filters
         test_all_challenges.forEach(challenge => {
             switch (challenge.category_major) {
-                case ChallengeCategory.ZONE:
+                case ChallengeCategoryMajor.ZONE:
                     zones_list.push(challenge)
                     break
-                case ChallengeCategory.COURSE:
+                case ChallengeCategoryMajor.COURSE:
                     courses_list.push(challenge)
                     break
-                case ChallengeCategory.SPRINT:
+                case ChallengeCategoryMajor.SPRINT:
                     sprints_list.push(challenge)
                     break
-                case ChallengeCategory.MILESTONE:
+                case ChallengeCategoryMajor.MILESTONE:
                     milestones_list.push(challenge)
                     break
-                case ChallengeCategory.COLLECTABLE:
+                case ChallengeCategoryMajor.COLLECTABLE:
                     collectables_list.push(challenge)
                     break
             }
@@ -149,26 +169,31 @@ export default class Challenges {
             if (challenge.is_mappable) {
                 mappable_list.push(challenge)
             }
+
+            if (challenge.is_complete) {
+                completed_list.push(challenge)
+            }
         })
 
         return {
-            all_challenges: test_all_challenges,
+            all: test_all_challenges,
+            completed: completed_list,
             featured: test_featured_challenges,
-            mappable_challenges: mappable_list,
+            mappable: mappable_list,
             zones: zones_list,
             courses: courses_list,
             sprints: sprints_list,
             milestones: {
                 all: milestones_list,
-                dailies: this.sort_by_subcategory(milestones_list, MilestoneCategory.DAILY),
-                weeklies: this.sort_by_subcategory(milestones_list, MilestoneCategory.WEEKLY),
-                monthlies: this.sort_by_subcategory(milestones_list, MilestoneCategory.MONTHLY)
+                dailies: this.sort_by_subcategory(milestones_list, MilestoneCategoryMinor.DAILY),
+                weeklies: this.sort_by_subcategory(milestones_list, MilestoneCategoryMinor.WEEKLY),
+                monthlies: this.sort_by_subcategory(milestones_list, MilestoneCategoryMinor.MONTHLY)
             },
             collectables: collectables_list
         }
     }
 
-    private sort_by_subcategory(milestones: Milestone[], category: MilestoneCategory) {
+    private sort_by_subcategory(milestones: Milestone[], category: MilestoneCategoryMinor) {
         let sorted: Milestone[] = []
         milestones.forEach(event => {
             if (event.category_minor === category){
@@ -178,15 +203,45 @@ export default class Challenges {
         return sorted
     }
 
-    private update_completed_challenges(challenges: Milestone[] | Zone[] | Course[]) {
-        this.profile.completed_challenges.forEach(completed_challenge => {
-            challenges.forEach(challenge => {
-                if (completed_challenge.id === challenge.id) {
-                    challenge.is_complete = true
-                    challenge.complete_status = completed_challenge.complete_status
-                }
-            })
+    private test_set_completed_challenges(challenges: AllChallengeCategories) {
+
+        challenges.forEach(challenge => {
+            if (challenge.id === 111114) {
+                challenge.is_complete = true
+                challenge.complete_status = CompleteStatus.STANDARD_T0
+            }
+
+            if (challenge.id === 111116) {
+                challenge.is_complete = true
+                challenge.complete_status = CompleteStatus.STANDARD_T0
+            }
+
+            if (challenge.id === 111140) {
+                challenge.is_complete = true
+                challenge.complete_status = CompleteStatus.STANDARD_T0
+            }
+
+            if (challenge.id === 111124) {
+                challenge.is_complete = true
+                challenge.complete_status = CompleteStatus.BRONZE_T1
+            }
+
+            if (challenge.id === 111114) {
+                challenge.is_complete = true
+                challenge.complete_status = CompleteStatus.BRONZE_T1
+            }
+
+            if (challenge.id === 111142) {
+                challenge.is_complete = true
+                challenge.complete_status = CompleteStatus.SILVER_T2
+            }
+
+            if (challenge.id === 111146) {
+                challenge.is_complete = true
+                challenge.complete_status = CompleteStatus.GOLD_T3
+            }
         })
+
         return challenges
     }
 }
