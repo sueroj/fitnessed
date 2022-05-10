@@ -31,7 +31,7 @@ export default function ListPanel(props: Props) {
     function filter_thumbnails(filters: any) {
         let thumbnails: any[] = []
         props.challenges.get_filtered(filters).forEach((challenge: AnyChallengeCategory) => {
-            thumbnails.push(<Thumbnail data={challenge}/>)
+            thumbnails.push(<Thumbnail challenge={challenge}/>)
         })
         set_thumbnails(thumbnails)
     }
@@ -72,6 +72,8 @@ export function Filter(props: FilterProps) {
             <Accordion defaultActiveKey="0" flush>
             <Accordion.Item eventKey="0">
                 <Accordion.Header>Nearby</Accordion.Header>
+                {/* TODO: Include a distance slider for nearby challenges */}
+                <Accordion.Body><Form.Label>0 km</Form.Label><Form.Range /></Accordion.Body>
                 <Accordion.Body>Zones</Accordion.Body>
                 <Accordion.Body>Courses</Accordion.Body>
                 <Accordion.Body>Sprints</Accordion.Body>
@@ -79,12 +81,12 @@ export function Filter(props: FilterProps) {
             </Accordion.Item>
             <Accordion.Item eventKey="1">
                 <Accordion.Header>All Challenges ({challenges.length})</Accordion.Header>
-                <Accordion.Body><Form.Check type='switch' id='all-zones' checked={props.filters.zones} onClick={() => props.toggle_filter('zones')} label={`Zones (${zones.length})`}/></Accordion.Body>
-                <Accordion.Body><Form.Check type='switch' id='all-courses' checked={props.filters.courses} onClick={() => props.toggle_filter('courses')} label={`Courses (${courses.length})`}/></Accordion.Body>
-                <Accordion.Body><Form.Check type='switch' id='all-sprints' checked={props.filters.sprints} onClick={() => props.toggle_filter('sprints')} label={`Sprints (${sprints.length})`}/></Accordion.Body>
-                <Accordion.Body><Form.Check type='switch' id='all-collectables' checked={props.filters.collectables} onClick={() => props.toggle_filter('collectables')} label={`Collectables (${collectables.length})`}/></Accordion.Body>
-                <Accordion.Body><Form.Check type='switch' id='all-milestones' checked={props.filters.milestones} onClick={() => props.toggle_filter('milestones')} label={`Milestones (${milestones.all.length})`}/></Accordion.Body>
-                <Accordion.Body><Form.Check type='switch' id='all-achievements' checked={props.filters.achievements} onClick={() => props.toggle_filter('achievements')} label={`Achievements (${achievements.length})`}/></Accordion.Body>
+                <Accordion.Body><Form.Check type='switch' id='all-zones' checked={props.filters.zones} onChange={() => props.toggle_filter('zones')} label={`Zones (${zones.length})`}/></Accordion.Body>
+                <Accordion.Body><Form.Check type='switch' id='all-courses' checked={props.filters.courses} onChange={() => props.toggle_filter('courses')} label={`Courses (${courses.length})`}/></Accordion.Body>
+                <Accordion.Body><Form.Check type='switch' id='all-sprints' checked={props.filters.sprints} onChange={() => props.toggle_filter('sprints')} label={`Sprints (${sprints.length})`}/></Accordion.Body>
+                <Accordion.Body><Form.Check type='switch' id='all-collectables' checked={props.filters.collectables} onChange={() => props.toggle_filter('collectables')} label={`Collectables (${collectables.length})`}/></Accordion.Body>
+                <Accordion.Body><Form.Check type='switch' id='all-milestones' checked={props.filters.milestones} onChange={() => props.toggle_filter('milestones')} label={`Milestones (${milestones.all.length})`}/></Accordion.Body>
+                <Accordion.Body><Form.Check type='switch' id='all-achievements' checked={props.filters.achievements} onChange={() => props.toggle_filter('achievements')} label={`Achievements (${achievements.length})`}/></Accordion.Body>
             </Accordion.Item>
             </Accordion>
         </div>

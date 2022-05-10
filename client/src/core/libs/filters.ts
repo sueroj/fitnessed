@@ -33,6 +33,10 @@ export default class Filters {
         return this
     }
 
+    public update_nearby(center: mapboxgl.LngLat) {
+        
+    }
+
     // public update(filter: string) {
     //     let f = Object.getOwnPropertyDescriptor(this, filter)
 

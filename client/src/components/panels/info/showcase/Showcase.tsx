@@ -65,7 +65,7 @@ export function ThumbnailListShort(props: ThumbnailListShortProps) {
         let thumbnails: any[] = []
         props.challenges.get_all().forEach(challenge => {
             if (thumbnails.length < 6) {
-                thumbnails.push(<Thumbnail data={challenge} />)
+                thumbnails.push(<Thumbnail challenge={challenge} />)
             }
         })
         return thumbnails

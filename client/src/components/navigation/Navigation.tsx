@@ -21,7 +21,7 @@ export default function Navigation(props: Props) {
 
     return (
         <>
-        <Modal show={modal}/>
+        {/* <Modal show={modal}/> */}
 
         <div className='navigation-bar'>
                 <Link href="/">TopChallenger</Link>

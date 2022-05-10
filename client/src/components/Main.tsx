@@ -60,9 +60,6 @@ export default function Main() {
 
     return (
         <div className='main'>
-            {/* Modals */}
-            <ChallengeModal show={challenge_modal} />
-
             <Navigation profile={profiles.user} toggles={toggles}/>
             <Panels profiles={profiles} challenges={challenges} toggles={toggles}/>
             <Footer toggles={toggles}/>

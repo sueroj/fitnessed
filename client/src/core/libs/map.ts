@@ -19,11 +19,13 @@ export default class Mapbox {
     public toggles: any
 
     private challenges: Challenges
+    private filters: Filters
 
     // TODO: define toggles type
     public constructor(challenges: Challenges, toggles: any, filters: Filters) {
         this.challenges = challenges
         this.toggles = toggles
+        this.filters = filters
     }
 
 
@@ -47,6 +49,7 @@ export default class Mapbox {
     }
 
     private get_center() {
+        let this_obj = this
         let map = this.map
         let center = this.center
 
@@ -54,11 +57,12 @@ export default class Mapbox {
             map.on('dragend', function() {
                 console.log('test drag') // TODO - DEBUG ONLY
                 center = map.getCenter()
-                
+                this_obj.filters.update_nearby(center)
             })
             map.on('zoomend', function() {
                 console.log('test zoom') //TODO - DEBUG ONLY
                 center = map.getCenter()
+                this_obj.filters.update_nearby(center)
             })
         })
         return center

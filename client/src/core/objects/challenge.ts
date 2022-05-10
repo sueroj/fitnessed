@@ -15,11 +15,14 @@ export class Challenge {
     public difficulty: number = 0
     // TODO: setup images
     public img: string = ''
+    // TODO: setup description
+    public description: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante'
 
     public is_mappable: boolean = false
     public is_open: boolean = false
     public is_featured: boolean = false
 
+    public is_accept_required: boolean = false
     public is_complete: boolean = false
     public complete_status: CompleteStatus = CompleteStatus.NOT_COMPLETE
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import './modal.css'
+import './leaderboard_modal.css'
 
 // TODO Complete Leaderboard modal
 export default function LeaderboardModal(props: any) {

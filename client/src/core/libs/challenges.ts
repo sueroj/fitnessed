@@ -57,6 +57,7 @@ export default class Challenges {
         this.user_profile.completed_challenges = this.challenges.completed
     }
 
+    // TODO: Eval change to remove function and use public properties
     public get_all() {
         return this.challenges.all
     }
