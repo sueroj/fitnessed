@@ -25,7 +25,7 @@ export type MilestoneProgress = {
     monthlies: CategoryProgress
 }
 
-type OrderedChallenges = {
+export type OrderedChallenges = {
     all: AllChallengeCategories,
     completed: AllChallengeCategories,
     featured: AllChallengeCategories,
@@ -116,6 +116,18 @@ export default class Challenges {
             }
         })
         return num
+    }
+
+    // TODO should only return MappableChallengeCategories
+    // i.e. public get_nearby(): MappableChallengeCategories {}
+    public get_nearby() {
+        // get map center
+
+        // convert distance to DD equivalent
+
+        // Calc nearby - ref TopChallengerJS
+
+        return this.challenges.featured // TODO - TEST ONLY
     }
 
 

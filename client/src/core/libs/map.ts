@@ -1,10 +1,12 @@
 import mapboxgl from 'mapbox-gl';
 
 import Challenges, { MappableChallengeCategory } from 'core/libs/challenges'
-import Filters from 'core/libs/filters'
+import Filter from 'core/objects/filter'
 import { MAPBOX_TOKEN } from 'config/tokens'
 
 mapboxgl.accessToken = MAPBOX_TOKEN
+
+export type LngLat = mapboxgl.LngLat
 
 const DEFAULT_ZOOM: number = 5
 const DEFAULT_START_LNG: number = 0.17
@@ -14,24 +16,29 @@ export default class Mapbox {
     public start_lng: number = DEFAULT_START_LNG
     public start_lat: number = DEFAULT_START_LAT
     public zoom: number = DEFAULT_ZOOM
-    public map: mapboxgl.Map = this.initialize()
-    public center: any = [this.start_lng, this.start_lat]
-    public toggles: any
+    public center: LngLat = new mapboxgl.LngLat(this.start_lng, this.start_lng)
+    public map: mapboxgl.Map
 
+    public toggles: any
+    public set_center: Function
+
+    private container: any
     private challenges: Challenges
-    private filters: Filters
+    private filters: Filter
 
     // TODO: define toggles type
-    public constructor(challenges: Challenges, toggles: any, filters: Filters) {
+    public constructor(container: any, challenges: Challenges, toggles: any, filters: Filter, set_center: Function) {
+        this.container = container
         this.challenges = challenges
         this.toggles = toggles
         this.filters = filters
+        this.set_center = set_center
+        this.map = this.initialize()
     }
 
 
     public draw() {
         console.log('Debug: render map') // TODO: debug only
-
         this.center = this.get_center()
         this.draw_challenges()
 
@@ -40,7 +47,7 @@ export default class Mapbox {
 
     private initialize() {
         return new mapboxgl.Map({
-            container: 'map',
+            container: this.container,
             center: [this.start_lng, this.start_lat],
             zoom: this.zoom,
             style: 'mapbox://styles/mapbox/streets-v11',
@@ -48,7 +55,7 @@ export default class Mapbox {
         })
     }
 
-    private get_center() {
+    private get_center(): LngLat {
         let this_obj = this
         let map = this.map
         let center = this.center
@@ -57,12 +64,12 @@ export default class Mapbox {
             map.on('dragend', function() {
                 console.log('test drag') // TODO - DEBUG ONLY
                 center = map.getCenter()
-                this_obj.filters.update_nearby(center)
+                this_obj.set_center(center)
             })
             map.on('zoomend', function() {
                 console.log('test zoom') //TODO - DEBUG ONLY
                 center = map.getCenter()
-                this_obj.filters.update_nearby(center)
+                this_obj.set_center(center)
             })
         })
         return center

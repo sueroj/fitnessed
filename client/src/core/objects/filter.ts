@@ -1,6 +1,6 @@
 
 
-export default class Filters {
+export default class Filter {
     public nearby: boolean = false
     public zones: boolean = true
     public courses: boolean = true
@@ -32,25 +32,4 @@ export default class Filters {
         }
         return this
     }
-
-    public update_nearby(center: mapboxgl.LngLat) {
-        
-    }
-
-    // public update(filter: string) {
-    //     let f = Object.getOwnPropertyDescriptor(this, filter)
-
-    //     // Object.entries(this).forEach(items => {
-    //     //     items.forEach((key, value) => {
-    //     //         if (filter === key) {
-    //     //             // Object.getOwnPropertyDescriptor(this, 'filter')?.set?(!value)       
-    //     //             let f = Object.
-    //     //             console.log(f)
-    //     //         }
-    //     //     })
-    //     // })
-
-    //     this.zones = false
-    //     return this
-    // }
 }
