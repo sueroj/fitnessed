@@ -17,7 +17,7 @@ type Props = {
     center: mapboxgl.LngLat
 }
 
-// TODO: Refactor filters data structure at end
+// TODO: Refactor filters data structure at endaww
 export default function ListPanel(props: Props) {
     const [thumbnails, set_thumbnails] = useState(props.thumbnails)
 
