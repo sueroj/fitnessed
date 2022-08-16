@@ -1,0 +1,38 @@
+.login-container {
+    height: 100%;
+    width: 100%;
+}
+
+.login-form {
+    height: 230px;
+    width: 600px;
+    background-color: rgb(124, 121, 121);
+    border-radius: 3px;
+    margin: auto;
+    margin-top: 200px;
+}
+
+.login-label {
+    width: 100%;
+    height: 70px;
+    font-size: 36px;
+    text-align: center;
+    background-color: rgb(51, 51, 51);
+    color: white;
+}
+
+.login-button-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+.login-button-strava {
+    height: 100px;
+    width: 500px;
+    font-size: 28px;
+}
+
+/* #login-button-strava {
+    width: 200px;
+    margin: auto;
+} */

@@ -18,12 +18,12 @@ export default function Leaderboard(props: Props) {
     }
 
     function generate() {
-        let leaderboards = new Leaderboards(props.profiles).generate()
-        let l: any[] = []
-        leaderboards.forEach(profile => {
-            l.push(<ListGroup.Item as="li">{profile.rank} {profile.profile_img} {profile.firstname} {profile.lastname[0]} {profile.rp}</ListGroup.Item>)
-        })
-        return l
+        // let leaderboards = new Leaderboards(props.profiles).generate()
+        // let l: any[] = []
+        // leaderboards.forEach(profile => {
+        //     l.push(<ListGroup.Item as="li">{profile.rank} {profile.profile_img} {profile.firstname} {profile.lastname[0]} {profile.rp}</ListGroup.Item>)
+        // })
+        // return l
     }
 
     /* TODO: Eval possible addition of new thin panel section below info panels to include buttons

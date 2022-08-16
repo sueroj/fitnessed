@@ -15,26 +15,42 @@ type Title = {
 }
 
 export default class Profile {
-    public id: number = 12345
-    public firstname: string = 'Joel'
-    public lastname: string = 'Suero'
-    public rank: number = 75
-    public rp: number = 106 // TODO: RP is total of all earned, rank level is calc from there
-    public rp_to_next: number = 800
+    public profile_id: number = 0
+    public strava_id: number = 0
+    public firstname: string = ''
+    public lastname: string = ''
+    public rank: number = 0 // TODO: Eval refactor into class Rank for FE + BE
+    public rp: number = 0 // TODO: RP is total of all earned, rank level is calc from there
+    public rp_to_next: number = 0
 
     // TODO: Feature for unlockable title combinations, to be shown on the leader boards
     public title: Title = {
-        first: 'Ultra',
-        middle: 'Marathon',
-        last: 'Dude'
+        first: '',
+        middle: '',
+        last: ''
     }
-    public home_id: number = 12345
-    public profile_img: string = ''
+    public home_id: number = 0
+    public img: string = ''
     public completed_challenges: AllChallengeCategories = []
 
-    public test_profile(id: number, firstname: string, lastname: string, 
+    public constructor(json: Profile | any) {
+        // return JSON.parse(json)
+        console.log(json)
+        this.profile_id = json.profile_id
+        this.strava_id = json.strava_id
+        this.firstname = json.firstname
+        this.lastname = json.lastname
+        this.rank = json.rank
+        this.rp = json.rp_to_next
+        this.title = json.title
+        this.home_id = json.home_id
+        this.img = json.img
+        return this
+    }
+
+    public test_profile(profile_id: number, firstname: string, lastname: string, 
                         rank: number, rp: number) {
-        this.id = id
+        this.profile_id = profile_id
         this.firstname = firstname
         this.lastname = lastname
         this.rank = rank

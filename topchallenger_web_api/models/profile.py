@@ -1,26 +1,36 @@
-import logging
 
-from models.repository_abc import RepositoryABC
-from schema.schema import ProfileDocument
+from typing import Union
 
+from schema.schema import ProfileDocument, Title
 
-class Profile(RepositoryABC):
+class ProfileModel:
     def __init__(self) -> None:
-        super().__init__()
         self.profile = ProfileDocument()
 
-    # TODO: Implement method for generating unique IDs for each new user profile
-    # TODO: Also think of ways to backup user data on Databases
-    def create(self, firstname: str, lastname: str):
-        logging.info('Create new profile')
-        # TODO: Test only
-        id = 12345
-        firstname = 'Joel'
-        lastname = 'Suero'
-
-        # new_profile = ProfileModel(profile_id=id, firstname=firstname, lastname=lastname)
-        self.profile.profile_id = id
+    def new_profile(self, strava_id: int, firstname: str, lastname: str) -> str:
         self.profile.firstname = firstname
         self.profile.lastname = lastname
+        self.profile.profile_id = 100 # generate unique profile id string or number
+        self.profile.strava_id = strava_id
+        self.profile.img = ''
+        self.profile.rank = 1
+        self.profile.rp = 0
+        self.profile.rp_to_next = 0
+
+        title = Title()
+        title.first = ''
+        title.middle = ''
+        title.last = ''
+
+        self.profile.title = title
+        self.profile.home_id = None # Lookup home ID
         self.profile.save()
-    
+        return self.profile.to_json()
+
+    def read_profile(self, strava_id: int) -> Union[str, None]:
+        profile: ProfileDocument = ProfileDocument.objects(strava_id=123)
+        return profile.to_json() if profile else None
+
+
+
+
