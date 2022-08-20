@@ -28,7 +28,7 @@ class ProfileModel:
         return self.profile.to_json()
 
     def read_profile(self, strava_id: int) -> Union[str, None]:
-        profile: ProfileDocument = ProfileDocument.objects(strava_id=123)
+        profile: ProfileDocument = ProfileDocument.objects(strava_id=strava_id)
         return profile.to_json() if profile else None
 
 

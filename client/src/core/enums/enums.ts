@@ -9,14 +9,14 @@ export enum ChallengeCategoryMajor {
 }
 
 export enum CourseCategoryMinor {
-    STANDARD,
-    LOOP,
-    OPEN_GUIDED,
-    OPEN_UNGUIDED
+    STANDARD = 'Standard',
+    LOOP = 'Loop',
+    OPEN_GUIDED = 'Open Guided',
+    OPEN_UNGUIDED = 'Open Unguided'
 }
 
 export enum SprintCategoryMinor {
-    STANDARD
+    STANDARD = 'Standard'
 }
 
 export enum MilestoneCategoryMinor {

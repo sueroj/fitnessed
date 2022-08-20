@@ -34,8 +34,8 @@ export default class Profile {
     public completed_challenges: AllChallengeCategories = []
 
     public constructor(json: Profile | any) {
-        // return JSON.parse(json)
-        console.log(json)
+        json = json[0]
+        console.log(json.value)
         this.profile_id = json.profile_id
         this.strava_id = json.strava_id
         this.firstname = json.firstname

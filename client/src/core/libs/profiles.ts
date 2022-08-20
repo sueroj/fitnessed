@@ -26,11 +26,6 @@ export default class Profiles {
     //     return this
     // }
 
-    public load_current_user(strava_id: StravaId) {
-        this.user = new Profile(this.http.get_profile(strava_id))
-    }
-    
-
     // public get_all() {
     //     return this.all_profiles
     // }

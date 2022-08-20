@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import './main.css'
 import './login.css'
 
-import Navigation, { LoginNavigation } from 'components/navigation/Navigation'
-import Panels from 'components/panels/Panels'
-import Footer from 'components/footer/Footer'
+import { LoginNavigation } from 'components/navigation/Navigation'
 
-import Http from 'core/libs/http';
-import Profiles from 'core/libs/profiles'
+import Http from 'core/libs/http'
+import TestChallenges from 'test/test_challenges'
 
 type Props = {
 }
@@ -33,6 +30,18 @@ export default function Login(props: Props) {
     // If activity update found, launch interactive window
     // showing what has changed, like a 'quest' completion screen
 
+
+
+    // TODO: DEV ONLY TOOL FUNCTIONS
+    function load_test_challenges() {
+        let challenges = new TestChallenges().challenges
+        // for (let challenge of challenges) {
+        //     http.post_test_challenge(challenge)
+        // }
+        http.post_test_challenge(challenges[1])
+    }
+
+
     return (
         <div className='login-container'>
             <LoginNavigation />
@@ -53,6 +62,10 @@ export default function Login(props: Props) {
                     <div id='login-button-wrapper' className='login-button-wrapper'>
                         <Button className='login-button-strava' variant='primary' onClick={() => login()}>
                             DEV ONLY LOGIN
+                        </Button>
+
+                        <Button className='login-button-strava' variant='primary' onClick={() => load_test_challenges()}>
+                            LOAD TEST CHALLENGES
                         </Button>
                     </div>
 

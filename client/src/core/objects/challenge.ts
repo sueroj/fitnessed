@@ -3,26 +3,29 @@ import { GeoJSON } from "core/objects/misc"
 import { ChallengeCategoryMajor, CourseCategoryMinor, SprintCategoryMinor, MilestoneCategoryMinor, CompleteStatus } from "core/enums/enums"
 
 export class Challenge {
-    public id: number = 0
+    public challenge_id: number = 0
     public name: string = ''
-    public category_major: ChallengeCategoryMajor = ChallengeCategoryMajor.CHALLENGE
-    public category_minor: any = null
-    // TODO: debug only, reset to false
-
-    public coordinates: GeoJSON[] = []
-    public start_datetime: number = 0
-    public stop_datetime: number = 0
-    public difficulty: number = 0
-    // TODO: setup images
     public img: string = ''
+    public category_major: ChallengeCategoryMajor = ChallengeCategoryMajor.CHALLENGE
+    public category_minor: any = ''
+    // TODO: setup images
+
     // TODO: setup description
     public description: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante'
+    public difficulty: number = 0
+
+    public coordinates: GeoJSON[] = []
+    public start_coords: GeoJSON = new GeoJSON(0, 0)
+    public finish_coords: GeoJSON = new GeoJSON(0, 0)
+
+    public start_datetime: number = 0 // TODO: Setup challenge start stop 
+    public stop_datetime: number = 0
 
     public is_mappable: boolean = false
     public is_open: boolean = false
-    public is_featured: boolean = false
+    public is_featured: boolean = false // TODO: Consider refactor to new featured system
+    public accept_required: boolean = false
 
-    public is_accept_required: boolean = false
     public is_complete: boolean = false
     public complete_status: CompleteStatus = CompleteStatus.NOT_COMPLETE
 
@@ -30,15 +33,21 @@ export class Challenge {
     public metrics: any = null
 
 
-    public test_challenge(id: number, name: string, coordinates: GeoJSON[], 
+    public test_challenge(challenge_id: number, name: string, coordinates: GeoJSON[], 
         start_datetime: any, stop_datetime: any, difficulty: number) {
-            this.id = id
+            this.challenge_id = challenge_id
             this.name = name
             this.coordinates = coordinates
             this.start_datetime = start_datetime
             this.stop_datetime = stop_datetime
             this.difficulty = difficulty
+            this.set_coordinates()
         return this
+    }
+
+    private set_coordinates() {
+        this.start_coords = this.coordinates[0]
+        this.finish_coords = this.coordinates[-1]
     }
 }
 

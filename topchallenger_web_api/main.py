@@ -1,11 +1,13 @@
 
 import random
+import json
 
 from http.client import responses
 from flask import Flask, request, abort
 from flask_cors import CORS
 from flask_mongoengine import MongoEngine
 from controllers.profile import ProfileController
+from controllers.challenges import ChallengesController
 
 ## Web API Configuration
 # TODO: Validate all escape methods for invalid characters / XSS activities
@@ -24,6 +26,7 @@ db: MongoEngine = MongoEngine(app)
 
 ## Initialize Controllers
 profile: ProfileController = ProfileController(app)
+challenges: ChallengesController = ChallengesController(app)
 
 
 ## Routes
@@ -50,10 +53,24 @@ def generate_auth_key():
 # TODO: Get URL args using request.args.get('key', '')
 
 # TODO: Implement security
+# TODO: Implement XSS escape() security
 @app.route('/profile/<int:id>')
 def get_profile(id: int):
     app.logger.info(f'[GET/profile] id={id}')
     return profile.read(strava_id=id)
+
+
+@app.route('/challenges')
+def get_challenges():
+    app.logger.info(f'[GET/challenges] Start')
+    return challenges.read()
+
+@app.route('/new_challenge' , methods=['POST'])
+def create_challenges():
+    raw = request.get_json()['data']
+    challenge = json.loads(raw)
+    challenges.create(challenge)
+    return 'OK'
 
 @app.errorhandler(500)
 def handle_internal_server_error(error):

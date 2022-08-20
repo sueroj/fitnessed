@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Link from 'react-bootstrap/NavLink';
 import './navigation.css';
-import test_banner from 'assets/banners/test_banner.png'
 
-import Modal from 'components/common/modals/ChallengeModal'
 import Profile from 'core/objects/profile'
 
 type Props = {

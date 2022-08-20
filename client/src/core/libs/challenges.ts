@@ -11,12 +11,12 @@ export type MappableChallengeCategories = Zone[] | Course[] | Sprint[] | Collect
 export type AnyChallengeCategory = Zone | Course | Sprint | Milestone | Collectable | Achievement
 export type MappableChallengeCategory = Zone | Course | Sprint | Collectable
 
-export type MilestoneCategories = {
-    all: Milestone[],
-    dailies: Milestone[],
-    weeklies: Milestone[],
-    monthlies: Milestone[]
-}
+// export type MilestoneCategories = {
+//     all: Milestone[],
+//     dailies: Milestone[],
+//     weeklies: Milestone[],
+//     monthlies: Milestone[]
+// }
 
 export type MilestoneProgress = {
     all: CategoryProgress,
@@ -25,17 +25,17 @@ export type MilestoneProgress = {
     monthlies: CategoryProgress
 }
 
-export type OrderedChallenges = {
-    all: AllChallengeCategories,
-    completed: AllChallengeCategories,
-    featured: AllChallengeCategories,
-    mappable: MappableChallengeCategories,
-    zones: Zone[],
-    courses: Course[],
-    sprints: Sprint[],
-    milestones: MilestoneCategories, // TODO: consider adding complete & all milestones
-    collectables: Collectable[]
-}
+// export type OrderedChallenges = {
+//     all: AllChallengeCategories,
+//     completed: AllChallengeCategories,
+//     featured: AllChallengeCategories,
+//     mappable: MappableChallengeCategories,
+//     zones: Zone[],
+//     courses: Course[],
+//     sprints: Sprint[],
+//     milestones: MilestoneCategories, // TODO: consider adding complete & all milestones
+//     collectables: Collectable[]
+// }
 
 // type CategoryProgress = {
 //     all_events: AllEventCategories,
@@ -45,16 +45,43 @@ export type OrderedChallenges = {
 //     // total_num_not_complete: number
 // }
 
+class MilestoneCategories {
+    all: Milestone[] = []
+    dailies: Milestone[] = []
+    weeklies: Milestone[] = []
+    monthlies: Milestone[] = []
+}
+
+export class OrderedChallenges {
+    all: AllChallengeCategories = []
+    completed: AllChallengeCategories = []
+    featured: AllChallengeCategories = []
+    mappable: MappableChallengeCategories = []
+    zones: Zone[] = []
+    courses: Course[] = []
+    sprints: Sprint[] = []
+    milestones: MilestoneCategories = new MilestoneCategories() // TODO: consider adding complete & all milestones
+    collectables: Collectable[] = []
+}
+
 
 // TODO: Refactor & optimize this class. Will be used a lot.
 export default class Challenges {
-    private user_profile: Profile
-    private challenges: OrderedChallenges
+    private user: Profile | null = null
+    private challenges: OrderedChallenges = new OrderedChallenges()
 
-    public constructor(profile: Profile) {
-        this.user_profile = profile
-        this.challenges = this.get_challenges()
-        this.user_profile.completed_challenges = this.challenges.completed
+    // public constructor(profile: Profile) {
+    //     this.user_profile = profile
+    //     this.challenges = this.get_challenges()
+    //     this.user_profile.completed_challenges = this.challenges.completed
+    // }
+
+    public initialize(challenges: [], profile: Profile) {
+        debugger
+        this.user = profile
+        // this.challenges = this.get_challenges()
+        this.challenges = this.sort_challenges(challenges)
+        this.user.completed_challenges = this.challenges.completed
     }
 
     // TODO: Eval change to remove function and use public properties
@@ -141,10 +168,7 @@ export default class Challenges {
         return milestones
     }
 
-    private get_challenges() {
-        // Http get action from server
-        // TODO: Replace w/ http action
-
+    private sort_challenges(challenges: []) {
         let zones_list: Zone[] = []
         let courses_list: Course[] = []
         let sprints_list: Sprint[] = []
@@ -219,37 +243,37 @@ export default class Challenges {
     private test_set_completed_challenges(challenges: AllChallengeCategories) {
 
         challenges.forEach(challenge => {
-            if (challenge.id === 111114) {
+            if (challenge.challenge_id === 111114) {
                 challenge.is_complete = true
                 challenge.complete_status = CompleteStatus.STANDARD_T0
             }
 
-            if (challenge.id === 111116) {
+            if (challenge.challenge_id === 111116) {
                 challenge.is_complete = true
                 challenge.complete_status = CompleteStatus.STANDARD_T0
             }
 
-            if (challenge.id === 111140) {
+            if (challenge.challenge_id === 111140) {
                 challenge.is_complete = true
                 challenge.complete_status = CompleteStatus.STANDARD_T0
             }
 
-            if (challenge.id === 111124) {
+            if (challenge.challenge_id === 111124) {
                 challenge.is_complete = true
                 challenge.complete_status = CompleteStatus.BRONZE_T1
             }
 
-            if (challenge.id === 111114) {
+            if (challenge.challenge_id === 111114) {
                 challenge.is_complete = true
                 challenge.complete_status = CompleteStatus.BRONZE_T1
             }
 
-            if (challenge.id === 111142) {
+            if (challenge.challenge_id === 111142) {
                 challenge.is_complete = true
                 challenge.complete_status = CompleteStatus.SILVER_T2
             }
 
-            if (challenge.id === 111146) {
+            if (challenge.challenge_id === 111146) {
                 challenge.is_complete = true
                 challenge.complete_status = CompleteStatus.GOLD_T3
             }

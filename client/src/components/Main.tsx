@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 // import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import './main.css';
 
+import axios from 'axios'
+
 import Navigation from 'components/navigation/Navigation'
 import Panels from 'components/panels/Panels'
 import Footer from 'components/footer/Footer'
@@ -10,9 +12,8 @@ import ChallengeModal from 'components/common/modals/ChallengeModal'
 
 import Http from 'core/libs/http';
 import Profiles from 'core/libs/profiles'
+import Profile from 'core/objects/profile'
 import Challenges from 'core/libs/challenges'
-import StravaId from 'core/objects/strava_id'
-
 
 type Props = {
     strava_id: any
@@ -20,8 +21,9 @@ type Props = {
 
 export default function Main(props: Props) {
     const http = new Http()
-    const [profiles, set_profiles] = useState(get_profiles())
-    const [challenges, set_challenges] = useState(get_challenges())
+    const [loading, set_loading] = useState(true)
+    const [profiles, set_profiles] = useState(new Profiles())
+    const [challenges, set_challenges] = useState(new Challenges())
     const [challenge_modal, set_challenge_modal] = useState(false)
 
     // Callbacks for modal toggles (to be passed to child components)
@@ -29,35 +31,32 @@ export default function Main(props: Props) {
         challenge_modal: toggle_challenge_modal
     }
 
-    // useEffect(() => {
-    //     if (!profiles.user) {
-    //       // TODO: Experiment w/ alternatives
-    //       if (Object.hasOwn(strava_id, 'firstname')) {
-    //         sessionStorage.setItem('session_expire', (Date.now() + 3.6e+6).toString())
-    //         sessionStorage.setItem('session_strava_id', JSON.stringify(strava_id))
-    //         set_login_status(true)
-    //         set_loading(false)
-    //       }
-    //     }
-    //   }, [loading, strava_id]
-    //   )
+    useEffect(() => {
+        if (!profiles.user) {
+            get_profiles()
+            // get_challenges()
+        }
 
+    })
 
     function get_profiles() {
         // Http action
         // Get profile from server, if no profile, server will create new
-
-        let profiles = new Profiles()
-        profiles.load_current_user(props.strava_id)
-        console.log(profiles)
-        return profiles
+        
+        set_loading(true)
+        http.get_profile(props.strava_id.account_id)
+        .then(response => { profiles.user = new Profile(response.data) })
+        .then(() => { set_loading(false) })
     }
 
     function get_challenges() {
         // Http action
         // Get challenges from server upon initial login or refresh (eval storing of challenge in user's page session)
-        
-        // return new Challenges(profiles.current)
+
+        set_loading(true)
+        http.get_challenges()
+        .then(response => { challenges.initialize(response.data, profiles.user) })
+        .then(() => { set_loading(false) })
     }
 
     function toggle_challenge_modal() {
@@ -71,9 +70,9 @@ export default function Main(props: Props) {
     return (
         <React.StrictMode>
             <div className='main'>
-                <button onClick={() => get_profiles()} />
-                {/* <Navigation strava_id={props.strava_id} profile={profiles.current} toggles={toggles}/>
-                <Panels profiles={profiles} challenges={challenges} toggles={toggles}/>
+                {loading ? <p>loading</p> :
+                <Navigation strava_id={props.strava_id} profile={profiles.user} toggles={toggles} /> }
+                {/* <Panels profiles={profiles} challenges={challenges} toggles={toggles}/>
                 <Footer toggles={toggles}/> */}
             </div>
         </React.StrictMode>

@@ -128,7 +128,7 @@ export function Complete(props: CompleteProps) {
             set_canvas(<canvas />)
         } else {
             // TODO: Eval use of height and width styles
-            let canvas = new CompleteCanvas().render(data.id, data.complete_status)
+            let canvas = new CompleteCanvas().render(data.challenge_id, data.complete_status)
             set_canvas(<canvas className='complete-canvas' id={canvas.canvas_id} height='50' width='50' />)
         }
     }, [data]
@@ -144,7 +144,7 @@ export function Complete(props: CompleteProps) {
             return null
         } else {
             // TODO: Eval use of height and width styles
-            let canvas = new CompleteCanvas().render(data.id, data.complete_status)
+            let canvas = new CompleteCanvas().render(data.challenge_id, data.complete_status)
             return <canvas className='complete-canvas' id={canvas.canvas_id} height='50' width='50' />
         }
     }
