@@ -2,7 +2,7 @@ import logging
 from flask import Flask
 
 from controllers.repository_abc import RepositoryABC
-from models.profile import ProfileModel
+from models.profile_model import ProfileModel
 
 
 class ProfileController(RepositoryABC):

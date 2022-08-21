@@ -18,8 +18,8 @@ export class Challenge {
     public start_coords: GeoJSON = new GeoJSON(0, 0)
     public finish_coords: GeoJSON = new GeoJSON(0, 0)
 
-    public start_datetime: number = 0 // TODO: Setup challenge start stop 
-    public stop_datetime: number = 0
+    // public start_datetime: number = 0 // TODO: Setup challenge start stop 
+    // public stop_datetime: number = 0
 
     public is_mappable: boolean = false
     public is_open: boolean = false
@@ -32,22 +32,51 @@ export class Challenge {
     // TODO: define Metrics
     public metrics: any = null
 
+    // TODO: Refactor into constructor when ready
+    public initialize(challenge: any) {
+        this.challenge_id = challenge.challenge_id
+        this.name = challenge.name
+        this.img = challenge.img
+        this.description = challenge.description
+        this.difficulty = challenge.difficulty
+        this.coordinates = this.load_geojson(challenge.coordinates)
+        this.set_coordinates()
+        // this.start_datetime = challenge.start_datetime
+        // this.stop_datetime = challenge.stop_datetime
+        this.is_mappable = challenge.is_mappable
+        this.is_open = challenge.is_open
+        this.is_featured = challenge.is_featured
+        this.accept_required = challenge.accept_required
+        // this.is_complete = challenge.is_complete
+        // this.complete_status = challenge.complete_status
+        // this.metrics = challenge.metrics
+        return this
+    }
+
+    private load_geojson(_coordinates: any) {
+        let coordinates = []
+        for (let coord of _coordinates) {
+            coordinates.push(new GeoJSON(coord.lng, coord.lat))
+        }
+        return coordinates
+    }
 
     public test_challenge(challenge_id: number, name: string, coordinates: GeoJSON[], 
         start_datetime: any, stop_datetime: any, difficulty: number) {
             this.challenge_id = challenge_id
             this.name = name
             this.coordinates = coordinates
-            this.start_datetime = start_datetime
-            this.stop_datetime = stop_datetime
+            // this.start_datetime = start_datetime
+            // this.stop_datetime = stop_datetime
             this.difficulty = difficulty
             this.set_coordinates()
-        return this
+            return this
     }
 
     private set_coordinates() {
         this.start_coords = this.coordinates[0]
-        this.finish_coords = this.coordinates[-1]
+        let coords = this.coordinates // TODO: Test if refactor does not bug this.coordinates order
+        this.finish_coords = coords.reverse()[0]
     }
 }
 

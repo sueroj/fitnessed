@@ -38,7 +38,7 @@ export default function Login(props: Props) {
         // for (let challenge of challenges) {
         //     http.post_test_challenge(challenge)
         // }
-        http.post_test_challenge(challenges[1])
+        http.post_test_challenge(challenges[4])
     }
 
 

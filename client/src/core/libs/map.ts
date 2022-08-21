@@ -146,7 +146,7 @@ export default class Mapbox {
                     'properties': {},
                     'geometry': {
                         'type': 'Point',
-                        'coordinates': challenge.coordinates[0].get()
+                        'coordinates': challenge.start_coords.get()
                     }
                 }]
             }

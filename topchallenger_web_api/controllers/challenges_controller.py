@@ -2,7 +2,7 @@ import logging
 from flask import Flask
 
 from controllers.repository_abc import RepositoryABC
-from models.challenge import ChallengeModel
+from models.challenge_model import ChallengeModel
 
 
 

@@ -50,13 +50,13 @@ export default function Panels(props: Props) {
             <Map challenges={props.challenges} toggles={props.toggles} filters={filters} set_center={set_center}/>
 
             {/* Thumbnail filters and list panels */}
-            <List challenges={props.challenges} thumbnails={thumbnails} filter={filters} center={center}/>
+            {/* <List challenges={props.challenges} thumbnails={thumbnails} filter={filters} center={center}/> */}
 
             {/* Rank, showcase, and leaderboard */}
-            <Info profiles={props.profiles} challenges={props.challenges} />
+            {/* <Info profiles={props.profiles} challenges={props.challenges} /> */}
 
             {/* Featured events carousel, news, and ads */}
-            <Featured profiles={props.profiles} challenges={props.challenges} />
+            {/* <Featured profiles={props.profiles} challenges={props.challenges} /> */}
         </div>
     );
 }

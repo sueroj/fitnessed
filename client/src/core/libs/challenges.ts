@@ -70,18 +70,18 @@ export default class Challenges {
     private user: Profile | null = null
     private challenges: OrderedChallenges = new OrderedChallenges()
 
+    // TODO: Eval - consider using constructor
     // public constructor(profile: Profile) {
     //     this.user_profile = profile
     //     this.challenges = this.get_challenges()
     //     this.user_profile.completed_challenges = this.challenges.completed
     // }
 
-    public initialize(challenges: [], profile: Profile) {
-        debugger
+    public initialize(challenges: any, profile: Profile) {
         this.user = profile
-        // this.challenges = this.get_challenges()
         this.challenges = this.sort_challenges(challenges)
         this.user.completed_challenges = this.challenges.completed
+        return this
     }
 
     // TODO: Eval change to remove function and use public properties
@@ -168,7 +168,7 @@ export default class Challenges {
         return milestones
     }
 
-    private sort_challenges(challenges: []) {
+    private sort_challenges(challenges: any) {
         let zones_list: Zone[] = []
         let courses_list: Course[] = []
         let sprints_list: Sprint[] = []
@@ -177,28 +177,23 @@ export default class Challenges {
         let mappable_list: MappableChallengeCategories = []
         let completed_list: any = []
 
-        // TODO: Test Only. Fill challenges with dummy data
-        let test_all_challenges = new TestChallenges().challenges
-        let test_featured_challenges = new TestFeaturedChallenges().challenges
-        test_all_challenges = this.test_set_completed_challenges(test_all_challenges)
-        test_featured_challenges = this.test_set_completed_challenges(test_featured_challenges)
-
-        // Sort challenges by category and other useful filters
-        test_all_challenges.forEach(challenge => {
+        for (let challenge of challenges) {
+            // TODO: Refactor into interate through ChallengeCatergoryMajor Enum
             switch (challenge.category_major) {
-                case ChallengeCategoryMajor.ZONE:
+                case ChallengeCategoryMajor.ZONE.valueOf():
+                    challenge = new Zone().initialize(challenge)
                     zones_list.push(challenge)
                     break
-                case ChallengeCategoryMajor.COURSE:
+                case ChallengeCategoryMajor.COURSE.valueOf():
                     courses_list.push(challenge)
                     break
-                case ChallengeCategoryMajor.SPRINT:
+                case ChallengeCategoryMajor.SPRINT.valueOf():
                     sprints_list.push(challenge)
                     break
-                case ChallengeCategoryMajor.MILESTONE:
+                case ChallengeCategoryMajor.MILESTONE.valueOf():
                     milestones_list.push(challenge)
                     break
-                case ChallengeCategoryMajor.COLLECTABLE:
+                case ChallengeCategoryMajor.COLLECTABLE.valueOf():
                     collectables_list.push(challenge)
                     break
             }
@@ -207,15 +202,15 @@ export default class Challenges {
                 mappable_list.push(challenge)
             }
 
-            if (challenge.is_complete) {
+            if (challenge.is_complete) { // TODO: Move / Refactor
                 completed_list.push(challenge)
             }
-        })
+        }
 
         return {
-            all: test_all_challenges,
+            all: challenges,
             completed: completed_list,
-            featured: test_featured_challenges,
+            featured: [], // TODO: Awt implementation
             mappable: mappable_list,
             zones: zones_list,
             courses: courses_list,

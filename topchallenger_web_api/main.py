@@ -6,8 +6,8 @@ from http.client import responses
 from flask import Flask, request, abort
 from flask_cors import CORS
 from flask_mongoengine import MongoEngine
-from controllers.profile import ProfileController
-from controllers.challenges import ChallengesController
+from controllers.profile_controller import ProfileController
+from controllers.challenges_controller import ChallengesController
 
 ## Web API Configuration
 # TODO: Validate all escape methods for invalid characters / XSS activities

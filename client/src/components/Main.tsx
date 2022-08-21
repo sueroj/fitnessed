@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 // import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import './main.css';
 
-import axios from 'axios'
-
 import Navigation from 'components/navigation/Navigation'
 import Panels from 'components/panels/Panels'
 import Footer from 'components/footer/Footer'
@@ -31,10 +29,11 @@ export default function Main(props: Props) {
         challenge_modal: toggle_challenge_modal
     }
 
+    // TODO: IMPLEMENT SESSIONS
     useEffect(() => {
         if (!profiles.user) {
             get_profiles()
-            // get_challenges()
+            get_challenges()
         }
 
     })
@@ -52,11 +51,12 @@ export default function Main(props: Props) {
     function get_challenges() {
         // Http action
         // Get challenges from server upon initial login or refresh (eval storing of challenge in user's page session)
-
+        console.log('[Main:get_challenges] START')
         set_loading(true)
         http.get_challenges()
         .then(response => { challenges.initialize(response.data, profiles.user) })
         .then(() => { set_loading(false) })
+        console.log('[Main:get_challenges] challenges ', challenges)
     }
 
     function toggle_challenge_modal() {
@@ -69,12 +69,13 @@ export default function Main(props: Props) {
 
     return (
         <React.StrictMode>
-            <div className='main'>
-                {loading ? <p>loading</p> :
-                <Navigation strava_id={props.strava_id} profile={profiles.user} toggles={toggles} /> }
-                {/* <Panels profiles={profiles} challenges={challenges} toggles={toggles}/>
-                <Footer toggles={toggles}/> */}
-            </div>
+            { loading || !profiles.user ? <p>loading</p> :
+                <div className='main'>
+                <Navigation strava_id={props.strava_id} profile={profiles.user} toggles={toggles} />
+                <Panels profiles={profiles} challenges={challenges} toggles={toggles}/>
+                {/* <Footer toggles={toggles}/> */}
+                </div>
+            }
         </React.StrictMode>
     );
 }

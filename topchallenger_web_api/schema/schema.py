@@ -38,9 +38,9 @@ class ChallengeDocument(mongo.Document):
     description = mongo.StringField()
     difficulty = mongo.IntField()
 
-    # coordinates = mongo.ListField()
-    # start_coords = mongo.DictField()
-    # finish_coords = mongo.DictField()
+    coordinates = mongo.ListField()
+    start_coords = mongo.DictField()
+    finish_coords = mongo.DictField()
 
     start_datetime = mongo.DateTimeField()
     stop_datetime = mongo.DateTimeField()

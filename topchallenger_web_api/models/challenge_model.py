@@ -1,10 +1,8 @@
 from typing import Union
 
-from schema.schema import ChallengeDocument
+from schema.schema import ChallengeDocument, GeoJSON
 
 class ChallengeModel:
-    def __init__(self) -> None:
-        self.challenge = ChallengeDocument()
 
     def new_challenge(self, challenge: dict) -> str:
         document = ChallengeDocument()
@@ -16,10 +14,10 @@ class ChallengeModel:
         
         document.description = challenge.get('description')
         document.difficulty = challenge.get('difficulty')
-
-        # self.challenge.coordinates = challenge.get('coordinates')
-        # self.challenge.start_coords = challenge.get('start_coords')
-        # self.challenge.finish_coords = challenge.get('finish_coords')
+        
+        document.coordinates = challenge.get('coordinates')
+        document.start_coords = challenge.get('start_coords')
+        document.finish_coords = challenge.get('finish_coords')
 
         # self.challenge.start_datetime = challenge.get('start_datetime')
         # self.challenge.stop_datetime = challenge.get('stop_datetime')
