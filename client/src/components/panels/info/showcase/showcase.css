@@ -1,0 +1,25 @@
+.showcase-panel {
+    width: 34%;
+    background-color: rgb(168, 168, 168);
+    padding: 2px;
+}
+
+.showcase-panel-spacer {
+    height: 15px;
+}
+
+/* Thumbnails List */
+
+.showcase-panel-thumbnail-header {
+    font-size: 16px;
+    text-align: center;
+}
+
+.showcase-panel-thumbnail-list-short {
+    height: 115px;
+    min-width: 230px;
+    text-align: center;
+    background-color: purple; /* TODO: Debug only */
+    overflow-y: hidden;
+    word-wrap: hidden;
+}

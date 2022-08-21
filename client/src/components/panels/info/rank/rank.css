@@ -1,0 +1,110 @@
+/* Rank Panel Layout */
+
+.rank-panel {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    background-color: rgb(168, 168, 168);
+}
+
+.rank-panel-top {
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+    width: 100%;
+    background-color: green;
+}
+
+.rank-panel-bottom {
+    height: 50%;
+    width: 100%;
+}
+
+.rank-panel-top-left {
+    width: 250px;
+    height: 100%;
+    background-color: yellow;
+}
+
+.rank-panel-top-right {
+    width: 100%;
+    text-align: left;
+    overflow: hidden;
+    margin: auto;
+}
+
+/* Rank Header */
+
+.header-rank {
+    height: 90px;
+    font-size: 46px;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Rank Emblem */
+
+.rank-emblem {
+    display: flex;
+    height: 100%;
+    padding: 3px;
+}
+
+.rank-emblem-img {
+    min-height: 140px;
+    min-width: 140px;
+    margin: auto;
+}
+
+/* Rank Progress Bar */
+
+.rank-progress-bar {
+    height: 50px;
+    max-height: 100%;
+}
+
+.rank-progress {
+    height: 30px;
+    margin: 3px;
+}
+
+.rank-progress-numeric {
+    font-size: 11px;
+    text-align: center;
+}
+
+/* Profile Summary & Icons */
+
+.profile-summary {
+    height: 80%;
+    background-color: purple;
+}
+
+.profile-summary-row {
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+    width: 100%;
+    background-color: orange;
+}
+
+.profile-summary-num-complete {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(66, 209, 66);
+    text-align: center;
+    /* TODO: Review padding for refactor */
+    padding-top: 10px; 
+    font-size: 18px;
+}
+
+/* Profile Title */
+
+.profile-title {
+    height: 20%;
+    background-color: rgb(168, 148, 112);
+    font-size: 14px;
+    text-align: center;
+    font-style: italic;
+    overflow-y: hidden;
+}

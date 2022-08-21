@@ -1,0 +1,66 @@
+{
+    "data": {
+      "token_type": "Bearer",
+      "expires_at": 1660956859,
+      "expires_in": 21580,
+      "refresh_token": "1ce98282390c1f674c98dbf2660f4f92e11e0258",
+      "access_token": "6fe4c90648a570a82649b585fac85dcc139ee1d8",
+      "athlete": {
+        "id": 8419948,
+        "username": "joel_suero",
+        "resource_state": 2,
+        "firstname": "Joel",
+        "lastname": "Suero",
+        "bio": "",
+        "city": "Cambridge",
+        "state": "England",
+        "country": "United Kingdom",
+        "sex": "M",
+        "premium": true,
+        "summit": true,
+        "created_at": "2015-03-28T14:21:05Z",
+        "updated_at": "2022-03-03T07:03:10Z",
+        "badge_type_id": 1,
+        "weight": 83.9146,
+        "profile_medium": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/8419948/3123495/1/medium.jpg",
+        "profile": "https://dgalywyr863hv.cloudfront.net/pictures/athletes/8419948/3123495/1/large.jpg",
+        "friend": null,
+        "follower": null
+      }
+    },
+    "status": 200,
+    "statusText": "OK",
+    "headers": {
+      "cache-control": "max-age=0, private, must-revalidate",
+      "content-type": "application/json; charset=utf-8"
+    },
+    "config": {
+      "transitional": {
+        "silentJSONParsing": true,
+        "forcedJSONParsing": true,
+        "clarifyTimeoutError": false
+      },
+      "transformRequest": [
+        null
+      ],
+      "transformResponse": [
+        null
+      ],
+      "timeout": 0,
+      "xsrfCookieName": "XSRF-TOKEN",
+      "xsrfHeaderName": "X-XSRF-TOKEN",
+      "maxContentLength": -1,
+      "maxBodyLength": -1,
+      "env": {
+        "FormData": null
+      },
+      "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      },
+      "method": "post",
+      "url": "https://www.strava.com/oauth/token",
+      "data": "{\"client_id\":44126,\"client_secret\":\"918f1df7b54be8693b1eb3f63d8201a9a4289e29\",\"code\":\"774c0efd80563c603298b9616c8bc9a9d45489c2\",\"grant_type\":\"authorization_code\"}"
+    },
+    "request": {}
+  }

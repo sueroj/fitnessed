@@ -1,0 +1,42 @@
+.navigation-bar {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    width: 100%;
+    background-color: rgb(124, 121, 121);
+    box-shadow: 2px 2px 2px black;
+    text-align: center;
+    margin-top: 3px;
+    margin-inline: auto;
+    margin-bottom: 10px;
+}
+
+.nav-link {
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+    width: 400px;
+}
+
+.nav-profile {
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.nav-img {
+    margin-inline: 15px;
+    height: 28px;
+    width: 28px;
+}
+
+.nav-fill {
+    width: 100%;
+}
+
+.nav-button {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    width: 200px;
+}
+

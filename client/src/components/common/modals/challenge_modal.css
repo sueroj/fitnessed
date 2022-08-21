@@ -1,0 +1,36 @@
+.modal-header, .modal-body, .modal-footer, .challenge-modal-difficulty {
+    background-color: rgb(126, 133, 141);
+    border: unset;
+    padding-inline: 15px;
+}
+
+.modal-header {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.modal-title {
+    font-size: 30px;
+
+}
+
+.challenge-modal-map{
+    height: 300px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.challenge-modal-details {
+    padding: 10px;
+}
+
+.challenge-modal-times {
+    text-align: center;
+}
+
+.challenge-modal-medal {
+    display: inline-flex;
+    padding-inline: 80px;
+}

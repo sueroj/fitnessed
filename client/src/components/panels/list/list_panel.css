@@ -1,0 +1,21 @@
+.list-panel {
+    display: flex;
+    flex-direction: row;
+    height: 645px;
+    margin-bottom: 3px;
+}
+
+.filter {
+    width: 300px;
+}
+
+.list-panel-spacer {
+    min-width: 3px;
+}
+
+.list {
+    width: 100%;
+    background-color: grey;
+    overflow-y: scroll;
+}
+

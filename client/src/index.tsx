@@ -6,12 +6,12 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
+// TODO: React.StrictMode causes app to render twice in dev. mode, This is intention for debug purposes
+// TODO: Disable before production mode and test occasional with Strict Mode off
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <App />
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 
