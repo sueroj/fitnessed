@@ -9,6 +9,7 @@ import { AnyChallengeCategory } from 'core/libs/challenges'
 import CompleteCanvas from 'core/canvas/complete'
 import { CompleteStatus, ChallengeCategoryMajor } from 'core/enums/enums'
 import ChallengeModal from 'components/common/modals/ChallengeModal'
+import color_scheme from 'core/config/color_scheme'
 
 type Props = {
     challenge: AnyChallengeCategory
@@ -90,9 +91,16 @@ export default function Thumbnail(props: Props) {
 
             {/* Tooltip display */}
             <Overlay show={overlay} placement='top' target={target.current}>
-                <Popover id="popover-basic">
-                    <Popover.Header as="h3">{props.challenge.name}</Popover.Header>
-                    <Popover.Body>{props.challenge.description}</Popover.Body>
+                <Popover id="thumbnail-popover" className='id="thumbnail-popover"'>
+                    <Popover.Header as="h3" className='thumbnail-popover-header'>
+                        <div className='thumbnail-info-display'>
+                            <Difficulty difficulty={props.challenge.difficulty} />
+                            <div className='thumbnail-horizontal-divider' />
+                            <Category challenge={props.challenge} />
+                        </div>
+                        {props.challenge.name}
+                    </Popover.Header>
+                    <Popover.Body className='thumbnail-popover-body'>{props.challenge.description}</Popover.Body>
                 </Popover>
             </Overlay>
 
@@ -167,9 +175,9 @@ export function Category(props: CategoryProps) {
     if (props.challenge.category_major === ChallengeCategoryMajor.MILESTONE) {
         category = props.challenge.category_minor
     }
-    
+
     return (
-        <div className='category'>
+        <div style={{background: color_scheme.get_event_category_color(category)}} className='category'>
             {category}
         </div>
     );

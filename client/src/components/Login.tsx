@@ -7,6 +7,7 @@ import { LoginNavigation } from 'components/navigation/Navigation'
 
 import Http from 'core/libs/http'
 import TestChallenges from 'test/test_challenges'
+import TestProfiles from 'test/test_profiles'
 
 type Props = {
 }
@@ -38,7 +39,15 @@ export default function Login(props: Props) {
         // for (let challenge of challenges) {
         //     http.post_test_challenge(challenge)
         // }
-        http.post_test_challenge(challenges[4])
+        http.post_test_challenge(challenges[11])
+    }
+
+    function load_test_profiles() {
+        let profiles = new TestProfiles().profiles
+        // for (let challenge of challenges) {
+        //     http.post_test_challenge(challenge)
+        // }
+        http.post_test_profile(profiles[0])
     }
 
 
@@ -66,6 +75,10 @@ export default function Login(props: Props) {
 
                         <Button className='login-button-strava' variant='primary' onClick={() => load_test_challenges()}>
                             LOAD TEST CHALLENGES
+                        </Button>
+
+                        <Button className='login-button-strava' variant='primary' onClick={() => load_test_profiles()}>
+                            LOAD TEST PROFILES
                         </Button>
                     </div>
 

@@ -20,8 +20,12 @@
 .nav-profile {
     display: flex;
     flex-direction: row;
-    margin-top: auto;
-    margin-bottom: auto;
+    min-width: 200px;
+    margin: auto;
+    align-items: center;
+    padding-left: 10px;
+    
+
 }
 
 .nav-img {

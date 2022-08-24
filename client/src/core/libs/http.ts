@@ -25,6 +25,16 @@ export default class Http {
         })
     }
 
+    public post_test_profile(profile: any) {
+        return axios.post(`${TC_SERVER_URL}/new_profile`, {
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            data: JSON.stringify(profile)
+        })
+    }
+
     // HTTP GET actions
 
     public get_profile(strava_account_id: number) {

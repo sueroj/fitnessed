@@ -4,6 +4,8 @@ from schema.schema import ChallengeDocument, GeoJSON
 
 class ChallengeModel:
 
+    # TODO: Refactor models to iterate through any/all properties automatically w/ for + dict methods
+
     def new_challenge(self, challenge: dict) -> str:
         document = ChallengeDocument()
         document.challenge_id = challenge.get('challenge_id')
@@ -14,7 +16,7 @@ class ChallengeModel:
         
         document.description = challenge.get('description')
         document.difficulty = challenge.get('difficulty')
-        
+
         document.coordinates = challenge.get('coordinates')
         document.start_coords = challenge.get('start_coords')
         document.finish_coords = challenge.get('finish_coords')

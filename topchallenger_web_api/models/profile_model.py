@@ -7,15 +7,15 @@ class ProfileModel:
     def __init__(self) -> None:
         self.profile = ProfileDocument()
 
-    def new_profile(self, strava_id: int, firstname: str, lastname: str) -> str:
-        self.profile.firstname = firstname
-        self.profile.lastname = lastname
-        self.profile.profile_id = 100 # generate unique profile id string or number
-        self.profile.strava_id = strava_id
+    def new_profile(self, profile: dict) -> str:
+        self.profile.firstname = profile.get('firstname')
+        self.profile.lastname = profile.get('lastname')
+        self.profile.profile_id = profile.get('profile_id') # generate unique profile id string or number
+        self.profile.strava_id = profile.get('strava_id')
         self.profile.img = ''
-        self.profile.rank = 1
-        self.profile.rp = 0
-        self.profile.rp_to_next = 0
+        self.profile.rank = profile.get('rank')
+        self.profile.rp = profile.get('rp')
+        self.profile.rp_to_next = profile.get('rp_to.next')
 
         title = Title()
         title.first = ''
@@ -23,7 +23,7 @@ class ProfileModel:
         title.last = ''
 
         self.profile.title = title
-        self.profile.home_id = None # Lookup home ID
+        self.profile.home_id = profile.get() # TODO Lookup home ID
         self.profile.save()
         return self.profile.to_json()
 

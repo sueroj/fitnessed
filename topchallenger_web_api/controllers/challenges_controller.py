@@ -1,9 +1,7 @@
-import logging
 from flask import Flask
 
 from controllers.repository_abc import RepositoryABC
 from models.challenge_model import ChallengeModel
-
 
 
 class ChallengesController(RepositoryABC):

@@ -73,7 +73,7 @@ export default function Main(props: Props) {
                 <div className='main'>
                 <Navigation strava_id={props.strava_id} profile={profiles.user} toggles={toggles} />
                 <Panels profiles={profiles} challenges={challenges} toggles={toggles}/>
-                {/* <Footer toggles={toggles}/> */}
+                <Footer toggles={toggles}/>
                 </div>
             }
         </React.StrictMode>

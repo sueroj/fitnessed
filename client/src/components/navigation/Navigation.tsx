@@ -29,7 +29,7 @@ export default function Navigation(props: Props) {
                 <Link onClick={() => toggle_modal()}>Statistics</Link>
             <div className='nav-fill'></div>
             <div className='nav-profile'>
-                <span>{props.profile.firstname}</span>
+                <span>{props.profile.firstname} {props.profile.lastname[0]}</span>
                 <Image className="nav-img" src={props.strava_id.img} alt='change this' roundedCircle />
                 {/* <Image className="nav-img" src={user.athlete.profile_medium} alt={user.athlete.firstname} roundedCircle /> */}
                 </div>

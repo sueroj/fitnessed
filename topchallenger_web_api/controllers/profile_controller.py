@@ -1,4 +1,3 @@
-import logging
 from flask import Flask
 
 from controllers.repository_abc import RepositoryABC
@@ -12,9 +11,9 @@ class ProfileController(RepositoryABC):
 
     # TODO: Implement method for generating unique IDs for each new user profile
     # TODO: Also think of ways to backup user data on Databases
-    def create(self, strava_id: int, firstname: str, lastname: str):
-        self._app.logger.info(f'[ProfileController] create new profile: strava_id={strava_id}')
-        json = self.profile.new_profile(strava_id, firstname, lastname)
+    def create(self, profile: dict):
+        self._app.logger.info(f'[ProfileController] create new profile: strava_id={profile.get("strava_id")}')
+        json = self.profile.new_profile(profile)
         return json
 
     def read(self, strava_id: int) -> str:

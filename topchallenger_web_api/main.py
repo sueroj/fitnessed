@@ -25,8 +25,8 @@ app.config['MONGODB_SETTINGS'] = {
 db: MongoEngine = MongoEngine(app)
 
 ## Initialize Controllers
-profile: ProfileController = ProfileController(app)
-challenges: ChallengesController = ChallengesController(app)
+profile_controller: ProfileController = ProfileController(app)
+challenges_controller: ChallengesController = ChallengesController(app)
 
 
 ## Routes
@@ -34,21 +34,10 @@ challenges: ChallengesController = ChallengesController(app)
 def index():
     return f"<p> {app.config['MONGODB_SETTINGS']} </p>"
 
-@app.route('/test')
-def test_db():
-    Profile().create('Joel', 'Suero')
-
 @app.route('/new_auth')
 def generate_auth_key():
     # TODO: Implement security
     return str(random.randint(1, 20000))
-
-# @app.route('/profile', methods=['POST'])
-# def get_profile():
-#     strava_id = request.form['strava_id']
-#     action = request.form['action']
-#     print(strava_id)
-#     print(action)
 
 # TODO: Get URL args using request.args.get('key', '')
 
@@ -57,19 +46,27 @@ def generate_auth_key():
 @app.route('/profile/<int:id>')
 def get_profile(id: int):
     app.logger.info(f'[GET/profile] id={id}')
-    return profile.read(strava_id=id)
-
+    return profile_controller.read(strava_id=id)
 
 @app.route('/challenges')
 def get_challenges():
     app.logger.info(f'[GET/challenges] Start')
-    return challenges.read()
+    return challenges_controller.read()
 
-@app.route('/new_challenge' , methods=['POST'])
+
+## POST routes
+@app.route('/new_challenge', methods=['POST'])
 def create_challenges():
     raw = request.get_json()['data']
     challenge = json.loads(raw)
-    challenges.create(challenge)
+    challenges_controller.create(challenge)
+    return 'OK'
+
+@app.route('/new_profile', methods=['POST'])
+def create_profile():
+    raw = request.get_json()['data']
+    profile = json.loads(raw)
+    profile_controller.create(profile)
     return 'OK'
 
 @app.errorhandler(500)

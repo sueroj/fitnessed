@@ -25,18 +25,6 @@ export type MilestoneProgress = {
     monthlies: CategoryProgress
 }
 
-// export type OrderedChallenges = {
-//     all: AllChallengeCategories,
-//     completed: AllChallengeCategories,
-//     featured: AllChallengeCategories,
-//     mappable: MappableChallengeCategories,
-//     zones: Zone[],
-//     courses: Course[],
-//     sprints: Sprint[],
-//     milestones: MilestoneCategories, // TODO: consider adding complete & all milestones
-//     collectables: Collectable[]
-// }
-
 // type CategoryProgress = {
 //     all_events: AllEventCategories,
 //     complete: AllEventCategories,
