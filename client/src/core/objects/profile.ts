@@ -33,7 +33,22 @@ export default class Profile {
     public img: string = ''
     public completed_challenges: AllChallengeCategories = []
 
-    public constructor(json: Profile | any) {
+    // public constructor(json: Profile | any) {
+    //     json = json[0]
+    //     console.log(json.value)
+    //     this.profile_id = json.profile_id
+    //     this.strava_id = json.strava_id
+    //     this.firstname = json.firstname
+    //     this.lastname = json.lastname
+    //     this.rank = json.rank
+    //     this.rp = json.rp_to_next
+    //     this.title = json.title
+    //     this.home_id = json.home_id
+    //     this.img = json.img
+    //     return this
+    // }
+
+    public create_from_json(json: any) {
         json = json[0]
         console.log(json.value)
         this.profile_id = json.profile_id

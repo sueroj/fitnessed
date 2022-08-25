@@ -54,7 +54,8 @@ export function FilterPanel(props: FilterProps) {
     const [filter, set_filter] = useState(props.filter)
     const challenges = new Sort(props.challenges.get_all())
     // TODO: Get Nearby should only include MappableChallengeCategories
-    const nearby_challenges = new Sort(props.challenges.get_nearby())
+    // const nearby_challenges = new Sort(props.challenges.get_nearby())
+    const nearby_challenges = challenges
     const sorted_challenges = challenges.get_sorted()
     const sorted_nearby_challenges = nearby_challenges.get_sorted()
 
@@ -104,7 +105,6 @@ type ListProps = {
     thumbnails: any
 }
 export function List(props: ListProps) {
-
     return (
         <div className='list'>
             {props.thumbnails}

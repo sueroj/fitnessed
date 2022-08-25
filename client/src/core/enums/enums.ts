@@ -1,3 +1,11 @@
+export enum EventTier {
+    TIER_0,
+    TIER_1,
+    TIER_2,
+    TIER_3,
+    TIER_4
+}
+
 export enum ChallengeCategoryMajor {
     CHALLENGE = 'Challenge',
     ZONE = 'Zone',

@@ -32,30 +32,54 @@ export default function Main(props: Props) {
     // TODO: IMPLEMENT SESSIONS
     useEffect(() => {
         if (!profiles.user) {
-            get_profiles()
-            get_challenges()
+            let success = get_from_session()
+            if (!success) {
+                get_profiles()
+                get_challenges()
+            }
         }
-
     })
+
+    function get_from_session() {
+        profiles.set_from_session(sessionStorage.getItem('session_profile'))
+        challenges.set_from_session(sessionStorage.getItem('session_challenges'))
+        if (profiles.user && challenges.get_status()) {
+            return true
+        } else return false
+    }
+
+    // Validate challenges are loaded upon profile state update. 
+    // Required because profile can load before challenges, causing issues with loading/login
+    useEffect(() => {
+        if (profiles.user && challenges.get_status()) {
+            set_loading(false)
+        }
+    }, [challenges, profiles])
 
     function get_profiles() {
         // Http action
         // Get profile from server, if no profile, server will create new
         
-        set_loading(true)
+
         http.get_profile(props.strava_id.account_id)
-        .then(response => { profiles.user = new Profile(response.data) })
-        .then(() => { set_loading(false) })
+        .then(response => { profiles.user = new Profile().create_from_json(response.data) })
+        .then(() => {
+            sessionStorage.setItem('session_profile', JSON.stringify(profiles.user))
+        })
+        console.log('[Main:get_profiles] profiles ', profiles)
+
     }
 
     function get_challenges() {
         // Http action
         // Get challenges from server upon initial login or refresh (eval storing of challenge in user's page session)
+
         console.log('[Main:get_challenges] START')
-        set_loading(true)
         http.get_challenges()
         .then(response => { challenges.initialize(response.data, profiles.user) })
-        .then(() => { set_loading(false) })
+        .then(() => { 
+            sessionStorage.setItem('session_challenges', JSON.stringify(challenges))
+            set_loading(false) })
         console.log('[Main:get_challenges] challenges ', challenges)
     }
 
@@ -66,7 +90,6 @@ export default function Main(props: Props) {
     // Update profile from latest activities
         // If activity update found, launch interactive window
         // showing what has changed, like a 'quest' completion screen
-
     return (
         <React.StrictMode>
             { loading || !profiles.user ? <p>loading</p> :

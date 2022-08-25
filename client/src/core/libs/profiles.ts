@@ -30,4 +30,14 @@ export default class Profiles {
     //     return this.all_profiles
     // }
 
+    public set_from_session(session_obj: any) {
+        if (session_obj === null) {
+            return false
+        }
+        console.log('[profiles:set_from_session] start:', session_obj)
+        session_obj = JSON.parse(session_obj)
+        this.user = session_obj
+        return true
+    }
+
 }

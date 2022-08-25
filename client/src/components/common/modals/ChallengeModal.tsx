@@ -21,7 +21,7 @@ export default function ChallengeModal(props: Props) {
         let output: any[] = []
     
         for (let i = 0; i < difficulty; i++) {
-            output.push(<span>&#x2605;</span>)
+            output.push(<span key={`challenge-modal-diff-${difficulty}`}>&#x2605;</span>)
         }
         return output
     }

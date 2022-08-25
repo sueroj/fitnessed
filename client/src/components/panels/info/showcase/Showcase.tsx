@@ -15,6 +15,7 @@ type Props = {
 
 type ThumbnailListShortProps = {
     challenges: Challenges
+    key_id: string
 }
 
 // TODO: Clean up due
@@ -27,11 +28,11 @@ export default function Showcase(props: Props) {
 
             <div className='showcase-panel-thumbnail-header'>Suggested</div>
             {/* <ThumbnailListShort achievements={props.profile.achievements}/> */}
-            <ThumbnailListShort challenges={props.challenges}/>
+            <ThumbnailListShort challenges={props.challenges} key_id={'suggested'}/>
 
             <div className='showcase-panel-thumbnail-header'>Almost</div>
             {/* <ThumbnailListShort achievements={props.profile.achievements}/> */}
-            <ThumbnailListShort challenges={props.challenges}/>
+            <ThumbnailListShort challenges={props.challenges} key_id={'almost'}/>
 
             {/* <div className='showcase-panel-thumbnail-header'>Most Recent</div>
             <ThumbnailListShort challenges={props.challenges}/> */}
@@ -65,7 +66,7 @@ export function ThumbnailListShort(props: ThumbnailListShortProps) {
         let thumbnails: any[] = []
         props.challenges.get_all().forEach(challenge => {
             if (thumbnails.length < 6) {
-                thumbnails.push(<Thumbnail challenge={challenge} />)
+                thumbnails.push(<Thumbnail key={`${props.key_id}-${challenge.challenge_id}`} challenge={challenge} />)
             }
         })
         return thumbnails

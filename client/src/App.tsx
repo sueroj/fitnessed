@@ -7,14 +7,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
-import axios from 'axios'
-
 import Http from 'core/libs/http'
 import Main from 'components/Main'
 import Login from 'components/Login'
 import StravaId from 'core/objects/strava_id'
 import Navigation, { LoginNavigation } from 'components/navigation/Navigation'
-// import { STRAVA_DEV_ONLY_AUTH_STATE } from 'config/tokens'
 import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REDIRECT_URI, STRAVA_TOKEN_URI, STRAVA_DEV_ONLY_AUTH_STATE, TC_SERVER_URL } from 'config/tokens'
 
 

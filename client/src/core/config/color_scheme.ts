@@ -1,14 +1,22 @@
 
-import { ChallengeCategoryMajor, CompleteStatus } from "core/enums/enums"
+import { ChallengeCategoryMajor, CompleteStatus, EventTier } from "core/enums/enums"
 
 // Tier Colors
-const EVENT_TIER_COLOR = {
-    TIER_0: '#d9dbdb',    // Pastel grey
-    TIER_1: '#5bfc7e',    // Pastel green
-    TIER_2: '#63a2ff',    // Pastel blue
-    TIER_3: '#9c5bfc',    // Pastel purple
-    TIER_4: '#fccc5b'     // Pastel orange
-}
+// const EVENT_TIER_COLOR = new Map([
+//     [EventTier.TIER_0, '#d9dbdb'],  // Pastel grey
+//     [EventTier.TIER_1, '#5bfc7e'],  // Pastel green
+//     [EventTier.TIER_2, '#63a2ff'],  // Pastel blue
+//     [EventTier.TIER_3, '#9c5bfc'],  // Pastel purple
+//     [EventTier.TIER_4, '#fccc5b']   // Pastel orange
+// ])
+
+const EVENT_TIER_COLOR = new Map([
+    [1, '#d9dbdb'],  // Pastel grey
+    [2, '#5bfc7e'],  // Pastel green
+    [3, '#63a2ff'],  // Pastel blue
+    [4, '#9c5bfc'],  // Pastel purple
+    [5, '#fccc5b']   // Pastel orange
+])
 
 const EVENT_CATEGORY_COLOR_DEFAULT = '#dbdbdb'              // Pastel grey
 const EVENT_CATEGORY_COLOR = new Map([
@@ -48,12 +56,14 @@ class ColorScheme {
     // readonly c_canvas_silver: C_CANVAS = COMPLETION_CANVAS_SILVER
     // readonly c_canvas_bronze: C_CANVAS = COMPLETION_CANVAS_BRONZE
 
-    public get_difficulty_tier(difficulty: number) {
-        // for (const [key, value] of Object.entries(EVENT_TIER_COLOR)) {
-        //     if (key === difficulty) {
-        //         return value
-        //     } else return EVENT_CATEGORY_COLOR.DEFAULT
-        // }
+    public get_difficulty_tier_color(difficulty: number) {
+        let color = EVENT_TIER_COLOR.get(1) // Default = first element, grey
+        for (const [diff, clr] of EVENT_TIER_COLOR.entries()) {
+            if (difficulty === diff) {
+                color = clr
+            }
+        }
+        return color
     }
 
     public get_event_category_color(category: ChallengeCategoryMajor) {

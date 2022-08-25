@@ -55,7 +55,7 @@ export class OrderedChallenges {
 
 // TODO: Refactor & optimize this class. Will be used a lot.
 export default class Challenges {
-    private user: Profile | null = null
+    // private user: Profile | null = null
     private challenges: OrderedChallenges = new OrderedChallenges()
 
     // TODO: Eval - consider using constructor
@@ -66,10 +66,24 @@ export default class Challenges {
     // }
 
     public initialize(challenges: any, profile: Profile) {
-        this.user = profile
+        // this.user = profile
         this.challenges = this.sort_challenges(challenges)
-        this.user.completed_challenges = this.challenges.completed
+        // this.user.completed_challenges = this.challenges.completed
         return this
+    }
+
+    public set_from_session(session_obj: any) {
+        if (session_obj === null) {
+            return false
+        }
+        console.log('[challenges:set_from_session] start:', session_obj)
+        session_obj = JSON.parse(session_obj)
+        this.challenges = session_obj.challenges
+        return true
+    }
+
+    public get_status() {
+        return this.challenges.all.length > 0 ? true : false
     }
 
     // TODO: Eval change to remove function and use public properties

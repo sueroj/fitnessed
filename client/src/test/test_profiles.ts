@@ -20,7 +20,7 @@ export default class TestProfiles {
                 home_id: 666 + i,
                 img: ''
             }
-            profs.push(new Profile(mock_json))
+            profs.push(new Profile().create_from_json(mock_json))
         }
 
         return profs

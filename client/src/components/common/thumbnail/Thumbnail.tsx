@@ -11,6 +11,7 @@ import { CompleteStatus, ChallengeCategoryMajor } from 'core/enums/enums'
 import ChallengeModal from 'components/common/modals/ChallengeModal'
 import color_scheme from 'core/config/color_scheme'
 
+// TODO: EVAL props, refactor/combine, etc.
 type Props = {
     challenge: AnyChallengeCategory
 }
@@ -24,7 +25,8 @@ type CategoryProps = {
 }
 
 type DifficultyProps = {
-    difficulty: number
+    challenge: AnyChallengeCategory
+    key_id: string
 }
 
 type StatusTimerProps = {
@@ -88,13 +90,12 @@ export default function Thumbnail(props: Props) {
                 </Modal.Footer>
             </Modal> */}
 
-
             {/* Tooltip display */}
             <Overlay show={overlay} placement='top' target={target.current}>
                 <Popover id="thumbnail-popover" className='id="thumbnail-popover"'>
-                    <Popover.Header as="h3" className='thumbnail-popover-header'>
+                    <Popover.Header style={{background: color_scheme.get_difficulty_tier_color(props.challenge.difficulty)}} as="h3" className='thumbnail-popover-header'>
                         <div className='thumbnail-info-display'>
-                            <Difficulty difficulty={props.challenge.difficulty} />
+                            <Difficulty challenge={props.challenge} key_id={'tooltip'}/>
                             <div className='thumbnail-horizontal-divider' />
                             <Category challenge={props.challenge} />
                         </div>
@@ -110,7 +111,7 @@ export default function Thumbnail(props: Props) {
                     <Image className="thumbnail-img" src={props.challenge.img} alt={props.challenge.name} rounded />
 
                     <div className='thumbnail-info-display'>
-                        <Difficulty difficulty={props.challenge.difficulty} />
+                        <Difficulty challenge={props.challenge} key_id={'thumbnail'}/>
                         <div className='thumbnail-horizontal-divider' />
                         <Category challenge={props.challenge} />
                     </div>
@@ -184,12 +185,13 @@ export function Category(props: CategoryProps) {
 }
 
 export function Difficulty(props: DifficultyProps) {
-    const difficulty = props.difficulty
+    const challenge = props.challenge
+    const key_id = props.key_id
 
     function draw_difficulty() {
         let output: any[] = []
 
-        for (let i = 0; i < difficulty; i++) {
+        for (let i = 0; i < challenge.difficulty; i++) {
             output.push(<span>&#x2605;</span>)
         }
         return output
