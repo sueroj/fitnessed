@@ -9,13 +9,34 @@
     width: 300px;
 }
 
+.filter-button, .filter-nearby-slider {
+    color: black;
+    background-color: rgb(168, 177, 180);
+    height: 60px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: unset;
+    border: unset;
+    padding-inline: 20px;
+    text-align: left;
+}
+.filter-nearby-slider{
+    height: 80px;
+    padding-top: 10px;
+}
+
+.filter-range {
+    text-align: right;
+}
+
 .list-panel-spacer {
     min-width: 3px;
 }
 
-.list {
+.list-container {
     width: 100%;
-    background-color: grey;
+    background-color: #474748;
     overflow-y: scroll;
+    text-align: center;
 }
 

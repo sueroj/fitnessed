@@ -1,11 +1,13 @@
 .footer {
+    color: #fff;
     display: flex;
     height: 40px;
     width: 100%;
     margin-inline: auto;
-    background-color: grey;
+    background-color: #474748;
     box-shadow: 2px 2px 2px black;
     border-radius: 3px;
+    margin-top: 10px;
     margin-bottom: 5px;
     justify-content: center;
 }

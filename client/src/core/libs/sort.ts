@@ -4,7 +4,7 @@ import { ChallengeCategoryMajor, MilestoneCategoryMinor } from "core/enums/enums
 import Filter from "core/objects/filter"
 
 export default class Sort {
-    private challenges: OrderedChallenges = new OrderedChallenges()
+    private challenges: OrderedChallenges
 
 
     public constructor(challenges: AllChallengeCategories) {

@@ -1,10 +1,11 @@
 /* Rank Panel Layout */
 
 .rank-panel {
+    color: #fff;
     display: flex;
     flex-direction: column;
     width: 33%;
-    background-color: rgb(168, 168, 168);
+    background-color: #474748;
 }
 
 .rank-panel-top {
@@ -12,7 +13,6 @@
     flex-direction: row;
     height: 50%;
     width: 100%;
-    background-color: green;
 }
 
 .rank-panel-bottom {
@@ -23,7 +23,6 @@
 .rank-panel-top-left {
     width: 250px;
     height: 100%;
-    background-color: yellow;
 }
 
 .rank-panel-top-right {
@@ -77,7 +76,6 @@
 
 .profile-summary {
     height: 80%;
-    background-color: purple;
 }
 
 .profile-summary-row {
@@ -85,13 +83,11 @@
     flex-direction: row;
     height: 50%;
     width: 100%;
-    background-color: orange;
 }
 
 .profile-summary-num-complete {
     height: 100%;
     width: 100%;
-    background-color: rgb(66, 209, 66);
     text-align: center;
     /* TODO: Review padding for refactor */
     padding-top: 10px; 
@@ -102,7 +98,6 @@
 
 .profile-title {
     height: 20%;
-    background-color: rgb(168, 148, 112);
     font-size: 14px;
     text-align: center;
     font-style: italic;

@@ -76,7 +76,7 @@ export default function Main(props: Props) {
 
         console.log('[Main:get_challenges] START')
         http.get_challenges()
-        .then(response => { challenges.initialize(response.data, profiles.user) })
+        .then(response => { challenges.initialize(response.data) })
         .then(() => { 
             sessionStorage.setItem('session_challenges', JSON.stringify(challenges))
             set_loading(false) })

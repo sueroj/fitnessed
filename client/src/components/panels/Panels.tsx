@@ -29,7 +29,7 @@ export default function Panels(props: Props) {
 
     function generate_thumbnails(): any[] {
         let thumbnails: any[] = []
-        props.challenges.get_all().forEach((challenge: AnyChallengeCategory) => {
+        props.challenges.all.forEach((challenge: AnyChallengeCategory) => {
             thumbnails.push(<Thumbnail key={challenge.challenge_id} challenge={challenge}/>)
         })
         return thumbnails

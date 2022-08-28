@@ -1,6 +1,7 @@
+import { ChallengeCategoryMajor, CourseCategoryMinor, SprintCategoryMinor, MilestoneCategoryMinor, CompleteStatus } from "core/enums/enums"
+import { ZoneLayer, CourseLayer, SprintLayer, AllLayers } from "core/objects/layer"
 import { GeoJSON } from "core/objects/misc"
 
-import { ChallengeCategoryMajor, CourseCategoryMinor, SprintCategoryMinor, MilestoneCategoryMinor, CompleteStatus } from "core/enums/enums"
 
 export class Challenge {
     public challenge_id: number = 0
@@ -31,6 +32,7 @@ export class Challenge {
 
     // TODO: define Metrics
     public metrics: any = null
+    public layer: any = {}
 
     // TODO: Refactor into constructor when ready
     public initialize(challenge: any) {
@@ -47,6 +49,7 @@ export class Challenge {
         this.is_open = challenge.is_open
         this.is_featured = challenge.is_featured
         this.accept_required = challenge.accept_required
+
         // this.is_complete = challenge.is_complete
         // this.complete_status = challenge.complete_status
         // this.metrics = challenge.metrics
@@ -85,6 +88,7 @@ export class Zone extends Challenge {
         super()
         this.category_major = ChallengeCategoryMajor.ZONE
         this.is_mappable = true
+        this.layer = ZoneLayer
     }
 }
 
@@ -94,6 +98,7 @@ export class Course extends Challenge {
         this.category_major = ChallengeCategoryMajor.COURSE
         this.category_minor = category
         this.is_mappable = true
+        this.layer = CourseLayer
     }
 }
 
@@ -103,6 +108,7 @@ export class Sprint extends Challenge {
         this.category_major = ChallengeCategoryMajor.SPRINT
         this.category_minor = category
         this.is_mappable = true
+        this.layer = SprintLayer
     }
 }
 
@@ -120,6 +126,7 @@ export class Collectable extends Challenge {
         super()
         this.category_major = ChallengeCategoryMajor.COLLECTABLE
         this.is_mappable = true
+        this.layer = ZoneLayer
     }
 }
 

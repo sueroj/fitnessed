@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import './info.css';
 
 import Challenges from 'core/libs/challenges'
@@ -19,12 +18,8 @@ export default function Info(props: Props) {
             {/* User profile rank and leaderboard summary */}
             <Rank profiles={props.profiles} challenges={props.challenges}/>
 
-            <div className='info-vertical-spacer' />
-
             {/* Thumbnails for most recently completed challenges, and almost */}
             <Showcase profile={props.profiles.user} challenges={props.challenges} />
-
-            <div className='info-vertical-spacer' />
 
             {/* User leaderboard snapshot summary */}
             <Leaderboard profiles={props.profiles}/>

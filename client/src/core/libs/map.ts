@@ -1,4 +1,4 @@
-import mapboxgl from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl'
 
 import Challenges, { MappableChallengeCategory } from 'core/libs/challenges'
 import Filter from 'core/objects/filter'
@@ -33,26 +33,19 @@ export default class Mapbox {
         this.toggles = toggles
         this.filters = filters
         this.set_center = set_center
-        this.map = this.initialize()
-    }
-
-
-    public draw() {
-        console.log('Debug: render map') // TODO: debug only
-        this.center = this.get_center()
-        this.draw_challenges()
-
-        return this
-    }
-
-    private initialize() {
-        return new mapboxgl.Map({
+        this.map = new mapboxgl.Map({
             container: this.container,
             center: [this.start_lng, this.start_lat],
             zoom: this.zoom,
             style: 'mapbox://styles/mapbox/streets-v11',
             attributionControl: false
         })
+    }
+
+    public draw() {
+        this.center = this.get_center()
+        this.draw_challenges()
+        return this
     }
 
     private get_center(): LngLat {
@@ -62,12 +55,10 @@ export default class Mapbox {
 
         map.on('load', function() {
             map.on('dragend', function() {
-                console.log('test drag') // TODO - DEBUG ONLY
                 center = map.getCenter()
                 this_obj.set_center(center)
             })
             map.on('zoomend', function() {
-                console.log('test zoom') //TODO - DEBUG ONLY
                 center = map.getCenter()
                 this_obj.set_center(center)
             })
@@ -77,106 +68,32 @@ export default class Mapbox {
 
     public draw_challenges() {
         let this_obj = this
-        let mappable = this.challenges.get_mappable()
+        let mappable = this.challenges.mappable
         
         console.log(mappable)
 
-        // function new_source(event: MappableEventCategory) {
-        //     map.addSource(event.title, {
-        //         'type': 'geojson',
-        //         'data': {
-        //             'type': 'FeatureCollection',
-        //             'features': [{
-        //                 'type': 'Feature',
-        //                 'properties': {},
-        //                 'geometry': {
-        //                     'type': 'Point',
-        //                     'coordinates': event.coordinates[0].get()
-        //                 }
-        //             }]
-        //         }
-        //     })
-        // }
-
-        // function new_layer(event: MappableEventCategory) {
-        //     map.addLayer({
-        //         'id': event.title,
-        //         'type': 'circle',
-        //         'source': event.title,
-        //         'paint': {
-        //             'circle-radius': {
-        //             'base': 30,
-        //             'stops': [
-        //                 [4,8],
-        //                 [12,16],
-        //                 [13,32],
-        //                 [14,64],
-        //                 [15,128],
-        //                 [16,256],
-        //                 [17,512],
-        //                 [18,1024]
-        //             ]
-        //         },
-        //         'circle-color': '#FF0000',
-        //         'circle-opacity': 0.4
-        //         }
-        //     })
-        // }
-        
         // Configure map icons and triggers for each mappable event
         this.map.on('load', function () {
             mappable.forEach(challenge => {
+                console.log('[Map] Challenge map coords', challenge.start_coords)
+                challenge.layer = new challenge.layer().get(challenge) // TODO - EVAL renaming
                 this_obj.new_source(challenge)
                 this_obj.new_layer(challenge)
                 this_obj.configurePointer(challenge)
                 this_obj.configureModalOnClick(challenge)
                 // this_obj.configure_card_on_hover(event)
             });
-
         })
     }
 
     private new_source(challenge: MappableChallengeCategory) {
-        this.map.addSource(challenge.name, {
-            'type': 'geojson',
-            'data': {
-                'type': 'FeatureCollection',
-                'features': [{
-                    'type': 'Feature',
-                    'properties': {},
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': challenge.start_coords.get()
-                    }
-                }]
-            }
-        })
+        this.map.addSource(challenge.name, challenge.layer.source)
     }
 
     private new_layer(challenge: MappableChallengeCategory) {
-        this.map.addLayer({
-            'id': challenge.name,
-            'type': 'circle',
-            'source': challenge.name,
-            'paint': {
-                'circle-radius': {
-                'base': 30,
-                'stops': [
-                    [4,8],
-                    [12,16],
-                    [13,32],
-                    [14,64],
-                    [15,128],
-                    [16,256],
-                    [17,512],
-                    [18,1024]
-                ]
-            },
-            'circle-color': '#FF0000',
-            'circle-opacity': 0.4
-            }
-        })
+        this.map.addLayer(challenge.layer.layer)
     }
+
 
     // TODO: EVAL if better to use title or id - currently using title, prefer id if possible
     private configurePointer(challenge: MappableChallengeCategory) {

@@ -3,29 +3,43 @@
     flex-direction: row;
     height: 60px;
     width: 100%;
-    background-color: rgb(124, 121, 121);
+    background-color: #474748;
     box-shadow: 2px 2px 2px black;
     text-align: center;
     margin-top: 3px;
-    margin-inline: auto;
     margin-bottom: 10px;
 }
 
-.nav-link {
-    color: rgb(255, 255, 255);
+.nav-logo-main {
+    margin: auto;
     font-size: 22px;
-    width: 400px;
+    height: 40px;
+    min-width: 300px;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    width: 880px;
+    margin: auto;
+    font-size: 22px;
+}
+
+.nav-link {
+    color: #fff;
+    width: 140px;
+    margin: auto;
 }
 
 .nav-profile {
+    color: #fff;
+    font-size: 22px;
     display: flex;
     flex-direction: row;
     min-width: 200px;
     margin: auto;
     align-items: center;
     padding-left: 10px;
-    
-
 }
 
 .nav-img {
@@ -39,7 +53,6 @@
 }
 
 .nav-button {
-    color: rgb(255, 255, 255);
     font-size: 18px;
     width: 200px;
 }

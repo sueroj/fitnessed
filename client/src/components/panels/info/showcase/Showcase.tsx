@@ -49,23 +49,10 @@ export default function Showcase(props: Props) {
 
 export function ThumbnailListShort(props: ThumbnailListShortProps) {
 
-    // function draw_milestones() {
-    //     if (props.achievements.length) {
-    //         let t: any[] = []
-    //         props.achievements.forEach(achievement => {
-    //             if (t.length < 4) {
-    //                 t.push(<Thumbnail data={achievement} />)
-    //             }
-    //         })
-    //         return t
-    //     }
-    //     return null
-    // }
-
     function draw_challenges() {
         let thumbnails: any[] = []
-        props.challenges.get_all().forEach(challenge => {
-            if (thumbnails.length < 6) {
+        props.challenges.all.forEach(challenge => {
+            if (thumbnails.length < 3) {
                 thumbnails.push(<Thumbnail key={`${props.key_id}-${challenge.challenge_id}`} challenge={challenge} />)
             }
         })

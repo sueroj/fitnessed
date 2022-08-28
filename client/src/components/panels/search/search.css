@@ -3,9 +3,11 @@
     margin-bottom: 3px;
 }
 
-.form-control {
+.form-control, .form-control:focus {
+    color: #fff;
     height: 60px;
     font-size: 24px;
     border-radius: 0px;
-    /* font-family: Arial; */
-}   
+    border-color: rgb(168, 177, 180);
+    background-color: #474748;
+}

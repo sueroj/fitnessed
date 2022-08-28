@@ -3,16 +3,20 @@
 import { AllChallengeCategories } from "core/libs/challenges"
 
 export class GeoJSON {
-    public lat: number = 0.0
     public lng: number = 0.0
+    public lat: number = 0.0
 
-    public constructor(lat: number, lng: number, ) {
-        this.lat = lat
+    public constructor(lng: number, lat: number, ) {
         this.lng = lng
+        this.lat = lat
     }
 
-    public get() {
+    public get_lng_lat() {
         return [this.lng, this.lat]
+    }
+
+    public get_lat_lng() {
+        return [this.lat, this.lng]
     }
 }
 
