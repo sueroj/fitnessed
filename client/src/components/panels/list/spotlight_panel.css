@@ -1,0 +1,18 @@
+.spotlight-panel {
+    height: 190px;
+    background-color: #363636;
+    margin-top: 3px;
+}
+
+.spotlight-panel-thumbnail-header {
+    height: 20%;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.spotlight-panel-thumbnail {
+    margin-top: 10px;
+    text-align: center;
+}

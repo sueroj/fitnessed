@@ -4,4 +4,11 @@
     height: 300px;
     margin-bottom: 3px;
 }
+
+/* From => Recent Activity, Leaderboard */
+.list-item {
+    font-size: 13px;
+    border: 1px;
+    text-align: center;
+}
     

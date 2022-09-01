@@ -41,8 +41,8 @@ test("[Object/Challenge] creates new challenge object", () => {
 
         expect(challenge).toHaveProperty('challenge_id', MOCK_CHALLENGE.challenge_id)
         expect(challenge).toHaveProperty('category_major', ChallengeCategoryMajor.CHALLENGE)
-        expect(challenge).toHaveProperty('start_coords', new GeoJSON(MOCK_CHALLENGE.coordinates[0].lng, MOCK_CHALLENGE.coordinates[0].lat))
-        expect(challenge).toHaveProperty('finish_coords', new GeoJSON(MOCK_CHALLENGE.coordinates[3].lng, MOCK_CHALLENGE.coordinates[3].lat))
+        expect(challenge).toHaveProperty('start_coords', new GeoJSON(MOCK_CHALLENGE.coordinates[0].lat, MOCK_CHALLENGE.coordinates[0].lng))
+        expect(challenge).toHaveProperty('finish_coords', new GeoJSON(MOCK_CHALLENGE.coordinates[3].lat, MOCK_CHALLENGE.coordinates[3].lng))
     }
 })
 
@@ -57,8 +57,8 @@ test("[Object/Challenge] sets geojson coordinates", () => {
 
     expect(challenge).toHaveProperty('challenge_id', MOCK_CHALLENGE.challenge_id)
     expect(challenge).toHaveProperty('category_major', ChallengeCategoryMajor.CHALLENGE)
-    expect(challenge).toHaveProperty('start_coords', new GeoJSON(MOCK_CHALLENGE.coordinates[0].lng, MOCK_CHALLENGE.coordinates[0].lat))
-    expect(challenge).toHaveProperty('finish_coords', new GeoJSON(MOCK_CHALLENGE.coordinates[3].lng, MOCK_CHALLENGE.coordinates[3].lat))
+    expect(challenge).toHaveProperty('start_coords', new GeoJSON(MOCK_CHALLENGE.coordinates[0].lat, MOCK_CHALLENGE.coordinates[0].lng))
+    expect(challenge).toHaveProperty('finish_coords', new GeoJSON(MOCK_CHALLENGE.coordinates[3].lat, MOCK_CHALLENGE.coordinates[3].lng))
 })
 
 test.each([

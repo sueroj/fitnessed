@@ -3,7 +3,6 @@
 .thumbnail {
     height: 100px;
     width: 100px;
-    background-color: tomato;
     text-align: center;
     margin: 1%;
     border: unset;
@@ -28,7 +27,8 @@
 .thumbnail-info-display {
     display: flex;
     flex-direction: row;
-    top: 0;
+    /* position: absolute; */
+    /* width: 90px; */
 }
 
 .thumbnail-horizontal-divider {
@@ -40,53 +40,13 @@
 }
 
 .thumbnail-img {
+    /* height: 90px; */
     height: 80px;
     width: 100%;
 }
 
-/* Small Thumbnail Variant */
-
-.thumbnail-small {
-    height: 70px;
-    width: 70px;
-    background-color: tomato;
-    text-align: center;
-    margin: 1%;
-    border: unset;
-    border-radius: 3px;
-    box-shadow: 2px 2px 2px black;
-    line-height: normal;
-    overflow: hidden;
-    padding: 2px;
-    transition-duration: 0.2s;
-}
-
-.thumbnail-small:hover {
-    transition-duration: 0.2s;
-    background-color: rgb(88, 116, 199);
-}
-
-.thumbnail-small-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.thumbnail-small-info-display {
-    display: flex;
-    flex-direction: row;
-    top: 0;
-}
-
-.thumbnail-small-horizontal-divider {
-    width: 100%;
-}
-
-.thumbnail-small-vertical-divider {
-    height: 20px;
-}
-
-.thumbnail-small-img {
-    height: 50px;
+.thumbnail-canvas {
+    height: 80px;
     width: 100%;
 }
 
@@ -142,4 +102,10 @@
 .thumbnail-popover-header {
     font-size: 20px;
     text-align: center;
+}
+
+.thumbnail-popover-body {
+    color: #fff;
+    background-color: #474748;
+    box-shadow: 2px 2px 2px black;
 }

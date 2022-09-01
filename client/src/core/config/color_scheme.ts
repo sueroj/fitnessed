@@ -51,6 +51,7 @@ const COMPLETE_CANVAS_BRONZE = {
 }
 
 class ColorScheme {
+    readonly MOUSEOVER_DEFAULT: string = '#63a2ff'
     // readonly c_canvas_standard: C_CANVAS = COMPLETION_CANVAS_STANDARD
     // readonly c_canvas_gold: C_CANVAS = COMPLETION_CANVAS_GOLD
     // readonly c_canvas_silver: C_CANVAS = COMPLETION_CANVAS_SILVER

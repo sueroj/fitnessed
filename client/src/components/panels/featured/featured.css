@@ -1,4 +1,9 @@
 .featured {
-    background-color: #474748;
+    /* background-color: #474748; */
     height: 200px;
+}
+
+.featured-carousel-banner {
+    height: 200px;
+    width: 100%;
 }

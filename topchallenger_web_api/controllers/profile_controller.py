@@ -11,14 +11,14 @@ class ProfileController(RepositoryABC):
 
     # TODO: Implement method for generating unique IDs for each new user profile
     # TODO: Also think of ways to backup user data on Databases
-    def create(self, profile: dict):
-        self._app.logger.info(f'[ProfileController] create new profile: strava_id={profile.get("strava_id")}')
-        json = self.profile.new_profile(profile)
+    def create(self, strava_id: int, firstname: str, lastname: str):
+        self._app.logger.info(f'[ProfileController] create new profile: strava_id={strava_id}')
+        json = self.profile.new_profile(strava_id, firstname, lastname)
         return json
 
     def read(self, strava_id: int) -> str:
         self._app.logger.info(f'[ProfileController] read profile: strava_id={strava_id}')
         json = self.profile.read_profile(strava_id)
         if not json:
-            json = self.create(strava_id, 'Joel', 'Suero') # TODO: Test Only
+            json = self.create(strava_id, 'Test', 'Only') # TODO: Test Only
         return json

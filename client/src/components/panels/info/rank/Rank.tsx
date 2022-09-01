@@ -41,24 +41,31 @@ type ProfileTitleProps = {
     profile: Profile
 }
 
+// TODO: IMPLEMENT - Challenges required in order to rank up
 
 export default function Rank(props: RankProps) {
     return (
         <div className='rank-panel'>
             <div className='rank-panel-top'>
                 <div className='rank-panel-top-left'>
+
+                </div>
+                <div className='rank-panel-top-middle'>
                     <RankEmblem />
                 </div>
                 <div className='rank-panel-top-right'>
-                    <RankHeader profile={props.profiles.user}/>
-                    <RankProgressBar profile={props.profiles.user} />
+
                 </div>
             </div>
 
             <div className='rank-panel-bottom'>
-                <ChallengeSummary challenges={props.challenges} />
+                <RankHeader profile={props.profiles.user} />
+                <RankProgressBar profile={props.profiles.user} />
 
-                <ProfileTitle profile={props.profiles.user}/>
+
+                {/* <ChallengeSummary challenges={props.challenges} />
+
+                <ProfileTitle profile={props.profiles.user}/> */}
             </div>
         </div>
     );
@@ -69,7 +76,7 @@ export function RankEmblem(props: RankEmblemProps) {
         <div className='rank-emblem'>
             <Image className="rank-emblem-img" src={test_profile_img} alt='change this' rounded />
         </div>
-        
+
     );
 }
 
@@ -96,14 +103,14 @@ export function ChallengeSummary(props: ChallengeSummaryProps) {
     return (
         <div className='profile-summary'>
             <div className='profile-summary-row'>
-                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.ZONE} challenges={props.challenges}/>
-                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.COURSE} challenges={props.challenges}/>
-                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.SPRINT} challenges={props.challenges}/>
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.ZONE} challenges={props.challenges} />
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.COURSE} challenges={props.challenges} />
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.SPRINT} challenges={props.challenges} />
             </div>
             <div className='profile-summary-row'>
-                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.COLLECTABLE} challenges={props.challenges}/>
-                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.MILESTONE} challenges={props.challenges}/>
-                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.ACHIEVEMENT} challenges={props.challenges}/>
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.COLLECTABLE} challenges={props.challenges} />
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.MILESTONE} challenges={props.challenges} />
+                <ProfileSummaryNumComplete category={ChallengeCategoryMajor.ACHIEVEMENT} challenges={props.challenges} />
             </div>
 
         </div>

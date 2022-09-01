@@ -45,12 +45,10 @@ def generate_auth_key():
 # TODO: Implement XSS escape() security
 @app.route('/profile/<int:id>')
 def get_profile(id: int):
-    app.logger.info(f'[GET/profile] id={id}')
     return profile_controller.read(strava_id=id)
 
 @app.route('/challenges')
 def get_challenges():
-    app.logger.info(f'[GET/challenges] Start')
     return challenges_controller.read()
 
 

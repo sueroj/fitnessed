@@ -1,9 +1,8 @@
-
-import TestChallenges, { TestFeaturedEvents as TestFeaturedChallenges } from "test/test_challenges"
 import { ChallengeCategoryMajor, MilestoneCategoryMinor, CourseCategoryMinor, CompleteStatus } from "core/enums/enums"
-import Profile from 'core/objects/profile'
+
 import { Zone, Course, Sprint, Milestone, Collectable, Achievement } from 'core/objects/challenge'
 import { CategoryProgress } from "core/objects/misc"
+import Filter from "core/objects/filter"
 
 export type AllChallengeCategories = Zone[] | Course[] | Sprint[] | Milestone[] | Collectable[] | Achievement[]
 export type MappableChallengeCategories = Zone[] | Course[] | Sprint[] | Collectable[]
@@ -179,5 +178,22 @@ export default class Challenges {
             }
         })
         return sorted
+    }
+
+    public filter(filter: Filter) {
+        let list: any = []
+        for (let challenge of this.all) {
+            function filter_by_category(category: ChallengeCategoryMajor, filter: boolean) {
+                if (challenge.category_major === category && filter) {
+                    list.push(challenge)
+                }
+            }
+            filter_by_category(ChallengeCategoryMajor.ZONE, filter.zones)
+            filter_by_category(ChallengeCategoryMajor.COURSE, filter.courses)
+            filter_by_category(ChallengeCategoryMajor.SPRINT, filter.sprints)
+            filter_by_category(ChallengeCategoryMajor.MILESTONE, filter.milestones)
+            filter_by_category(ChallengeCategoryMajor.COLLECTABLE, filter.collectables)
+        }
+        return list
     }
 }

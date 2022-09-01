@@ -32,7 +32,7 @@ export class Challenge {
 
     // TODO: define Metrics
     public metrics: any = null
-    public layer: any = {}
+    public layer: AllLayers = {}
 
     // TODO: Refactor into constructor when ready
     public initialize(challenge: any) {
@@ -59,7 +59,7 @@ export class Challenge {
     private load_geojson(_coordinates: any) {
         let coordinates = []
         for (let coord of _coordinates) {
-            coordinates.push(new GeoJSON(coord.lng, coord.lat))
+            coordinates.push(new GeoJSON(coord.lat, coord.lng))
         }
         return coordinates
     }

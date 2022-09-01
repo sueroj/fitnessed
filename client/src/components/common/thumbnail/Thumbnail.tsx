@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'react-bootstrap/Image'
 import Overlay from 'react-bootstrap/Overlay'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
 import './thumbnail.css'
 
@@ -10,9 +9,12 @@ import CompleteCanvas from 'core/canvas/complete'
 import { CompleteStatus, ChallengeCategoryMajor } from 'core/enums/enums'
 import ChallengeModal from 'components/common/modals/ChallengeModal'
 import color_scheme from 'core/config/color_scheme'
+import { GenericZoneCanvas } from 'core/canvas/generic_canvas'
+import test_img from 'assets/icons/test_img.png'
 
 // TODO: EVAL props, refactor/combine, etc.
 type Props = {
+    key_id: string
     challenge: AnyChallengeCategory
 }
 
@@ -25,8 +27,8 @@ type CategoryProps = {
 }
 
 type DifficultyProps = {
-    challenge: AnyChallengeCategory
     key_id: string
+    challenge: AnyChallengeCategory
 }
 
 type StatusTimerProps = {
@@ -34,8 +36,10 @@ type StatusTimerProps = {
 }
 
 export default function Thumbnail(props: Props) {
+    const thumbnail_bg_color = color_scheme.get_difficulty_tier_color(props.challenge.difficulty) // TODO: EVAL - Try refactor. Check out many times states gets updated. Check useState() with function
     const [modal, set_modal] = useState(false)
     const [overlay, set_overlay] = useState(false)
+    const [bg_color, set_bg_color] = useState(thumbnail_bg_color)
     const target = useRef(null)
 
     // TODO: React gives warning  in console passing function to child ChallengeModal, 
@@ -46,11 +50,9 @@ export default function Thumbnail(props: Props) {
         set_modal(!modal)
     }
 
-    function toggle_overlay() {
+    function toggle_overlay(bg_clr: any) {
+        set_bg_color(bg_clr)
         set_overlay(!overlay)
-    }
-
-    function NOT_YET_IMPLEMENTED() {
     }
 
     const popover = (
@@ -67,35 +69,12 @@ export default function Thumbnail(props: Props) {
             {/* Modal displayed on click */}
             <ChallengeModal show={modal} toggle_modal={toggle_modal} challenge={props.challenge} />
 
-
-            {/* <Modal className="challenge-modal" show={modal} onHide={toggle_modal} onShow={() => NOT_YET_IMPLEMENTED()}
-                size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-                <Modal.Header closeButton onClick={toggle_modal}>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        <div className="challenge-modal-title">{props.challenge.name}</div>
-                    </Modal.Title>
-                </Modal.Header>
-
-                <span className="challenge-modal-difficulty">Difficulty: {2}</span>
-                <Modal.Body>
-                    <div id="miniMap" className="challenge-modal-map"></div>
-
-                    <div className="challenge-modal-details">
-                        {props.challenge.description}
-                    </div>
-                </Modal.Body>
-
-                <Modal.Footer>
-                    footer
-                </Modal.Footer>
-            </Modal> */}
-
             {/* Tooltip display */}
             <Overlay show={overlay} placement='top' target={target.current}>
                 <Popover id="thumbnail-popover" className='id="thumbnail-popover"'>
                     <Popover.Header style={{background: color_scheme.get_difficulty_tier_color(props.challenge.difficulty)}} as="h3" className='thumbnail-popover-header'>
                         <div className='thumbnail-info-display'>
-                            <Difficulty challenge={props.challenge} key_id={'tooltip'}/>
+                            <Difficulty key_id={props.key_id} challenge={props.challenge} />
                             <div className='thumbnail-horizontal-divider' />
                             <Category challenge={props.challenge} />
                         </div>
@@ -106,25 +85,25 @@ export default function Thumbnail(props: Props) {
             </Overlay>
 
             {/* Thumbnail */}
-            <button className="thumbnail" onClick={toggle_modal} ref={target} onMouseEnter={toggle_overlay} onMouseLeave={toggle_overlay}>
+            <button className="thumbnail" style={{background: bg_color}} onMouseOver={() => set_bg_color(color_scheme.MOUSEOVER_DEFAULT)} onClick={toggle_modal} ref={target} onMouseEnter={() => toggle_overlay(color_scheme.MOUSEOVER_DEFAULT)} onMouseLeave={() => toggle_overlay(thumbnail_bg_color)}>
                 <div className='thumbnail-container'>
-                    <Image className="thumbnail-img" src={props.challenge.img} alt={props.challenge.name} rounded />
+                    <Image className="thumbnail-img" src={test_img} alt={props.challenge.name} rounded />
 
+                    {/* Thumbnail Bottom Info */}
                     <div className='thumbnail-info-display'>
                         <Difficulty challenge={props.challenge} key_id={'thumbnail'}/>
                         <div className='thumbnail-horizontal-divider' />
                         <Category challenge={props.challenge} />
                     </div>
+
                     {/* // Image style badges
                 // <Image className="badge-img" src={importAsset("scheme_geometric/badges", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />} */}
-                    {/* //  // Canvas style badges
-                // <BadgeCanvas id={props.challenge.ChallengeId} challenge={props.challenge} useDefault={true} />}
-                {/* <div className="badge-rp">{props.challenge.Rp} RP</div>
-                <div className="badge-name-header">{props.challenge.Name}</div> */}
+                    {/* {/* //  // Canvas style badges */}
+                {/* // <BadgeCanvas id={props.challenge.ChallengeId} challenge={props.challenge} useDefault={true} */}
                 </div>
             </button>
-    </>
-    );
+        </>
+    )
 }
 
 export function Complete(props: CompleteProps) {
@@ -192,7 +171,7 @@ export function Difficulty(props: DifficultyProps) {
         let output: any[] = []
 
         for (let i = 0; i < challenge.difficulty; i++) {
-            output.push(<span>&#x2605;</span>)
+            output.push(<span key={`${key_id}-${challenge.challenge_id}-diff-${i}`}>&#x2605;</span>)
         }
         return output
     }

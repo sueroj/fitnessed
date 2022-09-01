@@ -2,6 +2,7 @@ import mapboxgl from 'mapbox-gl'
 
 import Challenges, { MappableChallengeCategory } from 'core/libs/challenges'
 import Filter from 'core/objects/filter'
+import { GeoJSON } from 'core/objects/misc'
 import { MAPBOX_TOKEN } from 'config/tokens'
 
 mapboxgl.accessToken = MAPBOX_TOKEN
@@ -69,13 +70,10 @@ export default class Mapbox {
     public draw_challenges() {
         let this_obj = this
         let mappable = this.challenges.mappable
-        
-        console.log(mappable)
 
         // Configure map icons and triggers for each mappable event
         this.map.on('load', function () {
             mappable.forEach(challenge => {
-                console.log('[Map] Challenge map coords', challenge.start_coords)
                 challenge.layer = new challenge.layer().get(challenge) // TODO - EVAL renaming
                 this_obj.new_source(challenge)
                 this_obj.new_layer(challenge)
@@ -150,6 +148,15 @@ export default class Mapbox {
         map.on('mouseleave', challenge.name, function () {
             popup.remove();
         })
+    }
+
+    // public fly_to(center: any) {
+    //     this.map.flyTo({center: center.get_lng_lat()})
+    // }
+    public fly_to(center: GeoJSON) {
+        if (center) {
+            this.map.flyTo({center: center.get_lng_lat()})
+        }
     }
 
 }

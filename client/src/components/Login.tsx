@@ -36,18 +36,16 @@ export default function Login(props: Props) {
     // TODO: DEV ONLY TOOL FUNCTIONS
     function load_test_challenges() {
         let challenges = new TestChallenges().challenges
-        // for (let challenge of challenges) {
-        //     http.post_test_challenge(challenge)
-        // }
-        http.post_test_challenge(challenges[79])
+        for (let challenge of challenges) {
+            http.post_test_challenge(challenge)
+        }
     }
 
     function load_test_profiles() {
-        let profiles = new TestProfiles().profiles
-        // for (let challenge of challenges) {
-        //     http.post_test_challenge(challenge)
-        // }
-        http.post_test_profile(profiles[0])
+        let profiles = [500, 501, 502, 503, 504, 505, 506, 507, 508, 509, 510]
+        for (let profile of profiles) {
+            http.get_profile(profile)
+        }
     }
 
 

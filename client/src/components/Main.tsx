@@ -11,12 +11,15 @@ import ChallengeModal from 'components/common/modals/ChallengeModal'
 import Http from 'core/libs/http';
 import Profiles from 'core/libs/profiles'
 import Profile from 'core/objects/profile'
+import StravaId from 'core/objects/strava_id'
 import Challenges from 'core/libs/challenges'
 
 type Props = {
-    strava_id: any
+    strava_id: StravaId
 }
 
+// TODO: TEST - Run manual exploration test checkout cycle
+// TODO: EVAL - check out many times states are being updated. Check useState() with functions/class inits, etc
 export default function Main(props: Props) {
     const http = new Http()
     const [loading, set_loading] = useState(true)

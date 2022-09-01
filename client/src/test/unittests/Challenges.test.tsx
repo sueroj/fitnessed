@@ -1,6 +1,7 @@
 import { ChallengeCategoryMajor} from 'core/enums/enums'
-import Challenges, { OrderedChallenges } from 'core/libs/challenges'
-import { GeoJSON } from 'core/objects/misc'
+import Challenges from 'core/libs/challenges'
+import TestChallenges from 'test/test_challenges'
+
 
 class MOCK_CHALLENGE {
     accept_required =  false
@@ -9,10 +10,10 @@ class MOCK_CHALLENGE {
     challenge_id = 111115
     complete_status = 0
     coordinates = [
-        { lng: 22.222222, lat: 11.1111111 },
-        { lng: 33.333333, lat: 44.4444444 },
-        { lng: 55.555555, lat: 66.6666666 },
-        { lng: 66.6666666, lat: 77.777777 },
+        { lat: 11.1111111, lng: 22.222222 },
+        { lat: 44.4444444, lng: 33.333333 },
+        { lat: 66.6666666, lng: 55.555555 },
+        { lat: 77.7777777, lng: 66.666666 },
     ]
     description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante"
     difficulty = 2
@@ -43,7 +44,7 @@ function generate_mock_challenges() {
 }
 
 
-test("[Lib/Challenges] initializes challenge table objects", () => {
+test("[Lib/Challenges] initializes challenge table objects: Set 1", () => {
     const mock_challenges = generate_mock_challenges()
     let challenges: Challenges = new Challenges().initialize(mock_challenges)
 
@@ -55,6 +56,35 @@ test("[Lib/Challenges] initializes challenge table objects", () => {
     expect(challenges.milestones.all.length).toBe(8)
     expect(challenges.get_status()).toBe(true)
 })
+
+test("[Lib/Challenges] initializes challenge table objects: Set 2", () => {
+    const mock_challenges = new TestChallenges().challenges
+    let challenges: Challenges = new Challenges().initialize(mock_challenges)
+
+    expect(challenges.all.length).toBe(92)
+    expect(challenges.zones.length).toBe(60)
+    expect(challenges.courses.length).toBe(13)
+    expect(challenges.sprints.length).toBe(3)
+    expect(challenges.collectables.length).toBe(8)
+    expect(challenges.milestones.all.length).toBe(8)
+    expect(challenges.get_status()).toBe(true)
+})
+
+test("[Lib/Challenges] initializes layer objects for mappable challenges", () => {
+    const mock_challenges = new TestChallenges().challenges
+    let challenges: Challenges = new Challenges().initialize(mock_challenges)
+
+    for (let challenge of challenges.mappable) {
+        try {
+            let layer = new challenge.layer().get(challenge)
+            expect(layer).toHaveProperty('source.data')
+            expect(layer).toHaveProperty('layer.id', challenge.name)
+        } catch (err) {
+            throw Error(`Fail to create layer object for challenge: ${challenges.all[0].challenge_id}\n${err}`)
+        }
+    }
+})
+
 
 test("[Lib/Challenges] sets challenge table objects from session", () => {
     const mock_challenges = generate_mock_challenges()
@@ -83,4 +113,19 @@ test("[Lib/Challenges] contains correct geojson coordinates", () => {
     expect(challenges.zones[0].start_coords.get_lat_lng()).toStrictEqual([mock_challenges[0].coordinates[0].lat, mock_challenges[0].coordinates[0].lng])
     expect(challenges.zones[0].finish_coords.get_lng_lat()).toStrictEqual([mock_challenges[0].coordinates[3].lng, mock_challenges[0].coordinates[3].lat])
     expect(challenges.zones[0].finish_coords.get_lat_lng()).toStrictEqual([mock_challenges[0].coordinates[3].lat, mock_challenges[0].coordinates[3].lng])
+})
+
+test("[Lib/Challenges] correctly assigns mappable challenges list", () => {
+    const test_cases = new Map([
+        [true, 1],
+        [false, 0]
+    ])
+
+    for (let [is_mappable, expected] of test_cases) {
+        let mock_challenge = new MOCK_CHALLENGE()
+        mock_challenge.is_mappable = is_mappable
+        let challenges: Challenges = new Challenges().initialize([mock_challenge])
+    
+        expect(challenges.mappable.length).toBe(expected)
+    }
 })

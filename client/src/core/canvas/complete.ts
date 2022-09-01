@@ -1,5 +1,5 @@
-import { CompleteStatus } from "core/enums/enums";
-import color_scheme, { C_CANVAS } from "core/config/color_scheme";
+import { CompleteStatus } from "core/enums/enums"
+import color_scheme, { C_CANVAS } from "core/config/color_scheme"
 
 const CANVAS_STRING: string = 'complete_'
 

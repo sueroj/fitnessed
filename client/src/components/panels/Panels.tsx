@@ -12,7 +12,7 @@ import List from 'components/panels/list/ListPanel'
 import Info from 'components/panels/info/Info'
 import Featured from 'components/panels/featured/Featured'
 import { DEFAULT_START_LNG, DEFAULT_START_LAT } from 'config/options'
-
+import { GeoJSON } from 'core/objects/misc'
 
 type Props = {
     profiles: Profiles
@@ -21,33 +21,32 @@ type Props = {
 }
 
 export default function Panels(props: Props) {
+    const key_id = 'panels'
     const filters = new Filter()
     const [thumbnails, set_thumbnails] = useState(generate_thumbnails())
     // TODO: Static map center as define in app config file, should convert to
     // TODO: using browser location eventually
     const [center, set_center] = useState(new mapboxgl.LngLat(DEFAULT_START_LNG, DEFAULT_START_LAT))
+    const [fly_to_coords, set_fly_to_coords] = useState(new GeoJSON(DEFAULT_START_LAT, DEFAULT_START_LNG))
+
+
 
     function generate_thumbnails(): any[] {
         let thumbnails: any[] = []
         props.challenges.all.forEach((challenge: AnyChallengeCategory) => {
-            thumbnails.push(<Thumbnail key={challenge.challenge_id} challenge={challenge}/>)
+            thumbnails.push(<Thumbnail key={`${key_id}-${challenge.challenge_id}`} key_id={key_id} challenge={challenge}/>)
         })
         return thumbnails
     }
-
-    useEffect(() => {
-        console.log(center)
-    }, [center]
-    )
 
     // TODO: Organize props level
     return (
         <div className='panels'>
             {/* Map search functions */}
-            <Search />
+            <Search challenges={props.challenges} set_fly_to_coords={set_fly_to_coords}/>
 
             {/* Main map and search functions */}
-            <Map challenges={props.challenges} toggles={props.toggles} filters={filters} set_center={set_center}/>
+            <Map challenges={props.challenges} toggles={props.toggles} filters={filters} fly_to_coords={fly_to_coords} set_fly_to_coords={set_fly_to_coords} set_center={set_center}/>
 
             {/* Thumbnail filters and list panels */}
             <List challenges={props.challenges} thumbnails={thumbnails} filter={filters} center={center}/>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
-import './leaderboard.css';
+import './leaderboard.css'
+import '../info.css'
 
 import Profiles from 'core/libs/profiles'
 import Leaderboards from 'core/libs/leaderboards'
@@ -11,6 +12,14 @@ type Props = {
 }
 
 export default function Leaderboard(props: Props) {
+    const test_leaderboard = [
+        '18 | 2045 Joel S `Little-Crazy-Tiger` [Cambridge]',
+        '18 | 2045 Joel S `Little-Crazy-Tiger` [Cambridge]',
+        '18 | 2045 Joel S `Little-Crazy-Tiger` [Cambridge]',
+        '18 | 2045 Joel S `Little-Crazy-Tiger` [Cambridge]',
+        '18 | 2045 Joel S `Little-Crazy-Tiger` [Cambridge]',
+    ]
+    const [leaderboard, set_leaderboard] = useState(get_leaderboard())
     const [modal, show_modal] = useState(false)
 
     function toggle_modal() {
@@ -26,6 +35,15 @@ export default function Leaderboard(props: Props) {
         // return l
     }
 
+    function get_leaderboard() {
+        let lboard: any[] = []
+        let key = 0
+        for (let item of test_leaderboard) {
+            lboard.push(<div key={`leaderboard-item-${key++}`} className='list-item'>{item}</div>)
+        }
+        return lboard
+    }
+
     /* TODO: Eval possible addition of new thin panel section below info panels to include buttons
        TODO: would likely be more organized this way*/ 
     return (
@@ -34,10 +52,7 @@ export default function Leaderboard(props: Props) {
 
             <div className='leaderboard-header'>Leaderboard</div>
             <div className='leaderboard-table'>
-                <ListGroup as="ol" numbered>
-
-                </ListGroup>
-                { generate() }
+                { leaderboard }
             </div>
 
             <div className='leaderboard-spacer' />

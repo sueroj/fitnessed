@@ -9,5 +9,29 @@
     font-size: 24px;
     border-radius: 0px;
     border-color: rgb(168, 177, 180);
-    background-color: #474748;
+    background-color: #363636;
+}
+
+.search-autosuggest {
+    color: #fff;
+    width: 40%;
+    padding-inline: 15px;
+    margin-top: 5px;
+    margin-left: 2px;
+    font-size: 20px;
+    border: 2px 2px rgb(168, 177, 180);
+    background-color: #363636;
+    position: relative;
+    box-shadow: 2px 2px 2px #202020;
+}
+
+.search-autosuggest-list-item {
+    color: rgb(168, 177, 180);
+    font-size: 14px;
+    transition-duration: 0.1s;
+}
+.search-autosuggest-list-item:hover {
+    color: #fff;
+    cursor: pointer;
+    transition-duration: 0.1s;
 }

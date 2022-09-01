@@ -1,8 +1,9 @@
+// Note: All Mapbox decimal degrees (DD) expressed as lng, lat
 import Challenges, { MappableChallengeCategory } from 'core/libs/challenges'
 import { Challenge } from 'core/objects/challenge'
 
 
-export type AllLayers = ZoneLayer
+export type AllLayers = ZoneLayer | CourseLayer | SprintLayer | any
 
 export default class MapboxLayer {
     public source: {} = {}
@@ -14,7 +15,7 @@ export default class MapboxLayer {
         try {
             coords = this.challenge.start_coords.get_lng_lat()
         } catch (err) {
-            console.log(`[Map] Error getting challenge coordinates. Challenge: ${this.challenge.challenge_id}\n${err}`)
+            console.log(`[Map] Error getting challenge coordinates. Is it mappable? Challenge: ${this.challenge.challenge_id}\n${err}`)
         }
         return coords
     }

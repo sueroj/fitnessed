@@ -3,7 +3,8 @@ from flask import Flask
 from controllers.repository_abc import RepositoryABC
 from models.challenge_model import ChallengeModel
 
-
+# TODO: IMPLEMENT - Challenges required in order to rank up
+# TODO: TEST - Implement unit tests against database stored data. To catch corrupted data, broken pipelines, etc
 class ChallengesController(RepositoryABC):
     def __init__(self, app: Flask) -> None:
         super().__init__(app)

@@ -6,13 +6,16 @@
 }
 
 .filter {
-    width: 300px;
+    height: 70%;
+    width: 250px;
+    background-color: #363636;
+    /* margin-bottom: 3px; */
 }
 
 .filter-button, .filter-nearby-slider {
-    color: black;
-    background-color: rgb(168, 177, 180);
-    height: 60px;
+    color: #fff;
+    background-color: #363636;
+    /* height: 61px; */
     width: 100%;
     font-size: 16px;
     border-radius: unset;
@@ -35,7 +38,7 @@
 
 .list-container {
     width: 100%;
-    background-color: #474748;
+    background-color: #363636;
     overflow-y: scroll;
     text-align: center;
 }

@@ -37,8 +37,8 @@ export default class Http {
 
     // HTTP GET actions
 
-    public get_profile(strava_account_id: number) {
-        return axios.get(`${TC_SERVER_URL}/profile/${strava_account_id}`)
+    public get_profile(strava_id: number) {
+        return axios.get(`${TC_SERVER_URL}/profile/${strava_id}`)
     }
 
     public get_challenges() {
