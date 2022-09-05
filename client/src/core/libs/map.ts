@@ -4,6 +4,7 @@ import Challenges, { MappableChallengeCategory } from 'core/libs/challenges'
 import Filter from 'core/objects/filter'
 import { GeoJSON } from 'core/objects/misc'
 import { MAPBOX_TOKEN } from 'config/tokens'
+import { ChallengeCategoryMajor } from 'core/enums/enums'
 
 mapboxgl.accessToken = MAPBOX_TOKEN
 
@@ -44,12 +45,12 @@ export default class Mapbox {
     }
 
     public draw() {
-        this.center = this.get_center()
+        this.center = this.configure_center()
         this.draw_challenges()
         return this
     }
 
-    private get_center(): LngLat {
+    private configure_center(): LngLat {
         let this_obj = this
         let map = this.map
         let center = this.center
@@ -69,23 +70,47 @@ export default class Mapbox {
 
     public draw_challenges() {
         let this_obj = this
+        let zones = this.challenges.zones
         let mappable = this.challenges.mappable
 
         // Configure map icons and triggers for each mappable event
         this.map.on('load', function () {
-            mappable.forEach(challenge => {
-                challenge.layer = new challenge.layer().get(challenge) // TODO - EVAL renaming
+
+            // Draw zones
+            zones.forEach(challenge => {
+                challenge.layer = new challenge.layer().get(challenge)
                 this_obj.new_source(challenge)
                 this_obj.new_layer(challenge)
-                this_obj.configurePointer(challenge)
+                this_obj.configure_pointer(challenge)
+                // TODO: Modal on click not yet implemented
                 this_obj.configureModalOnClick(challenge)
                 // this_obj.configure_card_on_hover(event)
-            });
+            })
+
+            // Draw courses, sprints, and challenges that render image
+            mappable.forEach(challenge => {
+                if (challenge.category_major === ChallengeCategoryMajor.COURSE || challenge.category_major === ChallengeCategoryMajor.SPRINT) {
+                    challenge.layer = new challenge.layer().get(challenge)
+                    this_obj.new_image(challenge)
+                    this_obj.new_source(challenge)
+                    this_obj.new_layer(challenge)
+                    this_obj.configure_pointer(challenge)
+                }
+            })
+        })
+    }
+
+    private new_image(challenge: MappableChallengeCategory) {
+        let this_obj = this
+        this_obj.map.loadImage(this.import_asset('imgs', challenge.challenge_id),
+        function (error, img) {
+            if (error) throw error
+            if (img) { this_obj.map.addImage(`img_${challenge.challenge_id}`, img) }  
         })
     }
 
     private new_source(challenge: MappableChallengeCategory) {
-        this.map.addSource(challenge.name, challenge.layer.source)
+        this.map.addSource(`source_${challenge.challenge_id}`, challenge.layer.source)
     }
 
     private new_layer(challenge: MappableChallengeCategory) {
@@ -94,28 +119,29 @@ export default class Mapbox {
 
 
     // TODO: EVAL if better to use title or id - currently using title, prefer id if possible
-    private configurePointer(challenge: MappableChallengeCategory) {
+    private configure_pointer(challenge: MappableChallengeCategory) {
         let this_obj = this
         let map = this.map
 
         // Change the cursor to a pointer when the mouse is over any layers
-        map.on('mouseenter', challenge.name, function () {
+        map.on('mouseenter', `layer_${challenge.challenge_id}`, function () {
             map.getCanvas().style.cursor = 'pointer'
         });
 
         // Change it back to a pointer when it leaves
-        map.on('mouseleave', challenge.name, function () {
+        map.on('mouseleave', `layer_${challenge.challenge_id}`, function () {
             map.getCanvas().style.cursor = ''
         });
     }
 
+    // TODO: Modal on click not yet implemented
     private configureModalOnClick(challenge: MappableChallengeCategory) {
         let this_obj = this
         let map = this.map
         
         // On click, open modal for the event
-        map.on('click', challenge.name, function () {
-            this_obj.toggles.event_modal()
+        map.on('click', `layer_${challenge.challenge_id}`, function () {
+            this_obj.toggles.challenge_modal()
         })
     }
 
@@ -148,6 +174,16 @@ export default class Mapbox {
         map.on('mouseleave', challenge.name, function () {
             popup.remove();
         })
+    }
+
+    private import_asset(type: string, challenge_id: number) {
+        let asset: any = null
+        try {
+            asset = require(`assets/${type}/${challenge_id}.png`)
+        } catch {
+            asset = require(`assets/${type}/default.png`)
+        }
+        return asset
     }
 
     // public fly_to(center: any) {

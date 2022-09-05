@@ -40,7 +40,7 @@ export default function Map(props: Props) {
             <div className='map-panel'>
 
                 {/* Mapbox */}
-                <div id='map' className='map'></div>
+                <div id='map' className='map' />
             </div>
         </div>
 

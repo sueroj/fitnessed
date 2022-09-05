@@ -54,9 +54,9 @@ export class ZoneLayer extends MapboxLayer {
 
     private set_layer() {
         this.layer = {
-            'id': this.challenge.name,
+            'id': `layer_${this.challenge.challenge_id}`,
             'type': 'circle',
-            'source': this.challenge.name,
+            'source': `source_${this.challenge.challenge_id}`,
             'paint': {
                 'circle-radius': {
                 'base': 30,
@@ -96,40 +96,23 @@ export class CourseLayer extends MapboxLayer {
         this.source =  {
             'type': 'geojson',
             'data': {
-                'type': 'FeatureCollection',
-                'features': [{
-                    'type': 'Feature',
-                    'properties': {},
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': coords
-                    }
-                }]
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': coords
+                }
             }
         }
     }
 
     private set_layer() {
         this.layer = {
-            'id': this.challenge.name,
-            'type': 'circle',
-            'source': this.challenge.name,
-            'paint': {
-                'circle-radius': {
-                'base': 30,
-                'stops': [
-                    [4,8],
-                    [12,16],
-                    [13,32],
-                    [14,64],
-                    [15,128],
-                    [16,256],
-                    [17,512],
-                    [18,512]
-                ]
-            },
-            'circle-color': '#FF0000',
-            'circle-opacity': 0.4
+            'id': `layer_${this.challenge.challenge_id}`,
+            'type': 'symbol',
+            'source': `source_${this.challenge.challenge_id}`,
+            'layout': {
+                'icon-image': `img_${this.challenge.challenge_id}`,
+                'icon-size': 0.4
             }
         }
     }
@@ -153,40 +136,23 @@ export class SprintLayer extends MapboxLayer {
         this.source =  {
             'type': 'geojson',
             'data': {
-                'type': 'FeatureCollection',
-                'features': [{
-                    'type': 'Feature',
-                    'properties': {},
-                    'geometry': {
-                        'type': 'Point',
-                        'coordinates': coords
-                    }
-                }]
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': coords
+                }
             }
         }
     }
 
     private set_layer() {
         this.layer = {
-            'id': this.challenge.name,
-            'type': 'circle',
-            'source': this.challenge.name,
-            'paint': {
-                'circle-radius': {
-                'base': 30,
-                'stops': [
-                    [4,8],
-                    [12,16],
-                    [13,32],
-                    [14,64],
-                    [15,128],
-                    [16,256],
-                    [17,512],
-                    [18,512]
-                ]
-            },
-            'circle-color': '#FF0000',
-            'circle-opacity': 0.4
+            'id': `layer_${this.challenge.challenge_id}`,
+            'type': 'symbol',
+            'source': `source_${this.challenge.challenge_id}`,
+            'layout': {
+                'icon-image': `img_${this.challenge.challenge_id}`,
+                'icon-size': 0.4
             }
         }
     }

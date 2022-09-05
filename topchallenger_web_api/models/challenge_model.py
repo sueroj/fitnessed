@@ -1,12 +1,14 @@
 from typing import Union
 
 from schema.schema import ChallengeDocument, GeoJSON
+from models.repository_abc import RepositoryABC
 
-class ChallengeModel:
+
+class ChallengeModel(RepositoryABC):
 
     # TODO: Refactor models to iterate through any/all properties automatically w/ for + dict methods
 
-    def new_challenge(self, challenge: dict) -> str:
+    def create(self, challenge: dict) -> str:
         document = ChallengeDocument()
         document.challenge_id = challenge.get('challenge_id')
         document.name = challenge.get('name')
@@ -31,7 +33,7 @@ class ChallengeModel:
         result = document.save()
         return result
 
-    def read_all(self) -> str:
+    def read(self) -> str:
         challenges: ChallengeDocument = ChallengeDocument.objects()
         return challenges.to_json()
 

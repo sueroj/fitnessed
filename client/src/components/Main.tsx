@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import './main.css';
+import { Button } from 'react-bootstrap'
 
 import Navigation from 'components/navigation/Navigation'
 import Panels from 'components/panels/Panels'
@@ -25,6 +26,7 @@ export default function Main(props: Props) {
     const [loading, set_loading] = useState(true)
     const [profiles, set_profiles] = useState(new Profiles())
     const [challenges, set_challenges] = useState(new Challenges())
+    const [leaderboard, set_leaderboard] = useState({})
     const [challenge_modal, set_challenge_modal] = useState(false)
 
     // Callbacks for modal toggles (to be passed to child components)
@@ -39,6 +41,7 @@ export default function Main(props: Props) {
             if (!success) {
                 get_profiles()
                 get_challenges()
+                get_leaderboard()
             }
         }
     })
@@ -81,14 +84,28 @@ export default function Main(props: Props) {
         http.get_challenges()
         .then(response => { challenges.initialize(response.data) })
         .then(() => { 
-            sessionStorage.setItem('session_challenges', JSON.stringify(challenges))
-            set_loading(false) })
+            sessionStorage.setItem('session_challenges', JSON.stringify(challenges)) })
+            // set_loading(false) })
         console.log('[Main:get_challenges] challenges ', challenges)
+    }
+
+    function get_leaderboard() {
+        // Http action
+        // Get leaderboard profiles from server
+
+        console.log('[Main:get_leaderboard] START')
+        http.get_leaderboard()
+        .then(response => { set_leaderboard(response.data) })
+        .then(() => { 
+            // sessionStorage.setItem('session_challenges', JSON.stringify(challenges))
+            set_loading(false) })
+        console.log('[Main:get_leaderboard] ', leaderboard)
     }
 
     function toggle_challenge_modal() {
         set_challenge_modal(!challenge_modal)
     }
+    
 
     // Update profile from latest activities
         // If activity update found, launch interactive window

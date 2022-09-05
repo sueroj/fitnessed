@@ -78,7 +78,7 @@ test("[Lib/Challenges] initializes layer objects for mappable challenges", () =>
         try {
             let layer = new challenge.layer().get(challenge)
             expect(layer).toHaveProperty('source.data')
-            expect(layer).toHaveProperty('layer.id', challenge.name)
+            expect(layer).toHaveProperty('layer.id', `layer_${challenge.challenge_id}`)
         } catch (err) {
             throw Error(`Fail to create layer object for challenge: ${challenges.all[0].challenge_id}\n${err}`)
         }

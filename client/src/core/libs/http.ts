@@ -1,9 +1,10 @@
 import axios from 'axios'
 
-import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REDIRECT_URI, STRAVA_TOKEN_URI, STRAVA_DEV_ONLY_AUTH_STATE, TC_SERVER_URL } from 'config/tokens'
+import { MAPBOX_TOKEN, MAPBOX_STATIC_URL, STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REDIRECT_URI, STRAVA_TOKEN_URI, STRAVA_DEV_ONLY_AUTH_STATE, TC_SERVER_URL } from 'config/tokens'
 import StravaId from 'core/objects/strava_id'
 import Profile from 'core/objects/profile'
 import mock_strava_id from 'test/mocks/mock_strava_id.json'
+import { GeoJSON } from 'core/objects/misc'
 
 // TODO: Consider implement job/query queue to avoid spaming DBand APIs
 export default class Http {
@@ -43,6 +44,14 @@ export default class Http {
 
     public get_challenges() {
         return axios.get(`${TC_SERVER_URL}/challenges`)
+    }
+
+    public get_leaderboard() {
+        return axios.get(`${TC_SERVER_URL}/leaderboard`)
+    }
+
+    public get_map_static_img(start_coords: GeoJSON) {
+        return axios.get(`${MAPBOX_STATIC_URL}/${start_coords.lng},${start_coords.lat},5,0/300x200?access_token=${MAPBOX_TOKEN}`)
     }
 
 // TODO: clean up. Eval try catch here

@@ -16,6 +16,8 @@ from controllers.challenges_controller import ChallengesController
 app = Flask(__name__)
 # TODO: Remove in production build / Eval if required
 CORS(app)
+# app.run(debug=True) # TODO Warning: remove for production
+# app.run(debug=True, use_debugger=False, use_reloader=False)
 
 app.config['MONGODB_SETTINGS'] = {
     'db': 'topchallenger-db',
@@ -43,13 +45,18 @@ def generate_auth_key():
 
 # TODO: Implement security
 # TODO: Implement XSS escape() security
-@app.route('/profile/<int:id>')
-def get_profile(id: int):
-    return profile_controller.read(strava_id=id)
-
+## GET routes
 @app.route('/challenges')
 def get_challenges():
-    return challenges_controller.read()
+    return challenges_controller.read_all()
+
+@app.route('/profile/<int:id>')
+def get_profile(id: int):
+    return profile_controller.read_profile(strava_id=id)
+
+@app.route('/leaderboard')
+def get_leaderboard():
+    return profile_controller.read_leaderboard()
 
 
 ## POST routes

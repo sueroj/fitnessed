@@ -1,13 +1,17 @@
 from flask import Flask
 from abc import ABC, abstractmethod, abstractproperty
 
+
 class RepositoryABC(ABC):
-    def __init__(self, app: Flask) -> None:
-        # MongoDB session create
-        self._app = app
+    # def __init__(self) -> None:
+    #     pass
     
     @abstractmethod
-    def create(self) -> None:
+    def create(self) -> str:
+        raise NotImplementedError
+    
+    @abstractmethod
+    def read(self) -> str:
         raise NotImplementedError
     
     # @abstractmethod

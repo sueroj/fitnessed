@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl'
 import './panels.css';
 
@@ -13,6 +13,7 @@ import Info from 'components/panels/info/Info'
 import Featured from 'components/panels/featured/Featured'
 import { DEFAULT_START_LNG, DEFAULT_START_LAT } from 'config/options'
 import { GeoJSON } from 'core/objects/misc'
+
 
 type Props = {
     profiles: Profiles
@@ -34,7 +35,7 @@ export default function Panels(props: Props) {
     function generate_thumbnails(): any[] {
         let thumbnails: any[] = []
         props.challenges.all.forEach((challenge: AnyChallengeCategory) => {
-            thumbnails.push(<Thumbnail key={`${key_id}-${challenge.challenge_id}`} key_id={key_id} challenge={challenge}/>)
+            thumbnails.push(<Thumbnail key={`${key_id}-${challenge.challenge_id}`} key_id={key_id} challenge={challenge} />)
         })
         return thumbnails
     }

@@ -10,7 +10,7 @@ import { CompleteStatus, ChallengeCategoryMajor } from 'core/enums/enums'
 import ChallengeModal from 'components/common/modals/ChallengeModal'
 import color_scheme from 'core/config/color_scheme'
 import { GenericZoneCanvas } from 'core/canvas/generic_canvas'
-import test_img from 'assets/icons/test_img.png'
+import test_img from 'assets/imgs/test_img.png'
 
 // TODO: EVAL props, refactor/combine, etc.
 type Props = {
@@ -67,12 +67,12 @@ export default function Thumbnail(props: Props) {
     return (
         <>
             {/* Modal displayed on click */}
-            <ChallengeModal show={modal} toggle_modal={toggle_modal} challenge={props.challenge} />
+            <ChallengeModal show={modal} key_id={props.key_id} toggle_modal={toggle_modal} challenge={props.challenge}/>
 
             {/* Tooltip display */}
             <Overlay show={overlay} placement='top' target={target.current}>
                 <Popover id="thumbnail-popover" className='id="thumbnail-popover"'>
-                    <Popover.Header style={{background: color_scheme.get_difficulty_tier_color(props.challenge.difficulty)}} as="h3" className='thumbnail-popover-header'>
+                    <Popover.Header style={{ background: color_scheme.get_difficulty_tier_color(props.challenge.difficulty) }} as="h3" className='thumbnail-popover-header'>
                         <div className='thumbnail-info-display'>
                             <Difficulty key_id={props.key_id} challenge={props.challenge} />
                             <div className='thumbnail-horizontal-divider' />
@@ -85,21 +85,16 @@ export default function Thumbnail(props: Props) {
             </Overlay>
 
             {/* Thumbnail */}
-            <button className="thumbnail" style={{background: bg_color}} onMouseOver={() => set_bg_color(color_scheme.MOUSEOVER_DEFAULT)} onClick={toggle_modal} ref={target} onMouseEnter={() => toggle_overlay(color_scheme.MOUSEOVER_DEFAULT)} onMouseLeave={() => toggle_overlay(thumbnail_bg_color)}>
+            <button className="thumbnail" style={{ background: bg_color }} onMouseOver={() => set_bg_color(color_scheme.MOUSEOVER_DEFAULT)} onClick={() => toggle_modal()} ref={target} onMouseEnter={() => toggle_overlay(color_scheme.MOUSEOVER_DEFAULT)} onMouseLeave={() => toggle_overlay(thumbnail_bg_color)}>
                 <div className='thumbnail-container'>
                     <Image className="thumbnail-img" src={test_img} alt={props.challenge.name} rounded />
 
                     {/* Thumbnail Bottom Info */}
                     <div className='thumbnail-info-display'>
-                        <Difficulty challenge={props.challenge} key_id={'thumbnail'}/>
+                        <Difficulty challenge={props.challenge} key_id={'thumbnail'} />
                         <div className='thumbnail-horizontal-divider' />
                         <Category challenge={props.challenge} />
                     </div>
-
-                    {/* // Image style badges
-                // <Image className="badge-img" src={importAsset("scheme_geometric/badges", props.challenge.ChallengeId)} alt={props.challenge.Name} rounded />} */}
-                    {/* {/* //  // Canvas style badges */}
-                {/* // <BadgeCanvas id={props.challenge.ChallengeId} challenge={props.challenge} useDefault={true} */}
                 </div>
             </button>
         </>
@@ -157,7 +152,7 @@ export function Category(props: CategoryProps) {
     }
 
     return (
-        <div style={{background: color_scheme.get_event_category_color(category)}} className='category'>
+        <div style={{ background: color_scheme.get_event_category_color(category) }} className='category'>
             {category}
         </div>
     );

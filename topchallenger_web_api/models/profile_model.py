@@ -1,11 +1,12 @@
-
 from typing import Union
 
 from schema.schema import ProfileDocument, Title
+from models.repository_abc import RepositoryABC
 
-class ProfileModel:
 
-    def new_profile(self, strava_id: int, firstname: str, lastname: str) -> str:
+class ProfileModel(RepositoryABC):
+
+    def create(self, strava_id: int, firstname: str, lastname: str) -> str:
         document = ProfileDocument()
         document.firstname = firstname
         document.lastname = lastname
@@ -26,9 +27,13 @@ class ProfileModel:
         document.save()
         return document.to_json()
 
-    def read_profile(self, strava_id: int) -> Union[str, None]:
+    def read(self, strava_id: int) -> Union[str, None]:
         profile: ProfileDocument = ProfileDocument.objects(strava_id=strava_id)
         return profile.to_json() if profile else None
+
+    def read_all(self) -> str:
+        profile: ProfileDocument = ProfileDocument.objects()
+        return profile.to_json()
 
 
 
