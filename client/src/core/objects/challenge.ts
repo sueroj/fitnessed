@@ -129,11 +129,3 @@ export class Collectable extends Challenge {
         this.layer = ZoneLayer
     }
 }
-
-export class Achievement extends Challenge {
-    public constructor() {
-        super()
-        this.category_major = ChallengeCategoryMajor.ACHIEVEMENT
-        this.is_mappable = false
-    }
-}

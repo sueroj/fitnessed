@@ -31,6 +31,7 @@ export default class Profile {
     }
     public home_id: number = 0
     public img: string = ''
+    public achievements: any = []
     public completed_challenges: AllChallengeCategories = []
 
     // public constructor(json: Profile | any) {

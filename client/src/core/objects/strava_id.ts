@@ -7,6 +7,7 @@ export default class StravaId {
     public state: string = ''
     public img: string = ''
     public auth: string = ''
+    public access_token: string = ''
 
     public set_from_strava(strava_obj: any) {
         console.log('[strava_id:constr] start:', strava_obj)
@@ -17,7 +18,8 @@ export default class StravaId {
         this.country = strava_obj.athlete.country
         this.state = strava_obj.athlete.state
         this.img = strava_obj.athlete.profile_medium
-        return this
+        this.access_token = strava_obj.access_token
+        return this.validate()
     }
 
     public set_from_session(session_obj: any) {
@@ -33,6 +35,17 @@ export default class StravaId {
         this.country = session_obj.country
         this.state = session_obj.state
         this.img = session_obj.img
-        return true
+        this.access_token = session_obj.access_token
+        return this.validate()
+    }
+
+    private validate() { // TODO: EVAL if this function could be used in more areas
+        const props = Object.getOwnPropertyNames(this)
+        for (let prop of props) {
+            if (Object.getOwnPropertyDescriptor(this, prop)?.value === undefined) {
+                throw Error(`Undefined property: ${prop}`)
+            }
+        }
+        return this
     }
 }

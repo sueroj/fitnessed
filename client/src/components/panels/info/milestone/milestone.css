@@ -1,0 +1,56 @@
+.milestone {
+    color: #fff;
+    width: 33%;
+    background-color: #363636;
+    padding: 2px;
+}
+
+.milestone-header {
+    height: 25px;
+    text-align: center;
+}
+
+.milestone-table {
+    height: 245px;
+    padding: 5px;
+}
+
+/* .list-item inherits Info */
+
+.milestone-panel-spacer {
+    min-height: 30px;
+}
+
+/* Milestone Progress Bar */
+
+.milestone-progress-bar-wrapper {
+    width: 100%;
+}
+
+.milestone-progress-bar-wrapper {
+    width: 100%;
+    margin: auto;
+    padding: 3px;
+}
+
+/* Milestone Unordered Lists */
+
+.milestone-list-header-item {
+    display: flex;
+    flex-direction: row;
+}
+.milestone-list-item {
+    font-size: 12px;
+}
+
+.milestone-button-wrapper {
+    height: 20px;
+    text-align: right;
+}
+
+.milestone-button {
+    color: #fff;
+    box-shadow: unset;
+    border: unset;
+    background-color: inherit;
+}

@@ -1,13 +1,13 @@
 import { ChallengeCategoryMajor, MilestoneCategoryMinor, CourseCategoryMinor, CompleteStatus } from "core/enums/enums"
 
-import { Zone, Course, Sprint, Milestone, Collectable, Achievement } from 'core/objects/challenge'
+import { Zone, Course, Sprint, Milestone, Collectable } from 'core/objects/challenge'
 import { CategoryProgress } from "core/objects/misc"
 import Filter from "core/objects/filter"
 
-export type AllChallengeCategories = Zone[] | Course[] | Sprint[] | Milestone[] | Collectable[] | Achievement[]
+export type AllChallengeCategories = Zone[] | Course[] | Sprint[] | Milestone[] | Collectable[]
 export type MappableChallengeCategories = Zone[] | Course[] | Sprint[] | Collectable[]
 
-export type AnyChallengeCategory = Zone | Course | Sprint | Milestone | Collectable | Achievement
+export type AnyChallengeCategory = Zone | Course | Sprint | Milestone | Collectable
 export type MappableChallengeCategory = Zone | Course | Sprint | Collectable
 
 // export type MilestoneCategories = {

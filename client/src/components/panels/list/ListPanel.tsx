@@ -91,12 +91,12 @@ export function FilterPanel(props: FilterProps) {
     return (
         <div className='filter'> {/* TODO: Add range min/max values to a common app options/config file */}
             <div className='filter-nearby-slider'>Nearby ({challenges.all.length}) - <Form.Label className='filter-range'>{range_value} km</Form.Label><Form.Range min={'5'} max={'50'} value={range_value} onChange={(e) => set_range_value(e.target.value)}/></div>
-            <Button onClick={() => toggle_filter('zones', challenges)} className='filter-button'><Form.Check type='switch' id='all-zones' checked={filter.zones} onChange={() => toggle_filter('zones', challenges)} label={`Zones (${challenges.zones.length})`}/></Button>
-            <Button onClick={() => toggle_filter('courses', challenges)} className='filter-button'><Form.Check type='switch' id='all-courses' checked={filter.courses} onChange={() => toggle_filter('courses', challenges)} label={`Courses (${challenges.courses.length})`}/></Button>
-            <Button onClick={() => toggle_filter('sprints', challenges)} className='filter-button'><Form.Check type='switch' id='all-sprints' checked={filter.sprints} onChange={() => toggle_filter('sprints', challenges)} label={`Sprints (${challenges.sprints.length})`}/></Button>
-            <Button onClick={() => toggle_filter('collectables', challenges)} className='filter-button'><Form.Check type='switch' id='all-collectables' checked={filter.collectables} onChange={() => toggle_filter('collectables', challenges)} label={`Collectables (${challenges.collectables.length})`}/></Button>
-            <Button onClick={() => toggle_filter('milestones', challenges)} className='filter-button'><Form.Check type='switch' id='all-milestones' checked={filter.milestones} onChange={() => toggle_filter('milestones', challenges)} label={`Milestones (${challenges.milestones.all.length})`}/></Button>
-            <Button onClick={() => toggle_filter('achievements', challenges)} className='filter-button'><Form.Check type='switch' id='all-achievements' checked={filter.achievements} onChange={() => toggle_filter('achievements', challenges)} label={`Achievements (${achievements.length})`}/></Button>
+            <button className='filter-button'><Form.Check type='checkbox' id='all-zones' checked={filter.zones} onChange={() => toggle_filter('zones', challenges)} label={`Zones (${challenges.zones.length})`}/></button>
+            <button className='filter-button'><Form.Check type='checkbox' id='all-courses' checked={filter.courses} onChange={() => toggle_filter('courses', challenges)} label={`Courses (${challenges.courses.length})`}/></button>
+            <button className='filter-button'><Form.Check type='checkbox' id='all-sprints' checked={filter.sprints} onChange={() => toggle_filter('sprints', challenges)} label={`Sprints (${challenges.sprints.length})`}/></button>
+            <button className='filter-button'><Form.Check type='checkbox' id='all-collectables' checked={filter.collectables} onChange={() => toggle_filter('collectables', challenges)} label={`Collectables (${challenges.collectables.length})`}/></button>
+            <button className='filter-button'><Form.Check type='checkbox' id='all-milestones' checked={filter.milestones} onChange={() => toggle_filter('milestones', challenges)} label={`Milestones (${challenges.milestones.all.length})`}/></button>
+            <button className='filter-button'><Form.Check type='checkbox' id='all-achievements' checked={filter.achievements} onChange={() => toggle_filter('achievements', challenges)} label={`Achievements (${achievements.length})`}/></button>
         </div>
     )
 }

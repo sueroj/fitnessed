@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import './leaderboard_modal.css'
+import './modals.css'
 
 // TODO Complete Leaderboard modal
 export default function LeaderboardModal(props: any) {
@@ -13,7 +13,7 @@ export default function LeaderboardModal(props: any) {
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     <div className="event-modal-title">
-                        test
+                        Leaderboard
                     </div>
                 </Modal.Title>
             </Modal.Header>

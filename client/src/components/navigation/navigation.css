@@ -31,6 +31,14 @@
     margin: auto;
 }
 
+.nav-submit-button {
+    color: white;
+    background-color: #474748;
+    border-radius: 3px;
+    margin: auto;
+    width: 80px;
+}
+
 .nav-profile {
     color: #fff;
     font-size: 22px;

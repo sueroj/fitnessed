@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Image from 'react-bootstrap/Image'
-import './challenge_modal.css'
+import './modals.css'
 
 import { AnyChallengeCategory } from 'core/libs/challenges'
 import Http from 'core/libs/http'

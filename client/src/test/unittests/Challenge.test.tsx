@@ -1,7 +1,7 @@
 // import { render, screen } from "@testing-library/react"
 // import userEvent from "@testing-library/user-event"
 
-import { Challenge, Zone, Course, Sprint, Collectable, Milestone, Achievement } from 'core/objects/challenge'
+import { Challenge, Zone, Course, Sprint, Collectable, Milestone } from 'core/objects/challenge'
 import { ChallengeCategoryMajor, MilestoneCategoryMinor, CourseCategoryMinor, SprintCategoryMinor } from 'core/enums/enums'
 import { GeoJSON } from 'core/objects/misc'
 
@@ -66,8 +66,7 @@ test.each([
     {challenge: new Course(CourseCategoryMinor.LOOP), expected_cat_major: ChallengeCategoryMajor.COURSE, expected_cat_minor: CourseCategoryMinor.LOOP},
     {challenge: new Sprint(SprintCategoryMinor.STANDARD), expected_cat_major: ChallengeCategoryMajor.SPRINT, expected_cat_minor: SprintCategoryMinor.STANDARD},
     {challenge: new Milestone(MilestoneCategoryMinor.DAILY), expected_cat_major: ChallengeCategoryMajor.MILESTONE, expected_cat_minor: MilestoneCategoryMinor.DAILY},
-    {challenge: new Collectable(), expected_cat_major: ChallengeCategoryMajor.COLLECTABLE, expected_cat_minor: ''},
-    {challenge: new Achievement(), expected_cat_major: ChallengeCategoryMajor.ACHIEVEMENT, expected_cat_minor: ''}
+    {challenge: new Collectable(), expected_cat_major: ChallengeCategoryMajor.COLLECTABLE, expected_cat_minor: ''}
 ])(`[Object/Challenge] Challenge type sets correct category and is_mappable`, (test_case) => {
     let challenge = test_case.challenge.initialize(MOCK_CHALLENGE)
 

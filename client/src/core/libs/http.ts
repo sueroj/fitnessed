@@ -37,7 +37,7 @@ export default class Http {
     }
 
     // HTTP GET actions
-
+    
     public get_profile(strava_id: number) {
         return axios.get(`${TC_SERVER_URL}/profile/${strava_id}`)
     }
@@ -53,6 +53,16 @@ export default class Http {
     public get_map_static_img(start_coords: GeoJSON) {
         return axios.get(`${MAPBOX_STATIC_URL}/${start_coords.lng},${start_coords.lat},5,0/300x200?access_token=${MAPBOX_TOKEN}`)
     }
+
+    public get_activities(token: string, _before: number, _after: number) {
+        return axios.get((`https://www.strava.com/api/v3/athlete/activities`), {
+            headers: { Authorization: `Bearer ${token}` },
+            params: {
+                before: _before,
+                after: _after
+            }
+        })
+    }            
 
 // TODO: clean up. Eval try catch here
     public get_auth() {

@@ -9,13 +9,12 @@
     height: 70%;
     width: 250px;
     background-color: #363636;
-    /* margin-bottom: 3px; */
 }
 
 .filter-button, .filter-nearby-slider {
     color: #fff;
     background-color: #363636;
-    /* height: 61px; */
+    height: 35px;
     width: 100%;
     font-size: 16px;
     border-radius: unset;
@@ -26,6 +25,12 @@
 .filter-nearby-slider{
     height: 80px;
     padding-top: 10px;
+}
+
+.filter-button:hover, .filter-button:focus {
+    background-color: #535353;
+    border: unset;
+    cursor: default;
 }
 
 .filter-range {
@@ -41,5 +46,15 @@
     background-color: #363636;
     overflow-y: scroll;
     text-align: center;
+}
+
+.form-check-input, .form-check-input:checked {
+    background-color: #363636;
+    border-color: rgb(168, 177, 180);
+    cursor: pointer;
+}
+
+.form-check-label {
+    cursor: pointer;
 }
 

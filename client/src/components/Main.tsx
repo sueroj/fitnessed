@@ -15,6 +15,11 @@ import Profile from 'core/objects/profile'
 import StravaId from 'core/objects/strava_id'
 import Challenges from 'core/libs/challenges'
 
+// TODO: IMPLEMENT - New challenge request 'form' where users can submit request to add new challenge, each request form
+// TODO:  be delivered to developer for review, then added in future patch. Eventually, this system be tested and handled via automation
+
+// TODO: EVAL to remove all test debug console logging
+
 type Props = {
     strava_id: StravaId
 }
@@ -114,9 +119,9 @@ export default function Main(props: Props) {
         <React.StrictMode>
             { loading || !profiles.user ? <p>loading</p> :
                 <div className='main'>
-                <Navigation strava_id={props.strava_id} profile={profiles.user} toggles={toggles} />
-                <Panels profiles={profiles} challenges={challenges} toggles={toggles}/>
-                <Footer toggles={toggles}/>
+                    <Navigation strava_id={props.strava_id} profile={profiles.user} toggles={toggles} />
+                    <Panels profiles={profiles} challenges={challenges} toggles={toggles}/>
+                    <Footer toggles={toggles}/>
                 </div>
             }
         </React.StrictMode>

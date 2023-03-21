@@ -62,6 +62,10 @@ export default function Rank(props: RankProps) {
                 <RankHeader profile={props.profiles.user} />
                 <RankProgressBar profile={props.profiles.user} />
 
+                <div className='rank-panel-button-wrapper'>
+                    <button className='rank-panel-button'>Open Leaderboards</button>
+                </div>
+
 
                 {/* <ChallengeSummary challenges={props.challenges} />
 

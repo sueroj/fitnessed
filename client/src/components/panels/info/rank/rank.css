@@ -76,6 +76,20 @@
     text-align: center;
 }
 
+/* Rank Panel Button (Open Leaderboard) */
+
+.rank-panel-button-wrapper {
+    height: 20px;
+    text-align: center;
+}
+
+.rank-panel-button {
+    color: #fff;
+    box-shadow: unset;
+    border: unset;
+    background-color: inherit;
+}
+
 /* Profile Summary & Icons */
 
 .profile-summary {

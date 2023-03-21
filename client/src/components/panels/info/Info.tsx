@@ -3,7 +3,7 @@ import './info.css';
 import Challenges from 'core/libs/challenges'
 import Profiles from 'core/libs/profiles'
 import Rank from 'components/panels/info/rank/Rank'
-import Leaderboard from 'components/panels/info/leaderboard/Leaderboard'
+import Milestone from 'components/panels/info/milestone/Milestone'
 import RecentActivity from 'components/panels/info/recent_activity/RecentActivity'
 
 type Props = {
@@ -21,8 +21,8 @@ export default function Info(props: Props) {
             {/* User profile rank and leaderboard summary */}
             <Rank profiles={props.profiles} challenges={props.challenges}/>
 
-            {/* User leaderboard snapshot summary */}
-            <Leaderboard profiles={props.profiles}/>
+            {/* User daily/weekly/monthly milestone progress */}
+            <Milestone profiles={props.profiles} challenges={props.challenges}/>
         </div>
     );
 }
